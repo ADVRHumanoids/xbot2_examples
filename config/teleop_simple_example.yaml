@@ -1,0 +1,93 @@
+## XBotInterface related configs
+
+XBotInterface:
+  urdf_path: "robots/iit-teleop-ros-pkg/teleop_urdf/urdf/teleop_fixed_base.urdf"
+  srdf_path: "robots/iit-teleop-ros-pkg/teleop_srdf/srdf/teleop_fixed_base.srdf"
+  joint_map_path: "robots/iit-teleop-ros-pkg/teleop_config/low_level/teleop_joint_map.yaml"
+
+RobotInterface:
+  framework_name: "ROS"
+
+ModelInterface:
+  model_type: "RBDL"
+  is_model_floating_base: "false"
+  
+
+## XBot2-related configuration
+
+xbotcore_devices:
+
+    joint_gz:
+        id: [srdf]  # take all joint ids from srdf/urdf
+        thread: rt_main
+        type: joint
+
+    joint_master:
+        type: joint
+        master: true  # this is a master device for 'joint'
+        thread: rt_main
+
+#    ft_gz:
+#        id: [128, 129]
+#        thread: rt_main
+#        type: ft
+
+#    imu_gz:
+#        id: [130]
+#        thread: rt_main
+#        type: imu
+
+
+xbotcore_threads:
+    rt_slow:  {sched: fifo , prio: 50, period: 0.5}
+    rt_main:  {sched: fifo , prio: 50, period: 0.001}
+    nrt_main: {sched: other, prio: 0 , period: 0.005}
+
+
+xbotcore_plugins:
+
+    ros_rt_example:
+        thread: rt_main
+        type: ros_from_rt
+        params:
+            queue_size: {value: 10, type: int}
+            
+    homing:
+        thread: rt_main
+        type: homing_example
+        ns: my_ns
+        params:
+            time: {value: 3.0, type: double}
+            home: {value: home, type: string}
+            qhome: {value: [0, -1, -1, 0, 0], type: Eigen::VectorXd}
+            
+    ros_io: {thread: nrt_main, type: ros_io}
+    
+    talker:
+        thread: rt_slow
+        type: talker
+        remap:
+            output_small: topic_small
+            output_big: topic_small
+        
+    listener:
+        thread: rt_main
+        type: listener
+        params:
+            queue_size: {value: 5, type: int}
+        remap:
+            input_small: topic_small
+            input_big: topic_big
+
+
+
+xbotcore_param:
+    /joint_master/tx_filter_autostart: {value: true, type: bool}
+    /joint_master/tx_filter_cutoff: {value: 2.0, type: double}
+    /xbot_internal/ros_io/call_timeout: {value: 1.0, type: chrono}
+    
+    
+
+        
+
+

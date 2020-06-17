@@ -71,11 +71,11 @@ void RosFromRt::run()
     if(js_msg)
     {
         // put motor position
-        js_msg->position.assign(_q.data(),
-                                _q.data() + _q.size());
+        js_msg->msg().position.assign(_q.data(),
+                                      _q.data() + _q.size());
 
         // publish
-        _js_pub->publish(std::move(js_msg));
+        _js_pub->publishLoaned(std::move(js_msg));
     }
     else
     {

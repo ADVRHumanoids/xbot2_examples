@@ -48,16 +48,17 @@ void Talker::run()
         // print address (we will check that the subscriber
         // receives the same object and not a copy)
         jhigh().jinfo("publishing a big matrix = {} @{} \n",
-                      _iter, big_msg_ptr);
+                      _iter, static_cast<void*>(&(big_msg_ptr->msg()))
+                      );
 
         // just modify an element
-        (*big_msg_ptr)(999, 999) = _iter;
+        big_msg_ptr->msg()(999, 999) = _iter;
 
         // publish
         // note: std::move makes it explicit that
         // big_msg_ptr will be invalidated after
         // publish returns
-        _big_pub->publish(std::move(big_msg_ptr));
+        _big_pub->publishLoaned(std::move(big_msg_ptr));
 
         // here big_msg_ptr is empty
     }

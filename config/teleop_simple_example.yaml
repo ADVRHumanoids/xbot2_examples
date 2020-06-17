@@ -1,9 +1,9 @@
 ## XBotInterface related configs
 
 XBotInterface:
-  urdf_path: "robots/iit-teleop-ros-pkg/teleop_urdf/urdf/teleop_fixed_base.urdf"
-  srdf_path: "robots/iit-teleop-ros-pkg/teleop_srdf/srdf/teleop_fixed_base.srdf"
-  joint_map_path: "robots/iit-teleop-ros-pkg/teleop_config/low_level/teleop_joint_map.yaml"
+  urdf_path: "config/teleop_fixed_base.urdf"
+  srdf_path: "config/teleop_fixed_base.srdf"
+  joint_map_path: "config/teleop_joint_map.yaml"
 
 RobotInterface:
   framework_name: "ROS"
@@ -25,6 +25,11 @@ xbotcore_devices:
     joint_master:
         type: joint
         master: true  # this is a master device for 'joint'
+        thread: rt_main
+        
+    rocket_cs:
+        id: [100]
+        type: rocket  # BUG!!!
         thread: rt_main
 
 #    ft_gz:
@@ -51,24 +56,40 @@ xbotcore_plugins:
         type: ros_from_rt
         params:
             queue_size: {value: 10, type: int}
+
+
+    rocket_commander:
+        thread: rt_main
+        type: rocket_commander
+        params:
+            pulse_period: {value: 5, type: double}
+            thrust: {value: 1000, type: double}
             
     homing:
         thread: rt_main
         type: homing_example
         ns: my_ns
         params:
-            time: {value: 3.0, type: double}
+            time: {value: 0.1, type: double}
             home: {value: home, type: string}
             qhome: {value: [0, -1, -1, 0, 0], type: Eigen::VectorXd}
             
     ros_io: {thread: nrt_main, type: ros_io}
+    
+    server_example:
+        thread: rt_main
+        type: server
+        
+    client_example:
+        thread: nrt_main
+        type: client
     
     talker:
         thread: rt_slow
         type: talker
         remap:
             output_small: topic_small
-            output_big: topic_small
+            output_big: topic_big
         
     listener:
         thread: rt_main

@@ -95,7 +95,7 @@ void HomingExample::run()
     // send reference
     _robot->setPositionReference(_q_ref);
     _robot->move();
-
+    
     // if trajectory ended, we stop ourselves
     if(alpha >= 1.0)
     {

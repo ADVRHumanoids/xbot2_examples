@@ -33,6 +33,7 @@ namespace XBot { namespace Hal {
  *    are broadcast to gazebo (or the robot); in the following example,
  *    we apply a simple timout to the thrust reference so that, if no
  *    command is received for 2 seconds, the thrust ref is set to zero.
+ *    Hard limits or filtering can also be implemented.
  */
 class RocketInstance : public DeviceInstanceTpl<RocketPacket::Rx,
                                                 RocketPacket::Tx>

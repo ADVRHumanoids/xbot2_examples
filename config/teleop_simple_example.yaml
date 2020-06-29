@@ -71,7 +71,7 @@ xbotcore_plugins:
         ns: my_ns
         params:
             time: {value: 0.1, type: double}
-            home: {value: home, type: string}
+            # home: {value: home, type: string}
             qhome: {value: [0, -1, -1, 0, 0], type: Eigen::VectorXd}
             
     ros_io: {thread: nrt_main, type: ros_io}
@@ -106,6 +106,7 @@ xbotcore_param:
     /joint_master/tx_filter_autostart: {value: true, type: bool}
     /joint_master/tx_filter_cutoff: {value: 2.0, type: double}
     /xbot_internal/ros_io/call_timeout: {value: 1.0, type: chrono}
+    /rt_main/memory_hooks: {value: true, type: bool}
     
     
 

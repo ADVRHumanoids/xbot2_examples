@@ -15,6 +15,8 @@ class RocketInstanceBase : virtual public DeviceInstanceBase
 
 public:
 
+    XBOT2_DECLARE_SMART_PTR(RocketInstanceBase)
+
     virtual void setReference(double thrust) = 0;
     virtual double getReference() const = 0;
     virtual double getThrust() const = 0;

@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.0)
 project(xbot2_examples)
 
+option(XBOT2_ENABLE_XENO OFF "Compile against xenomai")
+
 add_subdirectory(src/homing_example)
 add_subdirectory(src/ros_from_rt)
 add_subdirectory(src/talker_listener)

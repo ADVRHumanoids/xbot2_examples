@@ -1,5 +1,10 @@
 find_package(xbot2 REQUIRED)
-find_package(gazebo 8.0 REQUIRED)
+find_package(gazebo REQUIRED)
+
+if(${GAZEBO_VERSION} VERSION_LESS 8.0)
+    message(FATAL "Gazebo >=8.0 required")
+endif()
+
 
 include_directories(${GAZEBO_INCLUDE_DIRS})
 

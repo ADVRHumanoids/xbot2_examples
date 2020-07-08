@@ -1,6 +1,6 @@
 # Implementing a control plugin
 
-[Back to home](../README)
+[Back to home](../../README)
 
 This example is related to the implementation and execution of a simple control plugin, specifically a *homing* plugin which brings the robot to a given joint space position, within a specified time.
 

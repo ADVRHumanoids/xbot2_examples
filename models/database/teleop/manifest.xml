@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<model>
+  <name>IIT TELEOP</name>
+  <version>0.1</version>
+  <sdf version='1.4'>teleop.sdf</sdf>
+
+  <author>
+   <name>Enrico Mingo</name>
+   <email>enrico.mingo@iit.it</email>
+  </author>
+
+  <description>
+    Simulation of the teleop Humanoid Robot from IIT.
+  </description>
+</model>

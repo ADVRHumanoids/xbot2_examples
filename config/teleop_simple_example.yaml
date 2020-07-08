@@ -5,58 +5,55 @@ XBotInterface:
   srdf_path: "config/teleop_fixed_base.srdf"
   joint_map_path: "config/teleop_joint_map.yaml"
 
-RobotInterface:
-  framework_name: "ROS"
-
 ModelInterface:
   model_type: "RBDL"
   is_model_floating_base: "false"
   
 
-## XBot2-related configuration
+## XBot2 related configuration
 
+# describe the robot hardware in terms of devices
 xbotcore_devices:
 
     joint_gz:
         id: [srdf]  # take all joint ids from srdf/urdf
-        thread: rt_main
+        thread: rt_main  # allocate this device on rt_main thread
         type: joint
 
     joint_master:
         type: joint
-        master: true  # this is a master device for 'joint'
+        master: true  # this is a master device for all 'joint' devices
         thread: rt_main
         
     rocket_cs:
         id: [100]
-        type: rocket  # BUG!!!
+        type: rocket
         thread: rt_main
 
-#    ft_gz:
-#        id: [128, 129]
-#        thread: rt_main
-#        type: ft
 
-#    imu_gz:
-#        id: [130]
-#        thread: rt_main
-#        type: imu
-
-
+# define threads to be created
 xbotcore_threads:
-    rt_slow:  {sched: fifo , prio: 50, period: 0.5}
-    rt_main:  {sched: fifo , prio: 50, period: 0.001}
+    rt_slow:  {sched: fifo , prio: 60, period: 0.5, core_id: 0}
+    rt_main:  {sched: fifo , prio: 60, period: 0.001, core_id: 2}
     nrt_main: {sched: other, prio: 0 , period: 0.005}
 
 
+# define plugins to be loaded
 xbotcore_plugins:
 
+    # this plugin is shipped with xbot2, and it generates the
+    # ROS api for the framework
+    # it is not designed to be real-time safe, so it must executed
+    # inside a thread with `other` priority
+    ros_io: {thread: nrt_main, type: ros_io}
+
+    # notice here how to set parameters that are local to 
+    # the single plugin
     ros_rt_example:
-        thread: rt_main
-        type: ros_from_rt
+        thread: rt_main    # this name must be defined under the 'xbotcore_threads'
+        type: ros_from_rt  # this name must match the xbot2 registration macro
         params:
             queue_size: {value: 10, type: int}
-
 
     rocket_commander:
         thread: rt_main
@@ -64,33 +61,43 @@ xbotcore_plugins:
         params:
             pulse_period: {value: 5, type: double}
             thrust: {value: 1000, type: double}
-            
+
+    # notice that you can reuse the same plugin, by providing
+    # different names and possibly different parameters
     homing:
         thread: rt_main
         type: homing_example
-        ns: my_ns
+
+    homing_slow:
+        thread: rt_main
+        type: homing_example
         params:
-            time: {value: 0.1, type: double}
-            # home: {value: home, type: string}
-            qhome: {value: [0, -1, -1, 0, 0], type: Eigen::VectorXd}
+            time: {value: 10, type: double}
             
-    ros_io: {thread: nrt_main, type: ros_io}
+    homing_custom:
+        thread: rt_main
+        type: homing_example
+        params:
+            qhome: {value: [0, -1, -1, 0, 0], type: Eigen::VectorXd}
     
+     
     server_example:
         thread: rt_main
         type: server
-        
+            
     client_example:
         thread: nrt_main
         type: client
-    
+        
+    # notice how to set remapping for resource names to dynamically
+    # connect two components
     talker:
         thread: rt_slow
         type: talker
         remap:
             output_small: topic_small
             output_big: topic_big
-        
+            
     listener:
         thread: rt_main
         type: listener
@@ -101,15 +108,11 @@ xbotcore_plugins:
             input_big: topic_big
 
 
-
+# additional parameters that don't relate to any plugin 
 xbotcore_param:
     /joint_master/tx_filter_autostart: {value: true, type: bool}
     /joint_master/tx_filter_cutoff: {value: 2.0, type: double}
     /xbot_internal/ros_io/call_timeout: {value: 1.0, type: chrono}
-    /rt_main/memory_hooks: {value: true, type: bool}
-    
-    
-
+    /nrt_main/memory_hooks: {value: true, type: bool}
         
-
-
+        

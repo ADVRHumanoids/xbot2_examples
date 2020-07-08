@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<robot name="/home/enrico/advr-superbuild/robots/iit-teleop-ros-pkg/teleop_urdf/meshes/simple/_teleop_link0.stl">
+  <link name="0.00100_0.00100_0.00100">
+    <collision>
+      <origin xyz="-0.02480108962 -3.35695366539e-08 0.0027255827765" rpy="1.46066754075 0.108816890889 1.558788752"/>
+      <geometry>
+        <cylinder radius="0.0636131" length="0.0498953131484"/>
+      </geometry>
+    </collision>
+  </link>
+</robot>

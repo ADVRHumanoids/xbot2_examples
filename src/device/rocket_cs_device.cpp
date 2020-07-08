@@ -4,7 +4,8 @@ using namespace XBot;
 
 Hal::RocketDev::RocketDev(std::string name,
                           std::vector<Hal::DeviceInstanceInfo> devinfo):
-    BaseType(name, devinfo)
+    BaseType(name, devinfo),
+    _srv_alive(false)
 {
     std::vector<DeviceInstanceRt::Ptr> devs;
 

@@ -75,7 +75,7 @@ void HomingExample::starting()
 {
     // do some on-start initialization
     _robot->sense();
-    _robot->getJointPosition(_q_start);
+    _robot->getPositionReference(_q_start);
 
     // initialize our fake time variable
     // this will increment by the nominal control

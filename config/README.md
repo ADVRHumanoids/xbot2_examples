@@ -1,6 +1,6 @@
 # Configuring the XBot2 middleware
 
-[Back to home](../README)
+[Back to home](../README.md)
 
 The XBot2 framework is configured through a set of configuration files, i.e.
 

@@ -5,9 +5,9 @@ This repository containes commented examples of use for the **XBot2.0** real-tim
 
 ## Contents
 
-- [Simulating a robotic system with Gazebo](docs/gazebo-sim)
-- [Writing a simple control module as an *XBot2 Plugin*](src/homing_example/README)
-- Configuring the middleware
+- [Simulating a robotic system with Gazebo](docs/gazebo-sim.md)
+- [Writing a simple control module as an *XBot2 Plugin*](src/homing_example/README.md)
+- [Configuring the middleware](config/README.md)
 - Inter-plugin communication (data streaming, rpc-like)
 - Using ROS from a real-time plugin
 - Adding a custom device

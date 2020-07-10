@@ -39,9 +39,9 @@ RUN rm -rf deb
 # set ownership to user for the whole home folder
 RUN chown -R user .
 
-# install qt5 charts
+# install qt5 charts and graphics drivers
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \ 
-libqt5charts5-dev 
+libqt5charts5-dev libgl1-mesa-glx libgl1-mesa-dri
 
 # change user, copy start script (launches gazebo and gzweb)
 USER user

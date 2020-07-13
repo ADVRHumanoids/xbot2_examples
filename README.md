@@ -53,6 +53,7 @@ You should now be able to (for instance)
  - `./docker/run.sh` runs the container (the first time it will also download a crazy amount of data!)
  - to spawn more `bash` sessions inside the same container instance, do `./docker/attach.sh`
  - open three `bash` sessions
+ - terminal #1: `./build-examples.sh` (compiles the source code of this repository; **NOTE** that the source code is shared with the host machine!)
  - terminal #1: `./start.sh` (starts `roscore` and `gazebo`)
  - terminal #2: `xbot2-core` (XBot2 executable)
  - terminal #3: `xbot2-gui` (GUI should appear)

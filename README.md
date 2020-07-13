@@ -46,7 +46,7 @@ You should now be able to (for instance)
  - monitor execution time -> `rostopic echo /xbotcore/statistics`
  - monitor joint state -> `rostopic echo /xbotcore/joint_states`
 
-## Running inside Docker container
+<h2>Running inside Docker container <img src="https://www.docker.com/sites/default/files/d8/styles/role_icon/public/2019-07/horizontal-logo-monochromatic-white.png" alt="drawing" width="100"/> </h2>
 
  - [install docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
    and set it up so that it [does not require sudo permissions](https://docs.docker.com/engine/install/linux-postinstall/)

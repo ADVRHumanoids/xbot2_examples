@@ -17,3 +17,18 @@ A short outline of the required steps follows. Please refer to the inline commen
 
 3) to configure the module, use the parameter API
 4) use the `_robot` object to speak with the robot
+
+## How to compile
+Compilation of an XBot2 plugin is as easy as the following CMake snippet:
+
+```cmake
+find_package(xbot2 REQUIRED)
+
+add_xbot2_plugin(homing_example
+    homing_example.cpp)
+
+install(
+    TARGETS homing_example
+    DESTINATION lib
+    )
+```

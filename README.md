@@ -8,9 +8,9 @@ This repository containes commented examples of use for the **XBot2.0** real-tim
 - [Simulating a robotic system with Gazebo](docs/gazebo-sim.md)
 - [Writing a simple control module as an *XBot2 Plugin*](src/homing_example/README.md)
 - [Configuring the middleware](config/README.md)
-- Inter-plugin communication (data streaming, rpc-like)
-- Using ROS from a real-time plugin
-- Adding a custom device
+- Inter-plugin communication ([data streaming](src/talker_listener/README.md), [rpc-like](src/client_server/README.md))
+- [Using ROS from a real-time plugin](src/ros_from_rt/README.md)
+- [Adding a custom device](src/device/README.md)
 
 ## How to build
 
@@ -53,8 +53,7 @@ You should now be able to (for instance)
  - `./docker/run.sh` runs the container (the first time it will also download a crazy amount of data!)
  - to spawn more `bash` sessions inside the same container instance, do `./docker/attach.sh`
  - open three `bash` sessions
- - terminal #1: `./start.sh` (starts `roscore`, `gazebo`, `gzweb` server)
+ - terminal #1: `./start.sh` (starts `roscore` and `gazebo`)
  - terminal #2: `xbot2-core` (XBot2 executable)
  - terminal #3: `xbot2-gui` (GUI should appear)
- - to see the simulation, open `localhost:8080` inside your browser (host machine)
- 
+

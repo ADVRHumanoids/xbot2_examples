@@ -4,7 +4,7 @@
 using namespace XBot;
 
 /**
- * @brief The HomingExample class is a ControlPlugin
+ * @brief The Listener class is a ControlPlugin
  * implementing a simple homing motion.
  */
 class Listener : public ControlPlugin

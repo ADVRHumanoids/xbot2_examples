@@ -4,7 +4,7 @@
 using namespace XBot;
 
 /**
- * @brief The HomingExample class is a ControlPlugin
+ * @brief The Server class is a ControlPlugin
  * implementing a simple homing motion.
  */
 class Server : public ControlPlugin
@@ -31,9 +31,12 @@ public:
 
 private:
 
+    // callback to handle incoming requests
     bool srv_handler(const Eigen::Matrix6d& req,
                      bool& res);
 
+    // variable for service server with input (request) of type
+    // Eigen::Matrix6d and output (response) of type bool
     ServiceServerPtr<Eigen::Matrix6d, bool> _srv;
 
     Eigen::Matrix6d _gain;

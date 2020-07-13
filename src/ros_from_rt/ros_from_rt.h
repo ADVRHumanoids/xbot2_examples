@@ -13,7 +13,7 @@
 using namespace XBot;
 
 /**
- * @brief The HomingExample class is a ControlPlugin
+ * @brief The RosFromRt class is a ControlPlugin
  * implementing a simple homing motion.
  */
 class RosFromRt : public ControlPlugin
@@ -40,16 +40,22 @@ public:
 
 private:
 
+    // ROS topic callback
     void on_flag_recv(const std_msgs::Bool& msg);
 
+    // ROS service callback
     bool trig_srv_handler(const std_srvs::TriggerRequest& req,
                           std_srvs::TriggerResponse& res);
 
     Eigen::VectorXd _q;
 
+    // handle adapting ROS primitives for RT support
     RosSupport::UniquePtr _ros;
 
+    // queue object to handle multiple subscribers/servers at once
     CallbackQueue _queue;
+
+    // XBot2.0 pub/sub/server wrapping the ones from ROS
     PublisherPtr<sensor_msgs::JointState> _js_pub;
     SubscriberPtr<std_msgs::Bool> _flag_sub;
     ServiceServerPtr<std_srvs::TriggerRequest,

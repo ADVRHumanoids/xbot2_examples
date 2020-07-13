@@ -64,7 +64,7 @@ void RosFromRt::run()
     _robot->sense(false);  // no model update
     _robot->getJointPosition(_q);
 
-    // loan a pre-allocate message
+    // loan a pre-allocated message
     auto js_msg = _js_pub->loanMessage();
 
     // if it could be done..

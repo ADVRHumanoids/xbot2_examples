@@ -10,6 +10,13 @@ bool ClockExample::on_initialize()
 
 void ClockExample::starting()
 {
+    // wall clock is the global ntp-adjusted time
+    _wall_time = chrono::wall_clock::now();
+
+    // high_resolution_clock is the system most precise
+    // steady clock, and it is useful for profiling
+    _hr_time = chrono::high_resolution_clock::now();
+
     // steady clock is used for measuring time intervals
     // (e.g. periodic tasks, timeouts, etc)
     // uses simulation time if available, otherwise
@@ -21,13 +28,6 @@ void ClockExample::starting()
     // uses simulation time if available, otherwise
     // it is the same as wall_clock
     _sys_time = chrono::system_clock::now();
-
-    // wall clock is the global ntp-adjusted time
-    _wall_time = chrono::wall_clock::now();
-
-    // high_resolution_clock is the system most precise
-    // clock, and it is useful for profiling
-    _hr_time = chrono::high_resolution_clock::now();
 
     start_completed();
 }

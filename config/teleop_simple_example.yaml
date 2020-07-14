@@ -47,6 +47,12 @@ xbotcore_plugins:
     # inside a thread with `other` priority
     ros_io: {thread: nrt_main, type: ros_io}
 
+    # a custom plugin
+    clock_example: {thread: rt_slow, type: clock_example}
+
+    # a custom plugin
+    malloc_example: {thread: rt_slow, type: malloc_example}
+
     # notice here how to set parameters that are local to 
     # the single plugin
     ros_rt_example:
@@ -113,6 +119,6 @@ xbotcore_param:
     /joint_master/tx_filter_autostart: {value: true, type: bool}
     /joint_master/tx_filter_cutoff: {value: 2.0, type: double}
     /xbot_internal/ros_io/call_timeout: {value: 1.0, type: chrono}
-    /nrt_main/memory_hooks: {value: true, type: bool}
+    /rt_slow/memory_hooks: {value: true, type: bool}
         
         

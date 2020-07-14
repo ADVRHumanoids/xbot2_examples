@@ -42,15 +42,15 @@ void ClockExample::run()
     auto hr_elapsed = chrono::high_resolution_clock::now() - _hr_time;
 
     jhigh().jprint(fmt::fg(fmt::terminal_color::cyan),
-                   "steady_clock: {} elapsed \n",
+                   "steady_clock         : {} elapsed \n",
                    duration<double>(st_elapsed));
 
     jhigh().jprint(fmt::fg(fmt::terminal_color::blue),
-                   "system_clock: {} elapsed \n",
+                   "system_clock         : {} elapsed \n",
                    duration<double>(sys_elapsed));
 
     jhigh().jprint(fmt::fg(fmt::terminal_color::magenta),
-                   "wall_clock: {} elapsed \n",
+                   "wall_clock           : {} elapsed \n",
                    duration<double>(wall_elapsed));
 
     jhigh().jprint(fmt::fg(fmt::terminal_color::red),

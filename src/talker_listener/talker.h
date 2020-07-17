@@ -5,7 +5,7 @@ using namespace XBot;
 
 /**
  * @brief The Talker class is a ControlPlugin
- * implementing a simple homing motion.
+ * implementing a topic publisher.
  */
 class Talker : public ControlPlugin
 {

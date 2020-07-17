@@ -5,7 +5,7 @@ using namespace XBot;
 
 /**
  * @brief The Listener class is a ControlPlugin
- * implementing a simple homing motion.
+ * implementing a topic subscriber
  */
 class Listener : public ControlPlugin
 {

@@ -104,6 +104,7 @@ void HomingExample::run()
     }
 
     // increment fake time
+    // note: getPeriodSec() returns the nominal period
     _fake_time += getPeriodSec();
 }
 

@@ -42,20 +42,24 @@ void ClockExample::run()
     auto hr_elapsed = chrono::high_resolution_clock::now() - _hr_time;
 
     jhigh().jprint(fmt::fg(fmt::terminal_color::cyan),
-                   "steady_clock         : {} elapsed \n",
-                   duration<double>(st_elapsed));
+                   "steady_clock         : {} elapsed ({} absolute) \n",
+                   duration<double>(st_elapsed),
+                   duration<double>(chrono::steady_clock::now().time_since_epoch()));
 
     jhigh().jprint(fmt::fg(fmt::terminal_color::blue),
-                   "system_clock         : {} elapsed \n",
-                   duration<double>(sys_elapsed));
+                   "system_clock         : {} elapsed ({} absolute) \n",
+                   duration<double>(sys_elapsed),
+                   duration<double>(chrono::system_clock::now().time_since_epoch()));
 
     jhigh().jprint(fmt::fg(fmt::terminal_color::magenta),
-                   "wall_clock           : {} elapsed \n",
-                   duration<double>(wall_elapsed));
+                   "wall_clock           : {} elapsed ({} absolute) \n",
+                   duration<double>(wall_elapsed),
+                   duration<double>(chrono::wall_clock::now().time_since_epoch()));
 
     jhigh().jprint(fmt::fg(fmt::terminal_color::red),
-                   "high_resolution_clock: {} elapsed \n",
-                   duration<double>(hr_elapsed));
+                   "high_resolution_clock: {} elapsed ({} absolute) \n",
+                   duration<double>(hr_elapsed),
+                   duration<double>(chrono::high_resolution_clock::now().time_since_epoch()));
 
     jhigh().jprint("--- \n");
 

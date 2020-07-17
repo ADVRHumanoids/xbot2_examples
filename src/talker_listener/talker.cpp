@@ -22,19 +22,21 @@ bool Talker::on_initialize()
 
 void Talker::starting()
 {
-    _iter = 0;
+    _iter = 0;  // the int message we will be sending
+
     start_completed();
 }
 
 void Talker::run()
 {
+    // increment iter
     ++_iter;
 
     // publish the integer
     _small_pub->publish(_iter);
 
     // to publish the big matrix in a zero-copy fashion,
-    //first we loan a pre-allocated message from the pool
+    // first, we loan a pre-allocated message from the pool
     auto big_msg_ptr = _big_pub->loanMessage();
 
     // this is a copy of the 'big_matrix_prealloc' provided

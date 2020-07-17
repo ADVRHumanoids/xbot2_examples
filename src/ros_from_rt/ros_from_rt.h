@@ -14,7 +14,9 @@ using namespace XBot;
 
 /**
  * @brief The RosFromRt class is a ControlPlugin
- * implementing a simple homing motion.
+ * implementing ROS publishers, subscribers, and
+ * service servers that can run on a real-time
+ * thread
  */
 class RosFromRt : public ControlPlugin
 {

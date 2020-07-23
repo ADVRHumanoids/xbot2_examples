@@ -3,7 +3,6 @@
 XBotInterface:
   urdf_path: "config/teleop_fixed_base.urdf"
   srdf_path: "config/teleop_fixed_base.srdf"
-  joint_map_path: "config/teleop_joint_map.yaml"
 
 ModelInterface:
   model_type: "RBDL"
@@ -16,7 +15,7 @@ ModelInterface:
 xbotcore_devices:
 
     joint_gz:
-        id: [srdf]  # take all joint ids from srdf/urdf
+        names: [__joint_srdf__]  # take all joint ids from srdf/urdf
         thread: rt_main  # allocate this device on rt_main thread
         type: joint
 
@@ -26,7 +25,7 @@ xbotcore_devices:
         thread: rt_main
         
     rocket_cs:
-        id: [100]
+        names: [rocket_0]
         type: rocket
         thread: rt_main
 

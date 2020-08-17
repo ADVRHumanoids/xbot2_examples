@@ -20,11 +20,10 @@ xbotcore_devices:
         type: joint
 
     joint_master:
-        type: joint
         master: true  # this is a master device for all 'joint' devices
         thread: rt_main
         
-    rocket_cs:
+    rocket:
         names: [rocket_0]
         type: rocket
         thread: rt_main

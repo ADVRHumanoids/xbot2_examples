@@ -8,14 +8,9 @@ endif()
 
 include_directories(${GAZEBO_INCLUDE_DIRS})
 
-# rocket client endpoint
-add_xbot2_device(rocket_cs rocket_cs_device.cpp)
-install(TARGETS rocket_cs
-    DESTINATION lib)
-
-# rocket high level implementation
-add_xbot2_device(rocket_rt rocket_rt_device.cpp)
-install(TARGETS rocket_rt
+# rocket xbot2 endpoint
+add_xbot2_device(rocket rocket_device.cpp)
+install(TARGETS rocket
     DESTINATION lib)
 
 # rocket server endpoint (gazebo plugin)
@@ -33,7 +28,7 @@ install(TARGETS rocket_commander
     DESTINATION lib)
 
 # a ros interface
-add_library(xbotdev_ros_rocket_rt SHARED rocket_ros.cpp)
-target_link_libraries(xbotdev_ros_rocket_rt xbot2::xbot2 xbot2::xbot2_ros_support)
-install(TARGETS xbotdev_ros_rocket_rt
-    DESTINATION lib)
+#add_library(xbotdev_ros_rocket_rt SHARED rocket_ros.cpp)
+#target_link_libraries(xbotdev_ros_rocket_rt xbot2::xbot2 xbot2::xbot2_ros_support)
+#install(TARGETS xbotdev_ros_rocket_rt
+#    DESTINATION lib)

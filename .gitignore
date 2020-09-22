@@ -1,4 +1,2 @@
-docker/deb/*
-.vscode/*
 *.kdev4
-*.user
+build/

@@ -3,6 +3,7 @@
 XBotInterface:
   urdf_path: "config/teleop_fixed_base.urdf"
   srdf_path: "config/teleop_fixed_base.srdf"
+  joint_map_path: "config/teleop_joint_map.yaml"
 
 ModelInterface:
   model_type: "RBDL"

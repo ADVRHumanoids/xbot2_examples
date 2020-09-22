@@ -44,6 +44,7 @@ xbotcore_plugins:
     # it is not designed to be real-time safe, so it must executed
     # inside a thread with `other` priority
     ros_io: {thread: nrt_main, type: ros_io}
+    ros_ctrl: {thread: nrt_main, type: ros_control}
 
     # a custom plugin
     clock_example: {thread: rt_slow, type: clock_example}

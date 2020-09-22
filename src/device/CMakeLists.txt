@@ -26,9 +26,3 @@ install(TARGETS xbot2_gz_rocket_server
 add_xbot2_plugin(rocket_commander rocket_plugin.cpp)
 install(TARGETS rocket_commander
     DESTINATION lib)
-
-# a ros interface
-#add_library(xbotdev_ros_rocket_rt SHARED rocket_ros.cpp)
-#target_link_libraries(xbotdev_ros_rocket_rt xbot2::xbot2 xbot2::xbot2_ros_support)
-#install(TARGETS xbotdev_ros_rocket_rt
-#    DESTINATION lib)

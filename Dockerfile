@@ -26,6 +26,13 @@ COPY docker/build-gzweb.sh .
 RUN ./build-gzweb.sh
 RUN rm build-gzweb.sh
 
+# install qt5 charts and graphics drivers
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \ 
+libqt5charts5-dev libgl1-mesa-glx libgl1-mesa-dri python3-pip
+
+# install python modules for backtrace pretty printer
+RUN pip3 install parse ansicolors
+
 # download binaries for hhcm software, including xbot2
 RUN mkdir deb
 COPY docker/deb deb
@@ -38,13 +45,6 @@ RUN rm -rf deb
 
 # set ownership to user for the whole home folder
 RUN chown -R user .
-
-# install qt5 charts and graphics drivers
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \ 
-libqt5charts5-dev libgl1-mesa-glx libgl1-mesa-dri python3-pip
-
-# install python modules for backtrace pretty printer
-RUN pip3 install parse ansicolors
 
 # change user, copy start script (launches gazebo and gzweb)
 USER user

@@ -11,7 +11,7 @@ bool RocketCommander::on_initialize()
     _thrust = getParamOr<double>("~thrust", 100.0);
 
     // get out high level api for a rocket instance
-    _rocket = _robot->getDeviceInstance<Hal::RocketInstanceBase>("rocket_0");
+    _rocket = _robot->getDeviceInstance<Hal::RocketBase>("rocket_0");
 
     // initialization succeeded only if rocket_0 exists and has
     // the correct type

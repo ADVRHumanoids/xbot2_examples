@@ -32,7 +32,7 @@ private:
 
     gz::event::ConnectionPtr _gz_world_upd_begin_connection;
 
-    std::vector<Hal::DeviceInstanceRt::Ptr> _rocket_vec;
+    std::vector<Hal::DeviceRt::Ptr> _rocket_vec;
     ServerManager::UniquePtr _srv;
 };
 

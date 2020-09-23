@@ -51,7 +51,7 @@ private:
     double _duty_cycle;
     double _thrust;
 
-    Hal::RocketInstanceBase * _rocket;
+    Hal::RocketBase * _rocket;
 
 };
 

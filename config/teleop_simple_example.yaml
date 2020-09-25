@@ -17,7 +17,6 @@ xbotcore_devices:
     joint_gz:
         names: [__joint_srdf__]  # take all joint ids from srdf/urdf
         thread: rt_main  # allocate this device on rt_main thread
-        type: joint
 
     joint_master:
         master: true  # this is a master device for all 'joint' devices
@@ -115,9 +114,9 @@ xbotcore_plugins:
 
 # additional parameters that don't relate to any plugin 
 xbotcore_param:
-    /joint_master/tx_filter_autostart: {value: true, type: bool}
-    /joint_master/tx_filter_cutoff: {value: 2.0, type: double}
+    /jm/tx_filter_autostart: {value: true, type: bool}  # autostart joint filter
+    /jm/tx_filter_cutoff: {value: 2.0, type: double}    # set default filter bandwidth
     /xbot_internal/ros_io/call_timeout: {value: 1.0, type: chrono}
-    /rt_slow/memory_hooks: {value: true, type: bool}
+    /rt_slow/memory_hooks: {value: false, type: bool}
         
         

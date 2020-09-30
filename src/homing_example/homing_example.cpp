@@ -89,7 +89,12 @@ void HomingExample::starting()
 void HomingExample::run()
 {
     // define a simplistic linear trajectory
-    double alpha = _fake_time/_homing_time;
+    double tau = _fake_time/_homing_time;
+
+    // quintic poly 6t^5 - 15t^4 + 10t^3
+    double alpha = ((6*tau - 15)*tau + 10)*tau*tau*tau;
+
+    // interpolate
     _q_ref = _q_start + alpha * (_q_home - _q_start);
 
     // send reference
@@ -97,7 +102,7 @@ void HomingExample::run()
     _robot->move();
     
     // if trajectory ended, we stop ourselves
-    if(alpha >= 1.0)
+    if(tau >= 1.0)
     {
         stop();
         return;

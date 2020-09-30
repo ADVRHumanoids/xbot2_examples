@@ -26,6 +26,7 @@ private:
 
     ros::NodeHandle _nh;
 
+    JointIdMap _qmap;
     Eigen::VectorXd _q, _qdot;
     ModelInterface::Ptr _rt_model;
     Cartesian::CartesianInterfaceImpl::Ptr _rt_ci;

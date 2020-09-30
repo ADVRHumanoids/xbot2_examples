@@ -59,6 +59,7 @@ bool CartesioRt::on_initialize()
     auto nrt_exit_ptr = &_nrt_exit;
 
     _qdot = _q.setZero(_rt_model->getJointNum());
+    _robot->getPositionReference(_qmap);
 
     /* Spawn thread */
     _nrt_th = std::make_unique<thread>(
@@ -92,9 +93,8 @@ void CartesioRt::starting()
 
     // align model to current position reference
     _robot->sense(false);
-    JointIdMap qref;
-    _robot->getPositionReference(qref);
-    _rt_model->setJointPosition(qref);
+    _robot->getPositionReference(_qmap);
+    _rt_model->setJointPosition(_qmap);
     _rt_model->update();
 
     // reset ci

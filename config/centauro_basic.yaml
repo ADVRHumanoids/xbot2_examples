@@ -1,6 +1,6 @@
 XBotInterface:
-  urdf_path: "configs/CentauroConfig/urdf/centauro.urdf"
-  srdf_path: "configs/CentauroConfig/srdf/centauro.srdf"
+  urdf_path: $(rospack find centauro_urdf)/urdf/centauro.urdf
+  srdf_path: $(rospack find centauro_srdf)/srdf/centauro.srdf
 
 ModelInterface:
   model_type: "RBDL"
@@ -13,7 +13,7 @@ ModelInterface:
 xbotcore_devices:
 
     joint_gz:
-        names: [__joint_srdf__]  # take all joint ids from srdf/urdf
+        names: []  # take all joint ids from srdf/urdf
         thread: rt_main
         
     joint_master:
@@ -21,11 +21,11 @@ xbotcore_devices:
         thread: rt_main
         
     imu_gz:
-        names: [imu_link]
+        names: []
         thread: rt_main    
 
     link_state_sensor:
-        names: [pelvis_lss, wheel_1_lss]
+        names: []
         thread: rt_main
         type: link_state_sensor
 
@@ -55,7 +55,7 @@ xbotcore_plugins:
 
     ros_control: {thread: nrt_main, type: ros_control}
     
-    cartesio: {thread: rt_main, type: cartesio_rt}
+    # cartesio: {thread: rt_main, type: cartesio_rt}
 
 
 # global parameters

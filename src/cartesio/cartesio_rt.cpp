@@ -5,12 +5,16 @@ using namespace XBot::Cartesian;
 
 bool CartesioRt::on_initialize()
 {
+    setJournalLevel(Journal::Level::Low);
+
+    _nh = std::make_unique<ros::NodeHandle>();
+
     /* Get ik problem from ros param */
     auto problem_param = getParamOr<std::string>("~problem_param",
                                                  "cartesian/problem_description");
     std::string ik_str;
 
-    if(!_nh.getParam(problem_param, ik_str))
+    if(!_nh->getParam(problem_param, ik_str))
     {
         jerror("ROS param '{}' not found \n", problem_param);
         return false;
@@ -31,7 +35,7 @@ bool CartesioRt::on_initialize()
 
     _rt_ci = CartesianInterfaceImpl::MakeInstance(impl_name, ik_problem, rt_ctx);
     _rt_ci->enableOtg(rt_ctx->params()->getControlPeriod());
-    _rt_ci->update(0,0);
+    _rt_ci->update(0, 0);
 
     /* Create model and ci for nrt loop */
     auto nrt_model = ModelInterface::getModel(_robot->getConfigOptions());
@@ -83,6 +87,14 @@ bool CartesioRt::on_initialize()
     /* Set robot control mode */
     _robot->setControlMode(ControlMode::Position() + ControlMode::Effort());
 
+    /* Feedback */
+    _enable_feedback = getParamOr("~enable_feedback", false);
+
+    if(_enable_feedback)
+    {
+        jinfo("running with feedback enabled \n");
+    }
+
     return true;
 }
 
@@ -113,6 +125,15 @@ void CartesioRt::run()
     /* Receive commands from nrt */
     _nrt_ci->callAvailable(_rt_ci.get());
 
+    /* Update robot */
+    if(_enable_feedback)
+    {
+        _robot->sense(false);
+        _rt_model->syncFrom(*_robot);
+
+        // TBD floating base state
+    }
+
     /* Solve IK */
     if(!_rt_ci->update(_fake_time, getPeriodSec()))
     {
@@ -121,18 +142,31 @@ void CartesioRt::run()
     }
 
     /* Integrate solution */
-    _rt_model->getJointPosition(_q);
-    _rt_model->getJointVelocity(_qdot);
-    _q += getPeriodSec() * _qdot;
-    _rt_model->setJointPosition(_q);
-    _rt_model->update();
+    if(!_enable_feedback)
+    {
+        _rt_model->getJointPosition(_q);
+        _rt_model->getJointVelocity(_qdot);
+        _q += getPeriodSec() * _qdot;
+        _rt_model->setJointPosition(_q);
+        _rt_model->update();
+    }
+
+
     _fake_time += getPeriodSec();
 
     /* Send state to nrt */
     _nrt_ci->pushState(_rt_ci.get(), _rt_model.get());
 
     /* Move robot */
-    _robot->setReferenceFrom(*_rt_model);
+    if(_enable_feedback)
+    {
+        _robot->setReferenceFrom(*_rt_model, Sync::Effort);
+    }
+    else
+    {
+        _robot->setReferenceFrom(*_rt_model);
+    }
+
     _robot->move();
 }
 

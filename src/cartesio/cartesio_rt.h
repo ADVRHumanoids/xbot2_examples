@@ -24,7 +24,9 @@ public:
 
 private:
 
-    ros::NodeHandle _nh;
+    std::unique_ptr<ros::NodeHandle> _nh;
+
+    bool _enable_feedback;
 
     JointIdMap _qmap;
     Eigen::VectorXd _q, _qdot;

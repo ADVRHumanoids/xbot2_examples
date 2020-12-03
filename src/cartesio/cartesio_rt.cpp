@@ -13,10 +13,13 @@ bool CartesioRt::on_initialize()
     auto problem_param = getParamOr<std::string>("~problem_param",
                                                  "cartesian/problem_description");
     std::string ik_str;
-
-    if(!_nh->getParam(problem_param, ik_str))
+    if(getParam("~problem_description/content", ik_str))
     {
-        jerror("ROS param '{}' not found \n", problem_param);
+
+    }
+    else if(!_nh->getParam(problem_param, ik_str))
+    {
+        jerror("ros param '{}' not found \n", problem_param);
         return false;
     }
 

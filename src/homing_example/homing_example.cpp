@@ -67,6 +67,13 @@ bool HomingExample::on_initialize()
     // we must explicitly set the control mode for our robot
     // in this case, we will only send positions
     _robot->setControlMode(ControlMode::Position());
+    _robot->setControlMode({
+        {"j_wheel_1", ControlMode::Velocity()},
+        {"j_wheel_2", ControlMode::Velocity()},
+        {"j_wheel_3", ControlMode::Velocity()},
+        {"j_wheel_4", ControlMode::Velocity()},
+        {"neck_velodyne", ControlMode::Velocity()}
+    });
 
     return true;
 }

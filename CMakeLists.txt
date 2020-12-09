@@ -12,3 +12,5 @@ add_subdirectory(src/client_server)
 add_subdirectory(src/device)
 add_subdirectory(src/joint_impedance)
 add_subdirectory(src/cartesio)
+
+add_subdirectory(src/jointspace_task)

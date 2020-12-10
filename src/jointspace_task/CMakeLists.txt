@@ -11,12 +11,18 @@ add_xbot2_plugin(jointspace_task
 find_library(XBotBlock_Utils NAMES XBotBlock_Utils PATH /home/embedded/xbot2_ws/install/lib)
 
 find_package(BlockFactory REQUIRED COMPONENTS Core SimulinkCoder)
+
+
+
 # Link the library with the Core component containing the core classes
 target_link_libraries(jointspace_task PRIVATE BlockFactory::Core BlockFactory::SimulinkCoder ${XBotBlock_Utils})
 # Setup the include directories
 target_include_directories(jointspace_task PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)  
 
+set_property(TARGET jointspace_task PROPERTY CXX_STANDARD 14)
+
 install(
     TARGETS jointspace_task
     DESTINATION lib
     )
+

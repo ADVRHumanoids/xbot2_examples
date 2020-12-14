@@ -33,6 +33,8 @@ public:
     void run() override;
 
 private:
+    
+    void set_control_mode();
 
     Eigen::VectorXd _q_home, _q_start, _q_ref;
     double _homing_time;

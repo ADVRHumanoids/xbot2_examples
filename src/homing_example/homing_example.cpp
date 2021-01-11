@@ -67,28 +67,8 @@ bool HomingExample::on_initialize()
     // we must explicitly set the control mode for our robot
     // in this case, we will only send positions
     _robot->setControlMode(ControlMode::Position());
-    
-    set_control_mode();
 
     return true;
-}
-
-void HomingExample::set_control_mode()
-{
-    std::map<std::string, ControlMode> ctrl_map;
-    
-    for(auto j : _robot->getEnabledJointNames())
-    {
-        ControlMode ctrl;
-        if(!getParam("/hal/joint/control_mode/" + j, ctrl))
-        {
-            jhigh().jwarn("could not find control mode for joint '{}', setting to idle \n", j);
-        }
-        
-        ctrl_map[j] = ctrl;
-    }
-    
-    _robot->setControlMode(ctrl_map);
 }
 
 void HomingExample::starting()

@@ -1,2 +1,0 @@
-  JointSpace_Task.cpp
-

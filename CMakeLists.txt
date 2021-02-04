@@ -14,3 +14,4 @@ add_subdirectory(src/joint_impedance)
 add_subdirectory(src/cartesio)
 
 add_subdirectory(src/jointspace_task)
+add_subdirectory(src/cartesian_impedance)

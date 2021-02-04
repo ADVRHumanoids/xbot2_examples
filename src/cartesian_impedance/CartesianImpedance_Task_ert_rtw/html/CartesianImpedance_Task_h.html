@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="./js/coder_app.js"></script>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="./rtwreport_utils.js"></script>
+<script type="text/javascript" src="./rtwannotate.js"></script>
+<link rel="stylesheet" type="text/css" href="./css/coder_app.css"/>
+</head>
+<body onload="srcFileOnload();">
+<pre id="code">
+<table class="code" id="codeTbl">
+<tr name="1" id="1">
+<td><a id="l1" class='ln'>1</a></td><td><span class="ct">//</span></td></tr>
+<tr name="2" id="2">
+<td><a id="l2" class='ln'>2</a></td><td><span class="ct">// Non-Degree Granting Education License -- for use at non-degree</span></td></tr>
+<tr name="3" id="3">
+<td><a id="l3" class='ln'>3</a></td><td><span class="ct">// granting, nonprofit, educational organizations only. Not for</span></td></tr>
+<tr name="4" id="4">
+<td><a id="l4" class='ln'>4</a></td><td><span class="ct">// government, commercial, or other organizational use.</span></td></tr>
+<tr name="5" id="5">
+<td><a id="l5" class='ln'>5</a></td><td><span class="ct">//</span></td></tr>
+<tr name="6" id="6">
+<td><a id="l6" class='ln'>6</a></td><td><span class="ct">// File: CartesianImpedance_Task.h</span></td></tr>
+<tr name="7" id="7">
+<td><a id="l7" class='ln'>7</a></td><td><span class="ct">//</span></td></tr>
+<tr name="8" id="8">
+<td><a id="l8" class='ln'>8</a></td><td><span class="ct">// Code generated for Simulink model 'CartesianImpedance_Task'.</span></td></tr>
+<tr name="9" id="9">
+<td><a id="l9" class='ln'>9</a></td><td><span class="ct">//</span></td></tr>
+<tr name="10" id="10">
+<td><a id="l10" class='ln'>10</a></td><td><span class="ct">// Model version                  : 1.1032</span></td></tr>
+<tr name="11" id="11">
+<td><a id="l11" class='ln'>11</a></td><td><span class="ct">// Simulink Coder version         : 9.2 (R2019b) 18-Jul-2019</span></td></tr>
+<tr name="12" id="12">
+<td><a id="l12" class='ln'>12</a></td><td><span class="ct">// C/C++ source code generated on : Thu Feb  4 14:46:32 2021</span></td></tr>
+<tr name="13" id="13">
+<td><a id="l13" class='ln'>13</a></td><td><span class="ct">//</span></td></tr>
+<tr name="14" id="14">
+<td><a id="l14" class='ln'>14</a></td><td><span class="ct">// Target selection: ert.tlc</span></td></tr>
+<tr name="15" id="15">
+<td><a id="l15" class='ln'>15</a></td><td><span class="ct">// Embedded hardware selection: Intel-&gt;x86-32 (Windows32)</span></td></tr>
+<tr name="16" id="16">
+<td><a id="l16" class='ln'>16</a></td><td><span class="ct">// Code generation objectives: Unspecified</span></td></tr>
+<tr name="17" id="17">
+<td><a id="l17" class='ln'>17</a></td><td><span class="ct">// Validation result: Not run</span></td></tr>
+<tr name="18" id="18">
+<td><a id="l18" class='ln'>18</a></td><td><span class="ct">//</span></td></tr>
+<tr name="19" id="19">
+<td><a id="l19" class='ln'>19</a></td><td><span class="pp">#ifndef</span> <a id="19c9" class="tk">RTW_HEADER_CartesianImpedance_Task_h_</a></td></tr>
+<tr name="20" id="20">
+<td><a id="l20" class='ln'>20</a></td><td><span class="pp">#define</span> <a id="20c9" class="tk">RTW_HEADER_CartesianImpedance_Task_h_</a></td></tr>
+<tr name="21" id="21">
+<td><a id="l21" class='ln'>21</a></td><td><span class="pp">#include &lt;cmath&gt;</span></td></tr>
+<tr name="22" id="22">
+<td><a id="l22" class='ln'>22</a></td><td><span class="pp">#include &lt;cstring&gt;</span></td></tr>
+<tr name="23" id="23">
+<td><a id="l23" class='ln'>23</a></td><td><span class="pp">#include &lt;math.h&gt;</span></td></tr>
+<tr name="24" id="24">
+<td><a id="l24" class='ln'>24</a></td><td><span class="pp">#ifndef</span> <a id="24c9" class="tk">CartesianImpedance_Task_COMMON_INCLUDES_</a></td></tr>
+<tr name="25" id="25">
+<td><a id="l25" class='ln'>25</a></td><td><span class="pp"># define</span> <a id="25c10" class="tk">CartesianImpedance_Task_COMMON_INCLUDES_</a></td></tr>
+<tr name="26" id="26">
+<td><a id="l26" class='ln'>26</a></td><td><span class="pp">#include &lt;cstdio&gt;</span></td></tr>
+<tr name="27" id="27">
+<td><a id="l27" class='ln'>27</a></td><td><span class="pp">#include &lt;BlockFactory/Core/Block.h&gt;</span></td></tr>
+<tr name="28" id="28">
+<td><a id="l28" class='ln'>28</a></td><td><span class="pp">#include &lt;BlockFactory/Core/Log.h&gt;</span></td></tr>
+<tr name="29" id="29">
+<td><a id="l29" class='ln'>29</a></td><td><span class="pp">#include &lt;BlockFactory/Core/Parameter.h&gt;</span></td></tr>
+<tr name="30" id="30">
+<td><a id="l30" class='ln'>30</a></td><td><span class="pp">#include &lt;BlockFactory/Core/Parameters.h&gt;</span></td></tr>
+<tr name="31" id="31">
+<td><a id="l31" class='ln'>31</a></td><td><span class="pp">#include &lt;BlockFactory/Core/FactorySingleton.h&gt;</span></td></tr>
+<tr name="32" id="32">
+<td><a id="l32" class='ln'>32</a></td><td><span class="pp">#include &lt;BlockFactory/SimulinkCoder/CoderBlockInformation.h&gt;</span></td></tr>
+<tr name="33" id="33">
+<td><a id="l33" class='ln'>33</a></td><td><span class="pp">#include "rtwtypes.h"</span></td></tr>
+<tr name="34" id="34">
+<td><a id="l34" class='ln'>34</a></td><td><span class="pp">#endif</span>                              <span class="ct">// CartesianImpedance_Task_COMMON_INCLUDES_</span></td></tr>
+<tr name="35" id="35">
+<td><a id="l35" class='ln'>35</a></td><td></td></tr>
+<tr name="36" id="36">
+<td><a id="l36" class='ln'>36</a></td><td><span class="pp">#include "CartesianImpedance_Task_types.h"</span></td></tr>
+<tr name="37" id="37">
+<td><a id="l37" class='ln'>37</a></td><td><span class="pp">#include "rtGetNaN.h"</span></td></tr>
+<tr name="38" id="38">
+<td><a id="l38" class='ln'>38</a></td><td><span class="pp">#include "rt_nonfinite.h"</span></td></tr>
+<tr name="39" id="39">
+<td><a id="l39" class='ln'>39</a></td><td><span class="pp">#include "rtGetInf.h"</span></td></tr>
+<tr name="40" id="40">
+<td><a id="l40" class='ln'>40</a></td><td></td></tr>
+<tr name="41" id="41">
+<td><a id="l41" class='ln'>41</a></td><td><span class="ct">// Macros for accessing real-time model data structure</span></td></tr>
+<tr name="42" id="42">
+<td><a id="l42" class='ln'>42</a></td><td><span class="pp">#ifndef</span> <a id="42c9" class="tk">rtmGetErrorStatus</a></td></tr>
+<tr name="43" id="43">
+<td><a id="l43" class='ln'>43</a></td><td><span class="pp"># define</span> <a id="43c10" class="tk">rtmGetErrorStatus</a>(<a id="43c28" class="tk">rtm</a>)        ((<a id="43c42" class="tk">rtm</a>)-&gt;<a id="43c48" class="tk">errorStatus</a>)</td></tr>
+<tr name="44" id="44">
+<td><a id="l44" class='ln'>44</a></td><td><span class="pp">#endif</span></td></tr>
+<tr name="45" id="45">
+<td><a id="l45" class='ln'>45</a></td><td></td></tr>
+<tr name="46" id="46">
+<td><a id="l46" class='ln'>46</a></td><td><span class="pp">#ifndef</span> <a id="46c9" class="tk">rtmSetErrorStatus</a></td></tr>
+<tr name="47" id="47">
+<td><a id="l47" class='ln'>47</a></td><td><span class="pp"># define</span> <a id="47c10" class="tk">rtmSetErrorStatus</a>(<a id="47c28" class="tk">rtm</a>, <a id="47c33" class="tk">val</a>)   ((<a id="47c42" class="tk">rtm</a>)-&gt;<a id="47c48" class="tk">errorStatus</a> = (<a id="47c63" class="tk">val</a>))</td></tr>
+<tr name="48" id="48">
+<td><a id="l48" class='ln'>48</a></td><td><span class="pp">#endif</span></td></tr>
+<tr name="49" id="49">
+<td><a id="l49" class='ln'>49</a></td><td></td></tr>
+<tr name="50" id="50">
+<td><a id="l50" class='ln'>50</a></td><td><span class="ct">// Block signals for system '<a class="ct blk" blk_line="50">&lt;S4&gt;/Coordinate Transformation Conversion2</a>'</span></td></tr>
+<tr name="51" id="51">
+<td><a id="l51" class='ln'>51</a></td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="52" id="52">
+<td><a id="l52" class='ln'>52</a></td><td>  <a id="52c3" class="tk">creal_T</a> <a id="52c11" class="tk">eigVec</a>[16];</td></tr>
+<tr name="53" id="53">
+<td><a id="l53" class='ln'>53</a></td><td>  <a id="53c3" class="tk">creal_T</a> <a id="53c11" class="tk">b_At</a>[16];</td></tr>
+<tr name="54" id="54">
+<td><a id="l54" class='ln'>54</a></td><td>  <a id="54c3" class="tk">creal_T</a> <a id="54c11" class="tk">A</a>[16];</td></tr>
+<tr name="55" id="55">
+<td><a id="l55" class='ln'>55</a></td><td>  <a id="55c3" class="tk">creal_T</a> <a id="55c11" class="tk">b_V</a>[16];</td></tr>
+<tr name="56" id="56">
+<td><a id="l56" class='ln'>56</a></td><td>  <a id="56c3" class="tk">creal_T</a> <a id="56c11" class="tk">e_A</a>[16];</td></tr>
+<tr name="57" id="57">
+<td><a id="l57" class='ln'>57</a></td><td>  <a id="57c3" class="tk">creal_T</a> <a id="57c11" class="tk">c_V</a>[16];</td></tr>
+<tr name="58" id="58">
+<td><a id="l58" class='ln'>58</a></td><td>  <a id="58c3" class="tk">real_T</a> <a id="58c10" class="tk">rtu_0</a>[16];</td></tr>
+<tr name="59" id="59">
+<td><a id="l59" class='ln'>59</a></td><td>  <a id="59c3" class="tk">real_T</a> <a id="59c10" class="tk">c_V_m</a>[16];</td></tr>
+<tr name="60" id="60">
+<td><a id="l60" class='ln'>60</a></td><td>  <a id="60c3" class="tk">real_T</a> <a id="60c10" class="tk">T</a>[16];</td></tr>
+<tr name="61" id="61">
+<td><a id="l61" class='ln'>61</a></td><td>  <a id="61c3" class="tk">real_T</a> <a id="61c10" class="tk">b_A</a>[16];</td></tr>
+<tr name="62" id="62">
+<td><a id="l62" class='ln'>62</a></td><td>  <a id="62c3" class="tk">real_T</a> <a id="62c10" class="tk">c_V_c</a>[16];</td></tr>
+<tr name="63" id="63">
+<td><a id="l63" class='ln'>63</a></td><td>  <a id="63c3" class="tk">real_T</a> <a id="63c10" class="tk">b_h</a>[16];</td></tr>
+<tr name="64" id="64">
+<td><a id="l64" class='ln'>64</a></td><td>  <a id="64c3" class="tk">real_T</a> <a id="64c10" class="tk">c_a</a>[16];</td></tr>
+<tr name="65" id="65">
+<td><a id="l65" class='ln'>65</a></td><td>  <a id="65c3" class="tk">creal_T</a> <a id="65c11" class="tk">eigVal</a>[4];</td></tr>
+<tr name="66" id="66">
+<td><a id="l66" class='ln'>66</a></td><td>  <a id="66c3" class="tk">creal_T</a> <a id="66c11" class="tk">b_beta1</a>[4];</td></tr>
+<tr name="67" id="67">
+<td><a id="l67" class='ln'>67</a></td><td>  <a id="67c3" class="tk">creal_T</a> <a id="67c11" class="tk">work1</a>[4];</td></tr>
+<tr name="68" id="68">
+<td><a id="l68" class='ln'>68</a></td><td>  <a id="68c3" class="tk">real_T</a> <a id="68c10" class="tk">CoordinateTransformationConve_i</a>[4];</td></tr>
+<tr name="69" id="69">
+<td><a id="l69" class='ln'>69</a></td><td>                                <span class="ct">// '<a class="ct blk" blk_line="69">&lt;S4&gt;/Coordinate Transformation Conversion2</a>'</span></td></tr>
+<tr name="70" id="70">
+<td><a id="l70" class='ln'>70</a></td><td>  <a id="70c3" class="tk">real_T</a> <a id="70c10" class="tk">varargin_1</a>[4];</td></tr>
+<tr name="71" id="71">
+<td><a id="l71" class='ln'>71</a></td><td>  <a id="71c3" class="tk">real_T</a> <a id="71c10" class="tk">work</a>[4];</td></tr>
+<tr name="72" id="72">
+<td><a id="l72" class='ln'>72</a></td><td>  <a id="72c3" class="tk">real_T</a> <a id="72c10" class="tk">rworka</a>[4];</td></tr>
+<tr name="73" id="73">
+<td><a id="l73" class='ln'>73</a></td><td>  <a id="73c3" class="tk">real_T</a> <a id="73c10" class="tk">work_k</a>[4];</td></tr>
+<tr name="74" id="74">
+<td><a id="l74" class='ln'>74</a></td><td>  <a id="74c3" class="tk">real_T</a> <a id="74c10" class="tk">tau</a>[3];</td></tr>
+<tr name="75" id="75">
+<td><a id="l75" class='ln'>75</a></td><td>  <a id="75c3" class="tk">real_T</a> <a id="75c10" class="tk">v</a>[3];</td></tr>
+<tr name="76" id="76">
+<td><a id="l76" class='ln'>76</a></td><td>  <a id="76c3" class="tk">real_T</a> <a id="76c10" class="tk">b_v</a>[3];</td></tr>
+<tr name="77" id="77">
+<td><a id="l77" class='ln'>77</a></td><td>  <a id="77c3" class="tk">int32_T</a> <a id="77c11" class="tk">rscale</a>[4];</td></tr>
+<tr name="78" id="78">
+<td><a id="l78" class='ln'>78</a></td><td>  <a id="78c3" class="tk">int8_T</a> <a id="78c10" class="tk">b_I</a>[16];</td></tr>
+<tr name="79" id="79">
+<td><a id="l79" class='ln'>79</a></td><td>  <a id="79c3" class="tk">creal_T</a> <a id="79c11" class="tk">s</a>;</td></tr>
+<tr name="80" id="80">
+<td><a id="l80" class='ln'>80</a></td><td>  <a id="80c3" class="tk">creal_T</a> <a id="80c11" class="tk">ctemp</a>;</td></tr>
+<tr name="81" id="81">
+<td><a id="l81" class='ln'>81</a></td><td>  <a id="81c3" class="tk">creal_T</a> <a id="81c11" class="tk">shift</a>;</td></tr>
+<tr name="82" id="82">
+<td><a id="l82" class='ln'>82</a></td><td>  <a id="82c3" class="tk">creal_T</a> <a id="82c11" class="tk">ascale</a>;</td></tr>
+<tr name="83" id="83">
+<td><a id="l83" class='ln'>83</a></td><td>  <a id="83c3" class="tk">creal_T</a> <a id="83c11" class="tk">work1_c</a>;</td></tr>
+<tr name="84" id="84">
+<td><a id="l84" class='ln'>84</a></td><td>  <a id="84c3" class="tk">creal_T</a> <a id="84c11" class="tk">work1_b</a>;</td></tr>
+<tr name="85" id="85">
+<td><a id="l85" class='ln'>85</a></td><td>  <a id="85c3" class="tk">creal_T</a> <a id="85c11" class="tk">work1_p</a>;</td></tr>
+<tr name="86" id="86">
+<td><a id="l86" class='ln'>86</a></td><td>  <a id="86c3" class="tk">real_T</a> <a id="86c10" class="tk">K12</a>;</td></tr>
+<tr name="87" id="87">
+<td><a id="l87" class='ln'>87</a></td><td>  <a id="87c3" class="tk">real_T</a> <a id="87c10" class="tk">K13</a>;</td></tr>
+<tr name="88" id="88">
+<td><a id="l88" class='ln'>88</a></td><td>  <a id="88c3" class="tk">real_T</a> <a id="88c10" class="tk">K14</a>;</td></tr>
+<tr name="89" id="89">
+<td><a id="l89" class='ln'>89</a></td><td>  <a id="89c3" class="tk">real_T</a> <a id="89c10" class="tk">K23</a>;</td></tr>
+<tr name="90" id="90">
+<td><a id="l90" class='ln'>90</a></td><td>  <a id="90c3" class="tk">real_T</a> <a id="90c10" class="tk">K24</a>;</td></tr>
+<tr name="91" id="91">
+<td><a id="l91" class='ln'>91</a></td><td>  <a id="91c3" class="tk">real_T</a> <a id="91c10" class="tk">K34</a>;</td></tr>
+<tr name="92" id="92">
+<td><a id="l92" class='ln'>92</a></td><td>  <a id="92c3" class="tk">real_T</a> <a id="92c10" class="tk">colnorm</a>;</td></tr>
+<tr name="93" id="93">
+<td><a id="l93" class='ln'>93</a></td><td>  <a id="93c3" class="tk">real_T</a> <a id="93c10" class="tk">scale</a>;</td></tr>
+<tr name="94" id="94">
+<td><a id="l94" class='ln'>94</a></td><td>  <a id="94c3" class="tk">real_T</a> <a id="94c10" class="tk">absxk</a>;</td></tr>
+<tr name="95" id="95">
+<td><a id="l95" class='ln'>95</a></td><td>  <a id="95c3" class="tk">real_T</a> <a id="95c10" class="tk">t</a>;</td></tr>
+<tr name="96" id="96">
+<td><a id="l96" class='ln'>96</a></td><td>  <a id="96c3" class="tk">real_T</a> <a id="96c10" class="tk">anrm</a>;</td></tr>
+<tr name="97" id="97">
+<td><a id="l97" class='ln'>97</a></td><td>  <a id="97c3" class="tk">real_T</a> <a id="97c10" class="tk">absxk_c</a>;</td></tr>
+<tr name="98" id="98">
+<td><a id="l98" class='ln'>98</a></td><td>  <a id="98c3" class="tk">real_T</a> <a id="98c10" class="tk">cfromc</a>;</td></tr>
+<tr name="99" id="99">
+<td><a id="l99" class='ln'>99</a></td><td>  <a id="99c3" class="tk">real_T</a> <a id="99c10" class="tk">ctoc</a>;</td></tr>
+<tr name="100" id="100">
+<td><a id="l100" class='ln'>100</a></td><td>  <a id="100c3" class="tk">real_T</a> <a id="100c10" class="tk">cfrom1</a>;</td></tr>
+<tr name="101" id="101">
+<td><a id="l101" class='ln'>101</a></td><td>  <a id="101c3" class="tk">real_T</a> <a id="101c10" class="tk">cto1</a>;</td></tr>
+<tr name="102" id="102">
+<td><a id="l102" class='ln'>102</a></td><td>  <a id="102c3" class="tk">real_T</a> <a id="102c10" class="tk">mul</a>;</td></tr>
+<tr name="103" id="103">
+<td><a id="l103" class='ln'>103</a></td><td>  <a id="103c3" class="tk">real_T</a> <a id="103c10" class="tk">anorm</a>;</td></tr>
+<tr name="104" id="104">
+<td><a id="l104" class='ln'>104</a></td><td>  <a id="104c3" class="tk">real_T</a> <a id="104c10" class="tk">b_atol</a>;</td></tr>
+<tr name="105" id="105">
+<td><a id="l105" class='ln'>105</a></td><td>  <a id="105c3" class="tk">real_T</a> <a id="105c10" class="tk">absxr</a>;</td></tr>
+<tr name="106" id="106">
+<td><a id="l106" class='ln'>106</a></td><td>  <a id="106c3" class="tk">real_T</a> <a id="106c10" class="tk">absxi</a>;</td></tr>
+<tr name="107" id="107">
+<td><a id="l107" class='ln'>107</a></td><td>  <a id="107c3" class="tk">real_T</a> <a id="107c10" class="tk">ar</a>;</td></tr>
+<tr name="108" id="108">
+<td><a id="l108" class='ln'>108</a></td><td>  <a id="108c3" class="tk">real_T</a> <a id="108c10" class="tk">ai</a>;</td></tr>
+<tr name="109" id="109">
+<td><a id="l109" class='ln'>109</a></td><td>  <a id="109c3" class="tk">real_T</a> <a id="109c10" class="tk">t1_re</a>;</td></tr>
+<tr name="110" id="110">
+<td><a id="l110" class='ln'>110</a></td><td>  <a id="110c3" class="tk">real_T</a> <a id="110c10" class="tk">t1_im</a>;</td></tr>
+<tr name="111" id="111">
+<td><a id="l111" class='ln'>111</a></td><td>  <a id="111c3" class="tk">real_T</a> <a id="111c10" class="tk">ad11_re</a>;</td></tr>
+<tr name="112" id="112">
+<td><a id="l112" class='ln'>112</a></td><td>  <a id="112c3" class="tk">real_T</a> <a id="112c10" class="tk">ad11_im</a>;</td></tr>
+<tr name="113" id="113">
+<td><a id="l113" class='ln'>113</a></td><td>  <a id="113c3" class="tk">real_T</a> <a id="113c10" class="tk">ad11_im_f</a>;</td></tr>
+<tr name="114" id="114">
+<td><a id="l114" class='ln'>114</a></td><td>  <a id="114c3" class="tk">real_T</a> <a id="114c10" class="tk">eshift_re</a>;</td></tr>
+<tr name="115" id="115">
+<td><a id="l115" class='ln'>115</a></td><td>  <a id="115c3" class="tk">real_T</a> <a id="115c10" class="tk">eshift_im</a>;</td></tr>
+<tr name="116" id="116">
+<td><a id="l116" class='ln'>116</a></td><td>  <a id="116c3" class="tk">real_T</a> <a id="116c10" class="tk">scale_g</a>;</td></tr>
+<tr name="117" id="117">
+<td><a id="l117" class='ln'>117</a></td><td>  <a id="117c3" class="tk">real_T</a> <a id="117c10" class="tk">g2</a>;</td></tr>
+<tr name="118" id="118">
+<td><a id="l118" class='ln'>118</a></td><td>  <a id="118c3" class="tk">real_T</a> <a id="118c10" class="tk">f2s</a>;</td></tr>
+<tr name="119" id="119">
+<td><a id="l119" class='ln'>119</a></td><td>  <a id="119c3" class="tk">real_T</a> <a id="119c10" class="tk">di</a>;</td></tr>
+<tr name="120" id="120">
+<td><a id="l120" class='ln'>120</a></td><td>  <a id="120c3" class="tk">real_T</a> <a id="120c10" class="tk">b_x</a>;</td></tr>
+<tr name="121" id="121">
+<td><a id="l121" class='ln'>121</a></td><td>  <a id="121c3" class="tk">real_T</a> <a id="121c10" class="tk">fs_re</a>;</td></tr>
+<tr name="122" id="122">
+<td><a id="l122" class='ln'>122</a></td><td>  <a id="122c3" class="tk">real_T</a> <a id="122c10" class="tk">fs_im</a>;</td></tr>
+<tr name="123" id="123">
+<td><a id="l123" class='ln'>123</a></td><td>  <a id="123c3" class="tk">real_T</a> <a id="123c10" class="tk">gs_re</a>;</td></tr>
+<tr name="124" id="124">
+<td><a id="l124" class='ln'>124</a></td><td>  <a id="124c3" class="tk">real_T</a> <a id="124c10" class="tk">gs_im</a>;</td></tr>
+<tr name="125" id="125">
+<td><a id="l125" class='ln'>125</a></td><td>  <a id="125c3" class="tk">real_T</a> <a id="125c10" class="tk">a</a>;</td></tr>
+<tr name="126" id="126">
+<td><a id="l126" class='ln'>126</a></td><td>  <a id="126c3" class="tk">real_T</a> <a id="126c10" class="tk">tst</a>;</td></tr>
+<tr name="127" id="127">
+<td><a id="l127" class='ln'>127</a></td><td>  <a id="127c3" class="tk">real_T</a> <a id="127c10" class="tk">ab</a>;</td></tr>
+<tr name="128" id="128">
+<td><a id="l128" class='ln'>128</a></td><td>  <a id="128c3" class="tk">real_T</a> <a id="128c10" class="tk">ba</a>;</td></tr>
+<tr name="129" id="129">
+<td><a id="l129" class='ln'>129</a></td><td>  <a id="129c3" class="tk">real_T</a> <a id="129c10" class="tk">aa</a>;</td></tr>
+<tr name="130" id="130">
+<td><a id="l130" class='ln'>130</a></td><td>  <a id="130c3" class="tk">real_T</a> <a id="130c10" class="tk">bb</a>;</td></tr>
+<tr name="131" id="131">
+<td><a id="l131" class='ln'>131</a></td><td>  <a id="131c3" class="tk">real_T</a> <a id="131c10" class="tk">h12</a>;</td></tr>
+<tr name="132" id="132">
+<td><a id="l132" class='ln'>132</a></td><td>  <a id="132c3" class="tk">real_T</a> <a id="132c10" class="tk">h21s</a>;</td></tr>
+<tr name="133" id="133">
+<td><a id="l133" class='ln'>133</a></td><td>  <a id="133c3" class="tk">real_T</a> <a id="133c10" class="tk">d</a>;</td></tr>
+<tr name="134" id="134">
+<td><a id="l134" class='ln'>134</a></td><td>  <a id="134c3" class="tk">real_T</a> <a id="134c10" class="tk">e</a>;</td></tr>
+<tr name="135" id="135">
+<td><a id="l135" class='ln'>135</a></td><td>  <a id="135c3" class="tk">real_T</a> <a id="135c10" class="tk">p</a>;</td></tr>
+<tr name="136" id="136">
+<td><a id="l136" class='ln'>136</a></td><td>  <a id="136c3" class="tk">real_T</a> <a id="136c10" class="tk">bcmax</a>;</td></tr>
+<tr name="137" id="137">
+<td><a id="l137" class='ln'>137</a></td><td>  <a id="137c3" class="tk">real_T</a> <a id="137c10" class="tk">bcmis</a>;</td></tr>
+<tr name="138" id="138">
+<td><a id="l138" class='ln'>138</a></td><td>  <a id="138c3" class="tk">real_T</a> <a id="138c10" class="tk">scale_g1</a>;</td></tr>
+<tr name="139" id="139">
+<td><a id="l139" class='ln'>139</a></td><td>  <a id="139c3" class="tk">real_T</a> <a id="139c10" class="tk">z</a>;</td></tr>
+<tr name="140" id="140">
+<td><a id="l140" class='ln'>140</a></td><td>  <a id="140c3" class="tk">real_T</a> <a id="140c10" class="tk">anorm_m</a>;</td></tr>
+<tr name="141" id="141">
+<td><a id="l141" class='ln'>141</a></td><td>  <a id="141c3" class="tk">real_T</a> <a id="141c10" class="tk">ascale_n</a>;</td></tr>
+<tr name="142" id="142">
+<td><a id="l142" class='ln'>142</a></td><td>  <a id="142c3" class="tk">real_T</a> <a id="142c10" class="tk">temp</a>;</td></tr>
+<tr name="143" id="143">
+<td><a id="l143" class='ln'>143</a></td><td>  <a id="143c3" class="tk">real_T</a> <a id="143c10" class="tk">acoeff</a>;</td></tr>
+<tr name="144" id="144">
+<td><a id="l144" class='ln'>144</a></td><td>  <a id="144c3" class="tk">real_T</a> <a id="144c10" class="tk">scale_p</a>;</td></tr>
+<tr name="145" id="145">
+<td><a id="l145" class='ln'>145</a></td><td>  <a id="145c3" class="tk">real_T</a> <a id="145c10" class="tk">salpha_re</a>;</td></tr>
+<tr name="146" id="146">
+<td><a id="l146" class='ln'>146</a></td><td>  <a id="146c3" class="tk">real_T</a> <a id="146c10" class="tk">salpha_im</a>;</td></tr>
+<tr name="147" id="147">
+<td><a id="l147" class='ln'>147</a></td><td>  <a id="147c3" class="tk">real_T</a> <a id="147c10" class="tk">d_re</a>;</td></tr>
+<tr name="148" id="148">
+<td><a id="l148" class='ln'>148</a></td><td>  <a id="148c3" class="tk">real_T</a> <a id="148c10" class="tk">d_im</a>;</td></tr>
+<tr name="149" id="149">
+<td><a id="l149" class='ln'>149</a></td><td>  <a id="149c3" class="tk">real_T</a> <a id="149c10" class="tk">work2_idx_2_re</a>;</td></tr>
+<tr name="150" id="150">
+<td><a id="l150" class='ln'>150</a></td><td>  <a id="150c3" class="tk">real_T</a> <a id="150c10" class="tk">b_alpha1</a>;</td></tr>
+<tr name="151" id="151">
+<td><a id="l151" class='ln'>151</a></td><td>  <a id="151c3" class="tk">real_T</a> <a id="151c10" class="tk">xnorm</a>;</td></tr>
+<tr name="152" id="152">
+<td><a id="l152" class='ln'>152</a></td><td>  <a id="152c3" class="tk">real_T</a> <a id="152c10" class="tk">temp_l</a>;</td></tr>
+<tr name="153" id="153">
+<td><a id="l153" class='ln'>153</a></td><td>  <a id="153c3" class="tk">real_T</a> <a id="153c10" class="tk">scale_j</a>;</td></tr>
+<tr name="154" id="154">
+<td><a id="l154" class='ln'>154</a></td><td>  <a id="154c3" class="tk">real_T</a> <a id="154c10" class="tk">g2_d</a>;</td></tr>
+<tr name="155" id="155">
+<td><a id="l155" class='ln'>155</a></td><td>  <a id="155c3" class="tk">real_T</a> <a id="155c10" class="tk">f2s_g</a>;</td></tr>
+<tr name="156" id="156">
+<td><a id="l156" class='ln'>156</a></td><td>  <a id="156c3" class="tk">real_T</a> <a id="156c10" class="tk">di_l</a>;</td></tr>
+<tr name="157" id="157">
+<td><a id="l157" class='ln'>157</a></td><td>  <a id="157c3" class="tk">real_T</a> <a id="157c10" class="tk">b_x_d</a>;</td></tr>
+<tr name="158" id="158">
+<td><a id="l158" class='ln'>158</a></td><td>  <a id="158c3" class="tk">real_T</a> <a id="158c10" class="tk">fs_re_d</a>;</td></tr>
+<tr name="159" id="159">
+<td><a id="l159" class='ln'>159</a></td><td>  <a id="159c3" class="tk">real_T</a> <a id="159c10" class="tk">fs_im_l</a>;</td></tr>
+<tr name="160" id="160">
+<td><a id="l160" class='ln'>160</a></td><td>  <a id="160c3" class="tk">real_T</a> <a id="160c10" class="tk">gs_re_o</a>;</td></tr>
+<tr name="161" id="161">
+<td><a id="l161" class='ln'>161</a></td><td>  <a id="161c3" class="tk">real_T</a> <a id="161c10" class="tk">scale_b</a>;</td></tr>
+<tr name="162" id="162">
+<td><a id="l162" class='ln'>162</a></td><td>  <a id="162c3" class="tk">real_T</a> <a id="162c10" class="tk">sumsq</a>;</td></tr>
+<tr name="163" id="163">
+<td><a id="l163" class='ln'>163</a></td><td>  <a id="163c3" class="tk">real_T</a> <a id="163c10" class="tk">temp1</a>;</td></tr>
+<tr name="164" id="164">
+<td><a id="l164" class='ln'>164</a></td><td>  <a id="164c3" class="tk">real_T</a> <a id="164c10" class="tk">temp2</a>;</td></tr>
+<tr name="165" id="165">
+<td><a id="l165" class='ln'>165</a></td><td>  <a id="165c3" class="tk">real_T</a> <a id="165c10" class="tk">xnorm_n</a>;</td></tr>
+<tr name="166" id="166">
+<td><a id="l166" class='ln'>166</a></td><td>  <a id="166c3" class="tk">real_T</a> <a id="166c10" class="tk">scale_bs</a>;</td></tr>
+<tr name="167" id="167">
+<td><a id="l167" class='ln'>167</a></td><td>  <a id="167c3" class="tk">real_T</a> <a id="167c10" class="tk">absxk_l</a>;</td></tr>
+<tr name="168" id="168">
+<td><a id="l168" class='ln'>168</a></td><td>  <a id="168c3" class="tk">real_T</a> <a id="168c10" class="tk">temp_h</a>;</td></tr>
+<tr name="169" id="169">
+<td><a id="l169" class='ln'>169</a></td><td>  <a id="169c3" class="tk">real_T</a> <a id="169c10" class="tk">scale_bn</a>;</td></tr>
+<tr name="170" id="170">
+<td><a id="l170" class='ln'>170</a></td><td>  <a id="170c3" class="tk">int32_T</a> <a id="170c11" class="tk">b_idx</a>;</td></tr>
+<tr name="171" id="171">
+<td><a id="l171" class='ln'>171</a></td><td>  <a id="171c3" class="tk">int32_T</a> <a id="171c11" class="tk">b_idx_d</a>;</td></tr>
+<tr name="172" id="172">
+<td><a id="l172" class='ln'>172</a></td><td>  <a id="172c3" class="tk">int32_T</a> <a id="172c11" class="tk">k</a>;</td></tr>
+<tr name="173" id="173">
+<td><a id="l173" class='ln'>173</a></td><td>  <a id="173c3" class="tk">int32_T</a> <a id="173c11" class="tk">ia</a>;</td></tr>
+<tr name="174" id="174">
+<td><a id="l174" class='ln'>174</a></td><td>  <a id="174c3" class="tk">int32_T</a> <a id="174c11" class="tk">i</a>;</td></tr>
+<tr name="175" id="175">
+<td><a id="l175" class='ln'>175</a></td><td>  <a id="175c3" class="tk">int32_T</a> <a id="175c11" class="tk">itau</a>;</td></tr>
+<tr name="176" id="176">
+<td><a id="l176" class='ln'>176</a></td><td>  <a id="176c3" class="tk">int32_T</a> <a id="176c11" class="tk">iaii</a>;</td></tr>
+<tr name="177" id="177">
+<td><a id="l177" class='ln'>177</a></td><td>  <a id="177c3" class="tk">int32_T</a> <a id="177c11" class="tk">lastv</a>;</td></tr>
+<tr name="178" id="178">
+<td><a id="l178" class='ln'>178</a></td><td>  <a id="178c3" class="tk">int32_T</a> <a id="178c11" class="tk">lastc</a>;</td></tr>
+<tr name="179" id="179">
+<td><a id="l179" class='ln'>179</a></td><td>  <a id="179c3" class="tk">int32_T</a> <a id="179c11" class="tk">coltop</a>;</td></tr>
+<tr name="180" id="180">
+<td><a id="l180" class='ln'>180</a></td><td>  <a id="180c3" class="tk">int32_T</a> <a id="180c11" class="tk">ix</a>;</td></tr>
+<tr name="181" id="181">
+<td><a id="l181" class='ln'>181</a></td><td>  <a id="181c3" class="tk">int32_T</a> <a id="181c11" class="tk">iy</a>;</td></tr>
+<tr name="182" id="182">
+<td><a id="l182" class='ln'>182</a></td><td>  <a id="182c3" class="tk">int32_T</a> <a id="182c11" class="tk">iac</a>;</td></tr>
+<tr name="183" id="183">
+<td><a id="l183" class='ln'>183</a></td><td>  <a id="183c3" class="tk">int32_T</a> <a id="183c11" class="tk">d_e</a>;</td></tr>
+<tr name="184" id="184">
+<td><a id="l184" class='ln'>184</a></td><td>  <a id="184c3" class="tk">int32_T</a> <a id="184c11" class="tk">ihi</a>;</td></tr>
+<tr name="185" id="185">
+<td><a id="l185" class='ln'>185</a></td><td>  <a id="185c3" class="tk">int32_T</a> <a id="185c11" class="tk">i_b</a>;</td></tr>
+<tr name="186" id="186">
+<td><a id="l186" class='ln'>186</a></td><td>  <a id="186c3" class="tk">int32_T</a> <a id="186c11" class="tk">j</a>;</td></tr>
+<tr name="187" id="187">
+<td><a id="l187" class='ln'>187</a></td><td>  <a id="187c3" class="tk">int32_T</a> <a id="187c11" class="tk">k_j</a>;</td></tr>
+<tr name="188" id="188">
+<td><a id="l188" class='ln'>188</a></td><td>  <a id="188c3" class="tk">int32_T</a> <a id="188c11" class="tk">ii</a>;</td></tr>
+<tr name="189" id="189">
+<td><a id="l189" class='ln'>189</a></td><td>  <a id="189c3" class="tk">int32_T</a> <a id="189c11" class="tk">nzcount</a>;</td></tr>
+<tr name="190" id="190">
+<td><a id="l190" class='ln'>190</a></td><td>  <a id="190c3" class="tk">int32_T</a> <a id="190c11" class="tk">b_jj</a>;</td></tr>
+<tr name="191" id="191">
+<td><a id="l191" class='ln'>191</a></td><td>  <a id="191c3" class="tk">int32_T</a> <a id="191c11" class="tk">in</a>;</td></tr>
+<tr name="192" id="192">
+<td><a id="l192" class='ln'>192</a></td><td>  <a id="192c3" class="tk">int32_T</a> <a id="192c11" class="tk">ia0</a>;</td></tr>
+<tr name="193" id="193">
+<td><a id="l193" class='ln'>193</a></td><td>  <a id="193c3" class="tk">int32_T</a> <a id="193c11" class="tk">b_i</a>;</td></tr>
+<tr name="194" id="194">
+<td><a id="l194" class='ln'>194</a></td><td>  <a id="194c3" class="tk">int32_T</a> <a id="194c11" class="tk">knt</a>;</td></tr>
+<tr name="195" id="195">
+<td><a id="l195" class='ln'>195</a></td><td>  <a id="195c3" class="tk">int32_T</a> <a id="195c11" class="tk">atmp_re_tmp</a>;</td></tr>
+<tr name="196" id="196">
+<td><a id="l196" class='ln'>196</a></td><td>  <a id="196c3" class="tk">int32_T</a> <a id="196c11" class="tk">j_f</a>;</td></tr>
+<tr name="197" id="197">
+<td><a id="l197" class='ln'>197</a></td><td><span class="br">}</span> <a id="197c3" class="tk">B_CoordinateTransformationCon_T</a>;</td></tr>
+<tr name="198" id="198">
+<td><a id="l198" class='ln'>198</a></td><td></td></tr>
+<tr name="199" id="199">
+<td><a id="l199" class='ln'>199</a></td><td><span class="ct">// Block states (default storage) for system '<a class="ct blk" blk_line="199">&lt;S4&gt;/Coordinate Transformation Conversion2</a>' </span></td></tr>
+<tr name="200" id="200">
+<td><a id="l200" class='ln'>200</a></td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="201" id="201">
+<td><a id="l201" class='ln'>201</a></td><td>  <a id="201c3" class="tk">robotics_slcore_internal_bloc_T</a> <a id="201c35" class="tk">obj</a>;</td></tr>
+<tr name="202" id="202">
+<td><a id="l202" class='ln'>202</a></td><td>                                <span class="ct">// '<a class="ct blk" blk_line="202">&lt;S4&gt;/Coordinate Transformation Conversion2</a>'</span></td></tr>
+<tr name="203" id="203">
+<td><a id="l203" class='ln'>203</a></td><td>  <a id="203c3" class="tk">boolean_T</a> <a id="203c13" class="tk">objisempty</a>;         <span class="ct">// '<a class="ct blk" blk_line="203">&lt;S4&gt;/Coordinate Transformation Conversion2</a>'</span></td></tr>
+<tr name="204" id="204">
+<td><a id="l204" class='ln'>204</a></td><td><span class="br">}</span> <a id="204c3" class="tk">DW_CoordinateTransformationCo_T</a>;</td></tr>
+<tr name="205" id="205">
+<td><a id="l205" class='ln'>205</a></td><td></td></tr>
+<tr name="206" id="206">
+<td><a id="l206" class='ln'>206</a></td><td><span class="ct">// Block signals (default storage)</span></td></tr>
+<tr name="207" id="207">
+<td><a id="l207" class='ln'>207</a></td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="208" id="208">
+<td><a id="l208" class='ln'>208</a></td><td>  <a id="208c3" class="tk">real_T</a> <a id="208c10" class="tk">Sinv_sat</a>[36];</td></tr>
+<tr name="209" id="209">
+<td><a id="l209" class='ln'>209</a></td><td>  <a id="209c3" class="tk">real_T</a> <a id="209c10" class="tk">b_V</a>[36];</td></tr>
+<tr name="210" id="210">
+<td><a id="l210" class='ln'>210</a></td><td>  <a id="210c3" class="tk">real_T</a> <a id="210c10" class="tk">R</a>[36];</td></tr>
+<tr name="211" id="211">
+<td><a id="l211" class='ln'>211</a></td><td>  <a id="211c3" class="tk">real_T</a> <a id="211c10" class="tk">K</a>[36];                        <span class="ct">// '<a class="ct blk" blk_line="211">&lt;Root&gt;/K</a>'</span></td></tr>
+<tr name="212" id="212">
+<td><a id="l212" class='ln'>212</a></td><td>  <a id="212c3" class="tk">real_T</a> <a id="212c10" class="tk">ProductofElements1</a>[36];       <span class="ct">// '<a class="ct blk" blk_line="212">&lt;Root&gt;/Product of Elements1</a>'</span></td></tr>
+<tr name="213" id="213">
+<td><a id="l213" class='ln'>213</a></td><td>  <a id="213c3" class="tk">real_T</a> <a id="213c10" class="tk">U</a>[36];                        <span class="ct">// '<a class="ct blk" blk_line="213">&lt;Root&gt;/M_PINV1</a>'</span></td></tr>
+<tr name="214" id="214">
+<td><a id="l214" class='ln'>214</a></td><td>  <a id="214c3" class="tk">real_T</a> <a id="214c10" class="tk">D_e</a>[36];                      <span class="ct">// '<a class="ct blk" blk_line="214">&lt;Root&gt;/D</a>'</span></td></tr>
+<tr name="215" id="215">
+<td><a id="l215" class='ln'>215</a></td><td>  <a id="215c3" class="tk">real_T</a> <a id="215c10" class="tk">b_A</a>[36];</td></tr>
+<tr name="216" id="216">
+<td><a id="l216" class='ln'>216</a></td><td>  <a id="216c3" class="tk">real_T</a> <a id="216c10" class="tk">Vf</a>[36];</td></tr>
+<tr name="217" id="217">
+<td><a id="l217" class='ln'>217</a></td><td>  <a id="217c3" class="tk">real_T</a> <a id="217c10" class="tk">b_A_m</a>[36];</td></tr>
+<tr name="218" id="218">
+<td><a id="l218" class='ln'>218</a></td><td>  <a id="218c3" class="tk">real_T</a> <a id="218c10" class="tk">Vf_c</a>[36];</td></tr>
+<tr name="219" id="219">
+<td><a id="l219" class='ln'>219</a></td><td>  <a id="219c3" class="tk">real_T</a> <a id="219c10" class="tk">b_A_k</a>[36];</td></tr>
+<tr name="220" id="220">
+<td><a id="l220" class='ln'>220</a></td><td>  <a id="220c3" class="tk">real_T</a> <a id="220c10" class="tk">b_A_c</a>[36];</td></tr>
+<tr name="221" id="221">
+<td><a id="l221" class='ln'>221</a></td><td>  <a id="221c3" class="tk">real_T</a> <a id="221c10" class="tk">b_A_b</a>[36];</td></tr>
+<tr name="222" id="222">
+<td><a id="l222" class='ln'>222</a></td><td>  <a id="222c3" class="tk">real_T</a> <a id="222c10" class="tk">getJacobian_o1</a>[30];           <span class="ct">// '<a class="ct blk" blk_line="222">&lt;Root&gt;/getJacobian</a>'</span></td></tr>
+<tr name="223" id="223">
+<td><a id="l223" class='ln'>223</a></td><td>  <a id="223c3" class="tk">real_T</a> <a id="223c10" class="tk">rtb_MultiportSwitch_tmp_tmp</a>[30];</td></tr>
+<tr name="224" id="224">
+<td><a id="l224" class='ln'>224</a></td><td>  <a id="224c3" class="tk">real_T</a> <a id="224c10" class="tk">dv</a>[30];</td></tr>
+<tr name="225" id="225">
+<td><a id="l225" class='ln'>225</a></td><td>  <a id="225c3" class="tk">real_T</a> <a id="225c10" class="tk">A</a>[25];</td></tr>
+<tr name="226" id="226">
+<td><a id="l226" class='ln'>226</a></td><td>  <a id="226c3" class="tk">real_T</a> <a id="226c10" class="tk">MathFunction_b</a>[16];           <span class="ct">// '<a class="ct blk" blk_line="226">&lt;S5&gt;/Math Function</a>'</span></td></tr>
+<tr name="227" id="227">
+<td><a id="l227" class='ln'>227</a></td><td>  <a id="227c3" class="tk">real_T</a> <a id="227c10" class="tk">MathFunction</a>[16];             <span class="ct">// '<a class="ct blk" blk_line="227">&lt;S10&gt;/Math Function</a>'</span></td></tr>
+<tr name="228" id="228">
+<td><a id="l228" class='ln'>228</a></td><td>  <a id="228c3" class="tk">real_T</a> <a id="228c10" class="tk">s</a>[6];                         <span class="ct">// '<a class="ct blk" blk_line="228">&lt;Root&gt;/M_PINV1</a>'</span></td></tr>
+<tr name="229" id="229">
+<td><a id="l229" class='ln'>229</a></td><td>  <a id="229c3" class="tk">real_T</a> <a id="229c10" class="tk">dv1</a>[6];</td></tr>
+<tr name="230" id="230">
+<td><a id="l230" class='ln'>230</a></td><td>  <a id="230c3" class="tk">real_T</a> <a id="230c10" class="tk">rtb_D_e_p</a>[6];</td></tr>
+<tr name="231" id="231">
+<td><a id="l231" class='ln'>231</a></td><td>  <a id="231c3" class="tk">real_T</a> <a id="231c10" class="tk">rtb_K_c</a>[6];</td></tr>
+<tr name="232" id="232">
+<td><a id="l232" class='ln'>232</a></td><td>  <a id="232c3" class="tk">real_T</a> <a id="232c10" class="tk">b_s</a>[6];</td></tr>
+<tr name="233" id="233">
+<td><a id="l233" class='ln'>233</a></td><td>  <a id="233c3" class="tk">real_T</a> <a id="233c10" class="tk">e</a>[6];</td></tr>
+<tr name="234" id="234">
+<td><a id="l234" class='ln'>234</a></td><td>  <a id="234c3" class="tk">real_T</a> <a id="234c10" class="tk">work</a>[6];</td></tr>
+<tr name="235" id="235">
+<td><a id="l235" class='ln'>235</a></td><td>  <a id="235c3" class="tk">real_T</a> <a id="235c10" class="tk">b_s_f</a>[6];</td></tr>
+<tr name="236" id="236">
+<td><a id="l236" class='ln'>236</a></td><td>  <a id="236c3" class="tk">real_T</a> <a id="236c10" class="tk">e_g</a>[6];</td></tr>
+<tr name="237" id="237">
+<td><a id="l237" class='ln'>237</a></td><td>  <a id="237c3" class="tk">real_T</a> <a id="237c10" class="tk">work_g</a>[6];</td></tr>
+<tr name="238" id="238">
+<td><a id="l238" class='ln'>238</a></td><td>  <a id="238c3" class="tk">real_T</a> <a id="238c10" class="tk">s_m</a>[6];</td></tr>
+<tr name="239" id="239">
+<td><a id="l239" class='ln'>239</a></td><td>  <a id="239c3" class="tk">real_T</a> <a id="239c10" class="tk">b_s_n</a>[6];</td></tr>
+<tr name="240" id="240">
+<td><a id="l240" class='ln'>240</a></td><td>  <a id="240c3" class="tk">real_T</a> <a id="240c10" class="tk">e_p</a>[6];</td></tr>
+<tr name="241" id="241">
+<td><a id="l241" class='ln'>241</a></td><td>  <a id="241c3" class="tk">real_T</a> <a id="241c10" class="tk">work_l</a>[6];</td></tr>
+<tr name="242" id="242">
+<td><a id="l242" class='ln'>242</a></td><td>  <a id="242c3" class="tk">real_T</a> <a id="242c10" class="tk">b_s_j</a>[6];</td></tr>
+<tr name="243" id="243">
+<td><a id="l243" class='ln'>243</a></td><td>  <a id="243c3" class="tk">real_T</a> <a id="243c10" class="tk">e_d</a>[6];</td></tr>
+<tr name="244" id="244">
+<td><a id="l244" class='ln'>244</a></td><td>  <a id="244c3" class="tk">real_T</a> <a id="244c10" class="tk">work_gu</a>[6];</td></tr>
+<tr name="245" id="245">
+<td><a id="l245" class='ln'>245</a></td><td>  <a id="245c3" class="tk">real_T</a> <a id="245c10" class="tk">b_s_l</a>[6];</td></tr>
+<tr name="246" id="246">
+<td><a id="l246" class='ln'>246</a></td><td>  <a id="246c3" class="tk">real_T</a> <a id="246c10" class="tk">e_dh</a>[6];</td></tr>
+<tr name="247" id="247">
+<td><a id="l247" class='ln'>247</a></td><td>  <a id="247c3" class="tk">real_T</a> <a id="247c10" class="tk">work_d</a>[6];</td></tr>
+<tr name="248" id="248">
+<td><a id="l248" class='ln'>248</a></td><td>  <a id="248c3" class="tk">real_T</a> <a id="248c10" class="tk">getJointPosition</a>[5];          <span class="ct">// '<a class="ct blk" blk_line="248">&lt;Root&gt;/getJointPosition</a>'</span></td></tr>
+<tr name="249" id="249">
+<td><a id="l249" class='ln'>249</a></td><td>  <a id="249c3" class="tk">real_T</a> <a id="249c10" class="tk">getJacobian_o2</a>[3];            <span class="ct">// '<a class="ct blk" blk_line="249">&lt;Root&gt;/getJacobian</a>'</span></td></tr>
+<tr name="250" id="250">
+<td><a id="l250" class='ln'>250</a></td><td>  <a id="250c3" class="tk">real_T</a> <a id="250c10" class="tk">getInertiaInverse</a>[25];        <span class="ct">// '<a class="ct blk" blk_line="250">&lt;Root&gt;/getInertiaInverse</a>'</span></td></tr>
+<tr name="251" id="251">
+<td><a id="l251" class='ln'>251</a></td><td>  <a id="251c3" class="tk">real_T</a> <a id="251c10" class="tk">MatrixConcatenate</a>[16];        <span class="ct">// '<a class="ct blk" blk_line="251">&lt;S10&gt;/Matrix Concatenate</a>'</span></td></tr>
+<tr name="252" id="252">
+<td><a id="l252" class='ln'>252</a></td><td>  <a id="252c3" class="tk">real_T</a> <a id="252c10" class="tk">MatrixConcatenate_k</a>[16];      <span class="ct">// '<a class="ct blk" blk_line="252">&lt;S5&gt;/Matrix Concatenate</a>'</span></td></tr>
+<tr name="253" id="253">
+<td><a id="l253" class='ln'>253</a></td><td>  <a id="253c3" class="tk">real_T</a> <a id="253c10" class="tk">getJointVelocity</a>[5];          <span class="ct">// '<a class="ct blk" blk_line="253">&lt;Root&gt;/getJointVelocity</a>'</span></td></tr>
+<tr name="254" id="254">
+<td><a id="l254" class='ln'>254</a></td><td>  <a id="254c3" class="tk">real_T</a> <a id="254c10" class="tk">computeGravityCompensation</a>[5];<span class="ct">// '<a class="ct blk" blk_line="254">&lt;Root&gt;/computeGravityCompensation</a>'</span></td></tr>
+<tr name="255" id="255">
+<td><a id="l255" class='ln'>255</a></td><td>  <a id="255c3" class="tk">real_T</a> <a id="255c10" class="tk">Sum1</a>[5];                      <span class="ct">// '<a class="ct blk" blk_line="255">&lt;Root&gt;/Sum1</a>'</span></td></tr>
+<tr name="256" id="256">
+<td><a id="l256" class='ln'>256</a></td><td>  <a id="256c3" class="tk">real_T</a> <a id="256c10" class="tk">getStiffness</a>[5];              <span class="ct">// '<a class="ct blk" blk_line="256">&lt;Root&gt;/getStiffness</a>'</span></td></tr>
+<tr name="257" id="257">
+<td><a id="l257" class='ln'>257</a></td><td>  <a id="257c3" class="tk">real_T</a> <a id="257c10" class="tk">Gain</a>[5];                      <span class="ct">// '<a class="ct blk" blk_line="257">&lt;Root&gt;/Gain</a>'</span></td></tr>
+<tr name="258" id="258">
+<td><a id="l258" class='ln'>258</a></td><td>  <a id="258c3" class="tk">real_T</a> <a id="258c10" class="tk">getDamping</a>[5];                <span class="ct">// '<a class="ct blk" blk_line="258">&lt;Root&gt;/getDamping</a>'</span></td></tr>
+<tr name="259" id="259">
+<td><a id="l259" class='ln'>259</a></td><td>  <a id="259c3" class="tk">real_T</a> <a id="259c10" class="tk">Gain1</a>[5];                     <span class="ct">// '<a class="ct blk" blk_line="259">&lt;Root&gt;/Gain1</a>'</span></td></tr>
+<tr name="260" id="260">
+<td><a id="l260" class='ln'>260</a></td><td>  <a id="260c3" class="tk">real_T</a> <a id="260c10" class="tk">getInertiaMatrix</a>[25];         <span class="ct">// '<a class="ct blk" blk_line="260">&lt;Root&gt;/getInertiaMatrix</a>'</span></td></tr>
+<tr name="261" id="261">
+<td><a id="l261" class='ln'>261</a></td><td>  <a id="261c3" class="tk">real_T</a> <a id="261c10" class="tk">absx</a>;</td></tr>
+<tr name="262" id="262">
+<td><a id="l262" class='ln'>262</a></td><td>  <a id="262c3" class="tk">real_T</a> <a id="262c10" class="tk">quat_ref_idx_3</a>;</td></tr>
+<tr name="263" id="263">
+<td><a id="l263" class='ln'>263</a></td><td>  <a id="263c3" class="tk">real_T</a> <a id="263c10" class="tk">quat_ref_idx_2</a>;</td></tr>
+<tr name="264" id="264">
+<td><a id="l264" class='ln'>264</a></td><td>  <a id="264c3" class="tk">real_T</a> <a id="264c10" class="tk">quat_ref_idx_1</a>;</td></tr>
+<tr name="265" id="265">
+<td><a id="l265" class='ln'>265</a></td><td>  <a id="265c3" class="tk">real_T</a> <a id="265c10" class="tk">nrm</a>;</td></tr>
+<tr name="266" id="266">
+<td><a id="l266" class='ln'>266</a></td><td>  <a id="266c3" class="tk">real_T</a> <a id="266c10" class="tk">rt</a>;</td></tr>
+<tr name="267" id="267">
+<td><a id="l267" class='ln'>267</a></td><td>  <a id="267c3" class="tk">real_T</a> <a id="267c10" class="tk">r</a>;</td></tr>
+<tr name="268" id="268">
+<td><a id="l268" class='ln'>268</a></td><td>  <a id="268c3" class="tk">real_T</a> <a id="268c10" class="tk">smm1</a>;</td></tr>
+<tr name="269" id="269">
+<td><a id="l269" class='ln'>269</a></td><td>  <a id="269c3" class="tk">real_T</a> <a id="269c10" class="tk">emm1</a>;</td></tr>
+<tr name="270" id="270">
+<td><a id="l270" class='ln'>270</a></td><td>  <a id="270c3" class="tk">real_T</a> <a id="270c10" class="tk">sqds</a>;</td></tr>
+<tr name="271" id="271">
+<td><a id="l271" class='ln'>271</a></td><td>  <a id="271c3" class="tk">real_T</a> <a id="271c10" class="tk">shift</a>;</td></tr>
+<tr name="272" id="272">
+<td><a id="l272" class='ln'>272</a></td><td>  <a id="272c3" class="tk">real_T</a> <a id="272c10" class="tk">roe</a>;</td></tr>
+<tr name="273" id="273">
+<td><a id="l273" class='ln'>273</a></td><td>  <a id="273c3" class="tk">real_T</a> <a id="273c10" class="tk">absa</a>;</td></tr>
+<tr name="274" id="274">
+<td><a id="l274" class='ln'>274</a></td><td>  <a id="274c3" class="tk">real_T</a> <a id="274c10" class="tk">absb</a>;</td></tr>
+<tr name="275" id="275">
+<td><a id="l275" class='ln'>275</a></td><td>  <a id="275c3" class="tk">real_T</a> <a id="275c10" class="tk">scale</a>;</td></tr>
+<tr name="276" id="276">
+<td><a id="l276" class='ln'>276</a></td><td>  <a id="276c3" class="tk">real_T</a> <a id="276c10" class="tk">ads</a>;</td></tr>
+<tr name="277" id="277">
+<td><a id="l277" class='ln'>277</a></td><td>  <a id="277c3" class="tk">real_T</a> <a id="277c10" class="tk">bds</a>;</td></tr>
+<tr name="278" id="278">
+<td><a id="l278" class='ln'>278</a></td><td>  <a id="278c3" class="tk">real_T</a> <a id="278c10" class="tk">nrm_l</a>;</td></tr>
+<tr name="279" id="279">
+<td><a id="l279" class='ln'>279</a></td><td>  <a id="279c3" class="tk">real_T</a> <a id="279c10" class="tk">rt_o</a>;</td></tr>
+<tr name="280" id="280">
+<td><a id="l280" class='ln'>280</a></td><td>  <a id="280c3" class="tk">real_T</a> <a id="280c10" class="tk">r_b</a>;</td></tr>
+<tr name="281" id="281">
+<td><a id="l281" class='ln'>281</a></td><td>  <a id="281c3" class="tk">real_T</a> <a id="281c10" class="tk">smm1_n</a>;</td></tr>
+<tr name="282" id="282">
+<td><a id="l282" class='ln'>282</a></td><td>  <a id="282c3" class="tk">real_T</a> <a id="282c10" class="tk">emm1_b</a>;</td></tr>
+<tr name="283" id="283">
+<td><a id="l283" class='ln'>283</a></td><td>  <a id="283c3" class="tk">real_T</a> <a id="283c10" class="tk">sqds_l</a>;</td></tr>
+<tr name="284" id="284">
+<td><a id="l284" class='ln'>284</a></td><td>  <a id="284c3" class="tk">real_T</a> <a id="284c10" class="tk">nrm_h</a>;</td></tr>
+<tr name="285" id="285">
+<td><a id="l285" class='ln'>285</a></td><td>  <a id="285c3" class="tk">real_T</a> <a id="285c10" class="tk">rt_b</a>;</td></tr>
+<tr name="286" id="286">
+<td><a id="l286" class='ln'>286</a></td><td>  <a id="286c3" class="tk">real_T</a> <a id="286c10" class="tk">r_d</a>;</td></tr>
+<tr name="287" id="287">
+<td><a id="l287" class='ln'>287</a></td><td>  <a id="287c3" class="tk">real_T</a> <a id="287c10" class="tk">smm1_e</a>;</td></tr>
+<tr name="288" id="288">
+<td><a id="l288" class='ln'>288</a></td><td>  <a id="288c3" class="tk">real_T</a> <a id="288c10" class="tk">emm1_bj</a>;</td></tr>
+<tr name="289" id="289">
+<td><a id="l289" class='ln'>289</a></td><td>  <a id="289c3" class="tk">real_T</a> <a id="289c10" class="tk">sqds_j</a>;</td></tr>
+<tr name="290" id="290">
+<td><a id="l290" class='ln'>290</a></td><td>  <a id="290c3" class="tk">real_T</a> <a id="290c10" class="tk">shift_f</a>;</td></tr>
+<tr name="291" id="291">
+<td><a id="l291" class='ln'>291</a></td><td>  <a id="291c3" class="tk">real_T</a> <a id="291c10" class="tk">scale_a</a>;</td></tr>
+<tr name="292" id="292">
+<td><a id="l292" class='ln'>292</a></td><td>  <a id="292c3" class="tk">real_T</a> <a id="292c10" class="tk">absxk</a>;</td></tr>
+<tr name="293" id="293">
+<td><a id="l293" class='ln'>293</a></td><td>  <a id="293c3" class="tk">real_T</a> <a id="293c10" class="tk">t</a>;</td></tr>
+<tr name="294" id="294">
+<td><a id="l294" class='ln'>294</a></td><td>  <a id="294c3" class="tk">real_T</a> <a id="294c10" class="tk">nrm_j</a>;</td></tr>
+<tr name="295" id="295">
+<td><a id="l295" class='ln'>295</a></td><td>  <a id="295c3" class="tk">real_T</a> <a id="295c10" class="tk">rt_j</a>;</td></tr>
+<tr name="296" id="296">
+<td><a id="l296" class='ln'>296</a></td><td>  <a id="296c3" class="tk">real_T</a> <a id="296c10" class="tk">r_o</a>;</td></tr>
+<tr name="297" id="297">
+<td><a id="l297" class='ln'>297</a></td><td>  <a id="297c3" class="tk">real_T</a> <a id="297c10" class="tk">smm1_ny</a>;</td></tr>
+<tr name="298" id="298">
+<td><a id="l298" class='ln'>298</a></td><td>  <a id="298c3" class="tk">real_T</a> <a id="298c10" class="tk">emm1_i</a>;</td></tr>
+<tr name="299" id="299">
+<td><a id="l299" class='ln'>299</a></td><td>  <a id="299c3" class="tk">real_T</a> <a id="299c10" class="tk">sqds_o</a>;</td></tr>
+<tr name="300" id="300">
+<td><a id="l300" class='ln'>300</a></td><td>  <a id="300c3" class="tk">real_T</a> <a id="300c10" class="tk">nrm_n</a>;</td></tr>
+<tr name="301" id="301">
+<td><a id="l301" class='ln'>301</a></td><td>  <a id="301c3" class="tk">real_T</a> <a id="301c10" class="tk">rt_m</a>;</td></tr>
+<tr name="302" id="302">
+<td><a id="l302" class='ln'>302</a></td><td>  <a id="302c3" class="tk">real_T</a> <a id="302c10" class="tk">r_c</a>;</td></tr>
+<tr name="303" id="303">
+<td><a id="l303" class='ln'>303</a></td><td>  <a id="303c3" class="tk">real_T</a> <a id="303c10" class="tk">smm1_m</a>;</td></tr>
+<tr name="304" id="304">
+<td><a id="l304" class='ln'>304</a></td><td>  <a id="304c3" class="tk">real_T</a> <a id="304c10" class="tk">emm1_m</a>;</td></tr>
+<tr name="305" id="305">
+<td><a id="l305" class='ln'>305</a></td><td>  <a id="305c3" class="tk">real_T</a> <a id="305c10" class="tk">sqds_ja</a>;</td></tr>
+<tr name="306" id="306">
+<td><a id="l306" class='ln'>306</a></td><td>  <a id="306c3" class="tk">real_T</a> <a id="306c10" class="tk">scale_h</a>;</td></tr>
+<tr name="307" id="307">
+<td><a id="l307" class='ln'>307</a></td><td>  <a id="307c3" class="tk">real_T</a> <a id="307c10" class="tk">absxk_c</a>;</td></tr>
+<tr name="308" id="308">
+<td><a id="l308" class='ln'>308</a></td><td>  <a id="308c3" class="tk">real_T</a> <a id="308c10" class="tk">t_c</a>;</td></tr>
+<tr name="309" id="309">
+<td><a id="l309" class='ln'>309</a></td><td>  <a id="309c3" class="tk">real_T</a> <a id="309c10" class="tk">temp</a>;</td></tr>
+<tr name="310" id="310">
+<td><a id="l310" class='ln'>310</a></td><td>  <a id="310c3" class="tk">real_T</a> <a id="310c10" class="tk">temp_p</a>;</td></tr>
+<tr name="311" id="311">
+<td><a id="l311" class='ln'>311</a></td><td>  <a id="311c3" class="tk">int32_T</a> <a id="311c11" class="tk">vcol</a>;</td></tr>
+<tr name="312" id="312">
+<td><a id="l312" class='ln'>312</a></td><td>  <a id="312c3" class="tk">int32_T</a> <a id="312c11" class="tk">b_j</a>;</td></tr>
+<tr name="313" id="313">
+<td><a id="l313" class='ln'>313</a></td><td>  <a id="313c3" class="tk">int32_T</a> <a id="313c11" class="tk">ar</a>;</td></tr>
+<tr name="314" id="314">
+<td><a id="l314" class='ln'>314</a></td><td>  <a id="314c3" class="tk">int32_T</a> <a id="314c11" class="tk">ia</a>;</td></tr>
+<tr name="315" id="315">
+<td><a id="l315" class='ln'>315</a></td><td>  <a id="315c3" class="tk">int32_T</a> <a id="315c11" class="tk">ib</a>;</td></tr>
+<tr name="316" id="316">
+<td><a id="l316" class='ln'>316</a></td><td>  <a id="316c3" class="tk">int32_T</a> <a id="316c11" class="tk">b_ic</a>;</td></tr>
+<tr name="317" id="317">
+<td><a id="l317" class='ln'>317</a></td><td>  <a id="317c3" class="tk">int32_T</a> <a id="317c11" class="tk">i</a>;</td></tr>
+<tr name="318" id="318">
+<td><a id="l318" class='ln'>318</a></td><td>  <a id="318c3" class="tk">int32_T</a> <a id="318c11" class="tk">rtb_ProductofElements1_tmp</a>;</td></tr>
+<tr name="319" id="319">
+<td><a id="l319" class='ln'>319</a></td><td>  <a id="319c3" class="tk">int32_T</a> <a id="319c11" class="tk">qq</a>;</td></tr>
+<tr name="320" id="320">
+<td><a id="l320" class='ln'>320</a></td><td>  <a id="320c3" class="tk">int32_T</a> <a id="320c11" class="tk">qjj</a>;</td></tr>
+<tr name="321" id="321">
+<td><a id="l321" class='ln'>321</a></td><td>  <a id="321c3" class="tk">int32_T</a> <a id="321c11" class="tk">qp1jj</a>;</td></tr>
+<tr name="322" id="322">
+<td><a id="l322" class='ln'>322</a></td><td>  <a id="322c3" class="tk">int32_T</a> <a id="322c11" class="tk">qp1q</a>;</td></tr>
+<tr name="323" id="323">
+<td><a id="l323" class='ln'>323</a></td><td>  <a id="323c3" class="tk">int32_T</a> <a id="323c11" class="tk">i_p</a>;</td></tr>
+<tr name="324" id="324">
+<td><a id="l324" class='ln'>324</a></td><td>  <a id="324c3" class="tk">int32_T</a> <a id="324c11" class="tk">i_a</a>;</td></tr>
+<tr name="325" id="325">
+<td><a id="l325" class='ln'>325</a></td><td>  <a id="325c3" class="tk">int32_T</a> <a id="325c11" class="tk">qq_e</a>;</td></tr>
+<tr name="326" id="326">
+<td><a id="l326" class='ln'>326</a></td><td>  <a id="326c3" class="tk">int32_T</a> <a id="326c11" class="tk">qjj_a</a>;</td></tr>
+<tr name="327" id="327">
+<td><a id="l327" class='ln'>327</a></td><td>  <a id="327c3" class="tk">int32_T</a> <a id="327c11" class="tk">qp1jj_a</a>;</td></tr>
+<tr name="328" id="328">
+<td><a id="l328" class='ln'>328</a></td><td>  <a id="328c3" class="tk">int32_T</a> <a id="328c11" class="tk">qp1q_i</a>;</td></tr>
+<tr name="329" id="329">
+<td><a id="l329" class='ln'>329</a></td><td>  <a id="329c3" class="tk">int32_T</a> <a id="329c11" class="tk">i_l</a>;</td></tr>
+<tr name="330" id="330">
+<td><a id="l330" class='ln'>330</a></td><td>  <a id="330c3" class="tk">int32_T</a> <a id="330c11" class="tk">kend</a>;</td></tr>
+<tr name="331" id="331">
+<td><a id="l331" class='ln'>331</a></td><td>  <a id="331c3" class="tk">int32_T</a> <a id="331c11" class="tk">k</a>;</td></tr>
+<tr name="332" id="332">
+<td><a id="l332" class='ln'>332</a></td><td>  <a id="332c3" class="tk">int32_T</a> <a id="332c11" class="tk">kend_o</a>;</td></tr>
+<tr name="333" id="333">
+<td><a id="l333" class='ln'>333</a></td><td>  <a id="333c3" class="tk">int32_T</a> <a id="333c11" class="tk">k_o</a>;</td></tr>
+<tr name="334" id="334">
+<td><a id="l334" class='ln'>334</a></td><td>  <a id="334c3" class="tk">int32_T</a> <a id="334c11" class="tk">ix</a>;</td></tr>
+<tr name="335" id="335">
+<td><a id="l335" class='ln'>335</a></td><td>  <a id="335c3" class="tk">int32_T</a> <a id="335c11" class="tk">iy</a>;</td></tr>
+<tr name="336" id="336">
+<td><a id="l336" class='ln'>336</a></td><td>  <a id="336c3" class="tk">int32_T</a> <a id="336c11" class="tk">k_i</a>;</td></tr>
+<tr name="337" id="337">
+<td><a id="l337" class='ln'>337</a></td><td>  <a id="337c3" class="tk">int32_T</a> <a id="337c11" class="tk">ix_f</a>;</td></tr>
+<tr name="338" id="338">
+<td><a id="l338" class='ln'>338</a></td><td>  <a id="338c3" class="tk">int32_T</a> <a id="338c11" class="tk">iy_i</a>;</td></tr>
+<tr name="339" id="339">
+<td><a id="l339" class='ln'>339</a></td><td>  <a id="339c3" class="tk">int32_T</a> <a id="339c11" class="tk">k_f</a>;</td></tr>
+<tr name="340" id="340">
+<td><a id="l340" class='ln'>340</a></td><td>  <a id="340c3" class="tk">int32_T</a> <a id="340c11" class="tk">ix_g</a>;</td></tr>
+<tr name="341" id="341">
+<td><a id="l341" class='ln'>341</a></td><td>  <a id="341c3" class="tk">int32_T</a> <a id="341c11" class="tk">iy_c</a>;</td></tr>
+<tr name="342" id="342">
+<td><a id="l342" class='ln'>342</a></td><td>  <a id="342c3" class="tk">int32_T</a> <a id="342c11" class="tk">k_o3</a>;</td></tr>
+<tr name="343" id="343">
+<td><a id="l343" class='ln'>343</a></td><td>  <a id="343c3" class="tk">int32_T</a> <a id="343c11" class="tk">ix_l</a>;</td></tr>
+<tr name="344" id="344">
+<td><a id="l344" class='ln'>344</a></td><td>  <a id="344c3" class="tk">int32_T</a> <a id="344c11" class="tk">iy_m</a>;</td></tr>
+<tr name="345" id="345">
+<td><a id="l345" class='ln'>345</a></td><td>  <a id="345c3" class="tk">int32_T</a> <a id="345c11" class="tk">k_m</a>;</td></tr>
+<tr name="346" id="346">
+<td><a id="l346" class='ln'>346</a></td><td>  <a id="346c3" class="tk">int32_T</a> <a id="346c11" class="tk">ix_c</a>;</td></tr>
+<tr name="347" id="347">
+<td><a id="l347" class='ln'>347</a></td><td>  <a id="347c3" class="tk">int32_T</a> <a id="347c11" class="tk">iy_f</a>;</td></tr>
+<tr name="348" id="348">
+<td><a id="l348" class='ln'>348</a></td><td>  <a id="348c3" class="tk">int32_T</a> <a id="348c11" class="tk">k_p</a>;</td></tr>
+<tr name="349" id="349">
+<td><a id="l349" class='ln'>349</a></td><td>  <a id="349c3" class="tk">int32_T</a> <a id="349c11" class="tk">ix_e</a>;</td></tr>
+<tr name="350" id="350">
+<td><a id="l350" class='ln'>350</a></td><td>  <a id="350c3" class="tk">int32_T</a> <a id="350c11" class="tk">iy_o</a>;</td></tr>
+<tr name="351" id="351">
+<td><a id="l351" class='ln'>351</a></td><td>  <a id="351c3" class="tk">int32_T</a> <a id="351c11" class="tk">k_h</a>;</td></tr>
+<tr name="352" id="352">
+<td><a id="l352" class='ln'>352</a></td><td>  <a id="352c3" class="tk">int32_T</a> <a id="352c11" class="tk">k_l</a>;</td></tr>
+<tr name="353" id="353">
+<td><a id="l353" class='ln'>353</a></td><td>  <a id="353c3" class="tk">int32_T</a> <a id="353c11" class="tk">k_h2</a>;</td></tr>
+<tr name="354" id="354">
+<td><a id="l354" class='ln'>354</a></td><td>  <a id="354c3" class="tk">boolean_T</a> <a id="354c13" class="tk">apply_transform</a>;</td></tr>
+<tr name="355" id="355">
+<td><a id="l355" class='ln'>355</a></td><td>  <a id="355c3" class="tk">boolean_T</a> <a id="355c13" class="tk">p</a>;</td></tr>
+<tr name="356" id="356">
+<td><a id="l356" class='ln'>356</a></td><td>  <a id="356c3" class="tk">boolean_T</a> <a id="356c13" class="tk">apply_transform_m</a>;</td></tr>
+<tr name="357" id="357">
+<td><a id="l357" class='ln'>357</a></td><td>  <a id="357c3" class="tk">boolean_T</a> <a id="357c13" class="tk">b_p</a>;</td></tr>
+<tr name="358" id="358">
+<td><a id="l358" class='ln'>358</a></td><td>  <a id="358c3" class="tk">B_CoordinateTransformationCon_T</a> <a id="358c35" class="tk">CoordinateTransformationConv_pn</a>;</td></tr>
+<tr name="359" id="359">
+<td><a id="l359" class='ln'>359</a></td><td>                                <span class="ct">// '<a class="ct blk" blk_line="359">&lt;S4&gt;/Coordinate Transformation Conversion2</a>'</span></td></tr>
+<tr name="360" id="360">
+<td><a id="l360" class='ln'>360</a></td><td>  <a id="360c3" class="tk">B_CoordinateTransformationCon_T</a> <a id="360c35" class="tk">CoordinateTransformationConve_p</a>;</td></tr>
+<tr name="361" id="361">
+<td><a id="l361" class='ln'>361</a></td><td>                                <span class="ct">// '<a class="ct blk" blk_line="361">&lt;S4&gt;/Coordinate Transformation Conversion2</a>'</span></td></tr>
+<tr name="362" id="362">
+<td><a id="l362" class='ln'>362</a></td><td><span class="br">}</span> <a id="362c3" class="tk">B_CartesianImpedance_Task_T</a>;</td></tr>
+<tr name="363" id="363">
+<td><a id="l363" class='ln'>363</a></td><td></td></tr>
+<tr name="364" id="364">
+<td><a id="l364" class='ln'>364</a></td><td><span class="ct">// Block states (default storage) for system '<a class="ct blk" blk_line="364">&lt;Root&gt;</a>'</span></td></tr>
+<tr name="365" id="365">
+<td><a id="l365" class='ln'>365</a></td><td><span class="kw">typedef</span> <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="366" id="366">
+<td><a id="l366" class='ln'>366</a></td><td>  <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="367" id="367">
+<td><a id="l367" class='ln'>367</a></td><td>    <span class="kw">void</span> <a id="367c10" class="tk">*</a><a id="367c11" class="tk">blockPWork</a>[2];</td></tr>
+<tr name="368" id="368">
+<td><a id="l368" class='ln'>368</a></td><td>  <span class="br">}</span> <a id="368c5" class="tk">getJointPosition_PWORK</a>;            <span class="ct">// '<a class="ct blk" blk_line="368">&lt;Root&gt;/getJointPosition</a>'</span></td></tr>
+<tr name="369" id="369">
+<td><a id="l369" class='ln'>369</a></td><td></td></tr>
+<tr name="370" id="370">
+<td><a id="l370" class='ln'>370</a></td><td>  <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="371" id="371">
+<td><a id="l371" class='ln'>371</a></td><td>    <span class="kw">void</span> <a id="371c10" class="tk">*</a><a id="371c11" class="tk">blockPWork</a>[2];</td></tr>
+<tr name="372" id="372">
+<td><a id="l372" class='ln'>372</a></td><td>  <span class="br">}</span> <a id="372c5" class="tk">setPositionReference1_PWORK</a>;       <span class="ct">// '<a class="ct blk" blk_line="372">&lt;Root&gt;/setPositionReference1</a>'</span></td></tr>
+<tr name="373" id="373">
+<td><a id="l373" class='ln'>373</a></td><td></td></tr>
+<tr name="374" id="374">
+<td><a id="l374" class='ln'>374</a></td><td>  <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="375" id="375">
+<td><a id="l375" class='ln'>375</a></td><td>    <span class="kw">void</span> <a id="375c10" class="tk">*</a><a id="375c11" class="tk">blockPWork</a>[2];</td></tr>
+<tr name="376" id="376">
+<td><a id="l376" class='ln'>376</a></td><td>  <span class="br">}</span> <a id="376c5" class="tk">getPoseFun_PWORK</a>;                  <span class="ct">// '<a class="ct blk" blk_line="376">&lt;S10&gt;/getPoseFun</a>'</span></td></tr>
+<tr name="377" id="377">
+<td><a id="l377" class='ln'>377</a></td><td></td></tr>
+<tr name="378" id="378">
+<td><a id="l378" class='ln'>378</a></td><td>  <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="379" id="379">
+<td><a id="l379" class='ln'>379</a></td><td>    <span class="kw">void</span> <a id="379c10" class="tk">*</a><a id="379c11" class="tk">blockPWork</a>[2];</td></tr>
+<tr name="380" id="380">
+<td><a id="l380" class='ln'>380</a></td><td>  <span class="br">}</span> <a id="380c5" class="tk">getPoseFun_PWORK_h</a>;                <span class="ct">// '<a class="ct blk" blk_line="380">&lt;S5&gt;/getPoseFun</a>'</span></td></tr>
+<tr name="381" id="381">
+<td><a id="l381" class='ln'>381</a></td><td></td></tr>
+<tr name="382" id="382">
+<td><a id="l382" class='ln'>382</a></td><td>  <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="383" id="383">
+<td><a id="l383" class='ln'>383</a></td><td>    <span class="kw">void</span> <a id="383c10" class="tk">*</a><a id="383c11" class="tk">blockPWork</a>[2];</td></tr>
+<tr name="384" id="384">
+<td><a id="l384" class='ln'>384</a></td><td>  <span class="br">}</span> <a id="384c5" class="tk">getJacobian_PWORK</a>;                 <span class="ct">// '<a class="ct blk" blk_line="384">&lt;Root&gt;/getJacobian</a>'</span></td></tr>
+<tr name="385" id="385">
+<td><a id="l385" class='ln'>385</a></td><td></td></tr>
+<tr name="386" id="386">
+<td><a id="l386" class='ln'>386</a></td><td>  <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="387" id="387">
+<td><a id="l387" class='ln'>387</a></td><td>    <span class="kw">void</span> <a id="387c10" class="tk">*</a><a id="387c11" class="tk">blockPWork</a>[2];</td></tr>
+<tr name="388" id="388">
+<td><a id="l388" class='ln'>388</a></td><td>  <span class="br">}</span> <a id="388c5" class="tk">getInertiaInverse_PWORK</a>;           <span class="ct">// '<a class="ct blk" blk_line="388">&lt;Root&gt;/getInertiaInverse</a>'</span></td></tr>
+<tr name="389" id="389">
+<td><a id="l389" class='ln'>389</a></td><td></td></tr>
+<tr name="390" id="390">
+<td><a id="l390" class='ln'>390</a></td><td>  <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="391" id="391">
+<td><a id="l391" class='ln'>391</a></td><td>    <span class="kw">void</span> <a id="391c10" class="tk">*</a><a id="391c11" class="tk">blockPWork</a>[2];</td></tr>
+<tr name="392" id="392">
+<td><a id="l392" class='ln'>392</a></td><td>  <span class="br">}</span> <a id="392c5" class="tk">getJointVelocity_PWORK</a>;            <span class="ct">// '<a class="ct blk" blk_line="392">&lt;Root&gt;/getJointVelocity</a>'</span></td></tr>
+<tr name="393" id="393">
+<td><a id="l393" class='ln'>393</a></td><td></td></tr>
+<tr name="394" id="394">
+<td><a id="l394" class='ln'>394</a></td><td>  <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="395" id="395">
+<td><a id="l395" class='ln'>395</a></td><td>    <span class="kw">void</span> <a id="395c10" class="tk">*</a><a id="395c11" class="tk">blockPWork</a>[2];</td></tr>
+<tr name="396" id="396">
+<td><a id="l396" class='ln'>396</a></td><td>  <span class="br">}</span> <a id="396c5" class="tk">computeGravityCompensation_PWOR</a>;   <span class="ct">// '<a class="ct blk" blk_line="396">&lt;Root&gt;/computeGravityCompensation</a>'</span></td></tr>
+<tr name="397" id="397">
+<td><a id="l397" class='ln'>397</a></td><td></td></tr>
+<tr name="398" id="398">
+<td><a id="l398" class='ln'>398</a></td><td>  <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="399" id="399">
+<td><a id="l399" class='ln'>399</a></td><td>    <span class="kw">void</span> <a id="399c10" class="tk">*</a><a id="399c11" class="tk">blockPWork</a>[2];</td></tr>
+<tr name="400" id="400">
+<td><a id="l400" class='ln'>400</a></td><td>  <span class="br">}</span> <a id="400c5" class="tk">setEffortReference_PWORK</a>;          <span class="ct">// '<a class="ct blk" blk_line="400">&lt;Root&gt;/setEffortReference</a>'</span></td></tr>
+<tr name="401" id="401">
+<td><a id="l401" class='ln'>401</a></td><td></td></tr>
+<tr name="402" id="402">
+<td><a id="l402" class='ln'>402</a></td><td>  <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="403" id="403">
+<td><a id="l403" class='ln'>403</a></td><td>    <span class="kw">void</span> <a id="403c10" class="tk">*</a><a id="403c11" class="tk">blockPWork</a>[2];</td></tr>
+<tr name="404" id="404">
+<td><a id="l404" class='ln'>404</a></td><td>  <span class="br">}</span> <a id="404c5" class="tk">getStiffness_PWORK</a>;                <span class="ct">// '<a class="ct blk" blk_line="404">&lt;Root&gt;/getStiffness</a>'</span></td></tr>
+<tr name="405" id="405">
+<td><a id="l405" class='ln'>405</a></td><td></td></tr>
+<tr name="406" id="406">
+<td><a id="l406" class='ln'>406</a></td><td>  <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="407" id="407">
+<td><a id="l407" class='ln'>407</a></td><td>    <span class="kw">void</span> <a id="407c10" class="tk">*</a><a id="407c11" class="tk">blockPWork</a>[2];</td></tr>
+<tr name="408" id="408">
+<td><a id="l408" class='ln'>408</a></td><td>  <span class="br">}</span> <a id="408c5" class="tk">setStiffness1_PWORK</a>;               <span class="ct">// '<a class="ct blk" blk_line="408">&lt;Root&gt;/setStiffness1</a>'</span></td></tr>
+<tr name="409" id="409">
+<td><a id="l409" class='ln'>409</a></td><td></td></tr>
+<tr name="410" id="410">
+<td><a id="l410" class='ln'>410</a></td><td>  <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="411" id="411">
+<td><a id="l411" class='ln'>411</a></td><td>    <span class="kw">void</span> <a id="411c10" class="tk">*</a><a id="411c11" class="tk">blockPWork</a>[2];</td></tr>
+<tr name="412" id="412">
+<td><a id="l412" class='ln'>412</a></td><td>  <span class="br">}</span> <a id="412c5" class="tk">getDamping_PWORK</a>;                  <span class="ct">// '<a class="ct blk" blk_line="412">&lt;Root&gt;/getDamping</a>'</span></td></tr>
+<tr name="413" id="413">
+<td><a id="l413" class='ln'>413</a></td><td></td></tr>
+<tr name="414" id="414">
+<td><a id="l414" class='ln'>414</a></td><td>  <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="415" id="415">
+<td><a id="l415" class='ln'>415</a></td><td>    <span class="kw">void</span> <a id="415c10" class="tk">*</a><a id="415c11" class="tk">blockPWork</a>[2];</td></tr>
+<tr name="416" id="416">
+<td><a id="l416" class='ln'>416</a></td><td>  <span class="br">}</span> <a id="416c5" class="tk">setDamping_PWORK</a>;                  <span class="ct">// '<a class="ct blk" blk_line="416">&lt;Root&gt;/setDamping</a>'</span></td></tr>
+<tr name="417" id="417">
+<td><a id="l417" class='ln'>417</a></td><td></td></tr>
+<tr name="418" id="418">
+<td><a id="l418" class='ln'>418</a></td><td>  <span class="kw">struct</span> <span class="br">{</span></td></tr>
+<tr name="419" id="419">
+<td><a id="l419" class='ln'>419</a></td><td>    <span class="kw">void</span> <a id="419c10" class="tk">*</a><a id="419c11" class="tk">blockPWork</a>[2];</td></tr>
+<tr name="420" id="420">
+<td><a id="l420" class='ln'>420</a></td><td>  <span class="br">}</span> <a id="420c5" class="tk">getInertiaMatrix_PWORK</a>;            <span class="ct">// '<a class="ct blk" blk_line="420">&lt;Root&gt;/getInertiaMatrix</a>'</span></td></tr>
+<tr name="421" id="421">
+<td><a id="l421" class='ln'>421</a></td><td></td></tr>
+<tr name="422" id="422">
+<td><a id="l422" class='ln'>422</a></td><td>  <a id="422c3" class="tk">DW_CoordinateTransformationCo_T</a> <a id="422c35" class="tk">CoordinateTransformationConv_pn</a>;</td></tr>
+<tr name="423" id="423">
+<td><a id="l423" class='ln'>423</a></td><td>                                <span class="ct">// '<a class="ct blk" blk_line="423">&lt;S4&gt;/Coordinate Transformation Conversion2</a>'</span></td></tr>
+<tr name="424" id="424">
+<td><a id="l424" class='ln'>424</a></td><td>  <a id="424c3" class="tk">DW_CoordinateTransformationCo_T</a> <a id="424c35" class="tk">CoordinateTransformationConve_p</a>;</td></tr>
+<tr name="425" id="425">
+<td><a id="l425" class='ln'>425</a></td><td>                                <span class="ct">// '<a class="ct blk" blk_line="425">&lt;S4&gt;/Coordinate Transformation Conversion2</a>'</span></td></tr>
+<tr name="426" id="426">
+<td><a id="l426" class='ln'>426</a></td><td><span class="br">}</span> <a id="426c3" class="tk">DW_CartesianImpedance_Task_T</a>;</td></tr>
+<tr name="427" id="427">
+<td><a id="l427" class='ln'>427</a></td><td></td></tr>
+<tr name="428" id="428">
+<td><a id="l428" class='ln'>428</a></td><td><span class="ct">// Invariant block signals (default storage)</span></td></tr>
+<tr name="429" id="429">
+<td><a id="l429" class='ln'>429</a></td><td><span class="kw">typedef</span> <span class="kw">const</span> <span class="kw">struct</span> <a id="429c22" class="tk">tag_ConstB_CartesianImpedance_T</a> <span class="br">{</span></td></tr>
+<tr name="430" id="430">
+<td><a id="l430" class='ln'>430</a></td><td>  <a id="430c3" class="tk">real_T</a> <a id="430c10" class="tk">MatrixConcatenate2</a>[6];        <span class="ct">// '<a class="ct blk" blk_line="430">&lt;Root&gt;/Matrix Concatenate2</a>'</span></td></tr>
+<tr name="431" id="431">
+<td><a id="l431" class='ln'>431</a></td><td><span class="br">}</span> <a id="431c3" class="tk">ConstB_CartesianImpedance_Tas_T</a>;</td></tr>
+<tr name="432" id="432">
+<td><a id="l432" class='ln'>432</a></td><td></td></tr>
+<tr name="433" id="433">
+<td><a id="l433" class='ln'>433</a></td><td><span class="ct">// Real-time Model Data Structure</span></td></tr>
+<tr name="434" id="434">
+<td><a id="l434" class='ln'>434</a></td><td><span class="kw">struct</span> <a id="434c8" class="tk">tag_RTM_CartesianImpedance_Ta_T</a> <span class="br">{</span></td></tr>
+<tr name="435" id="435">
+<td><a id="l435" class='ln'>435</a></td><td>  <span class="kw">const</span> <a id="435c9" class="tk">char_T</a> <a id="435c16" class="tk">*</a><a id="435c17" class="tk">errorStatus</a>;</td></tr>
+<tr name="436" id="436">
+<td><a id="l436" class='ln'>436</a></td><td><span class="br">}</span>;</td></tr>
+<tr name="437" id="437">
+<td><a id="l437" class='ln'>437</a></td><td></td></tr>
+<tr name="438" id="438">
+<td><a id="l438" class='ln'>438</a></td><td><span class="kw">extern</span> <span class="kw">const</span> <a id="438c14" class="tk">ConstB_CartesianImpedance_Tas_T</a> <a id="438c46" class="tk">CartesianImpedance_Task_ConstB</a>;<span class="ct">// constant block i/o </span></td></tr>
+<tr name="439" id="439">
+<td><a id="l439" class='ln'>439</a></td><td></td></tr>
+<tr name="440" id="440">
+<td><a id="l440" class='ln'>440</a></td><td><span class="ct">// Class declaration for model CartesianImpedance_Task</span></td></tr>
+<tr name="441" id="441">
+<td><a id="l441" class='ln'>441</a></td><td><span class="kw">class</span> <a id="441c7" class="tk">modelModelClass</a> <span class="br">{</span></td></tr>
+<tr name="442" id="442">
+<td><a id="l442" class='ln'>442</a></td><td>  <span class="ct">// public data and function members</span></td></tr>
+<tr name="443" id="443">
+<td><a id="l443" class='ln'>443</a></td><td> <span class="kw">public</span><a id="443c8" class="tk">:</a></td></tr>
+<tr name="444" id="444">
+<td><a id="l444" class='ln'>444</a></td><td>  <span class="ct">// model initialize function</span></td></tr>
+<tr name="445" id="445">
+<td><a id="l445" class='ln'>445</a></td><td>  <span class="kw">void</span> <a id="445c8" class="tk">initialize</a>();</td></tr>
+<tr name="446" id="446">
+<td><a id="l446" class='ln'>446</a></td><td></td></tr>
+<tr name="447" id="447">
+<td><a id="l447" class='ln'>447</a></td><td>  <span class="ct">// model step function</span></td></tr>
+<tr name="448" id="448">
+<td><a id="l448" class='ln'>448</a></td><td>  <span class="kw">void</span> <a id="448c8" class="tk">step</a>();</td></tr>
+<tr name="449" id="449">
+<td><a id="l449" class='ln'>449</a></td><td></td></tr>
+<tr name="450" id="450">
+<td><a id="l450" class='ln'>450</a></td><td>  <span class="ct">// model terminate function</span></td></tr>
+<tr name="451" id="451">
+<td><a id="l451" class='ln'>451</a></td><td>  <span class="kw">void</span> <a id="451c8" class="tk">terminate</a>();</td></tr>
+<tr name="452" id="452">
+<td><a id="l452" class='ln'>452</a></td><td></td></tr>
+<tr name="453" id="453">
+<td><a id="l453" class='ln'>453</a></td><td>  <span class="ct">// Constructor</span></td></tr>
+<tr name="454" id="454">
+<td><a id="l454" class='ln'>454</a></td><td>  <a id="454c3" class="tk">modelModelClass</a>();</td></tr>
+<tr name="455" id="455">
+<td><a id="l455" class='ln'>455</a></td><td></td></tr>
+<tr name="456" id="456">
+<td><a id="l456" class='ln'>456</a></td><td>  <span class="ct">// Destructor</span></td></tr>
+<tr name="457" id="457">
+<td><a id="l457" class='ln'>457</a></td><td>  <a id="457c3" class="tk">~</a><a id="457c4" class="tk">modelModelClass</a>();</td></tr>
+<tr name="458" id="458">
+<td><a id="l458" class='ln'>458</a></td><td></td></tr>
+<tr name="459" id="459">
+<td><a id="l459" class='ln'>459</a></td><td>  <span class="ct">// Real-Time Model get method</span></td></tr>
+<tr name="460" id="460">
+<td><a id="l460" class='ln'>460</a></td><td>  <a id="460c3" class="tk">RT_MODEL_CartesianImpedance_T_T</a> <a id="460c35" class="tk">*</a> <a id="460c37" class="tk">getRTM</a>();</td></tr>
+<tr name="461" id="461">
+<td><a id="l461" class='ln'>461</a></td><td></td></tr>
+<tr name="462" id="462">
+<td><a id="l462" class='ln'>462</a></td><td>  <span class="ct">// private data and function members</span></td></tr>
+<tr name="463" id="463">
+<td><a id="l463" class='ln'>463</a></td><td> <span class="kw">private</span><a id="463c9" class="tk">:</a></td></tr>
+<tr name="464" id="464">
+<td><a id="l464" class='ln'>464</a></td><td>  <span class="ct">// Block signals</span></td></tr>
+<tr name="465" id="465">
+<td><a id="l465" class='ln'>465</a></td><td>  <a id="465c3" class="tk">B_CartesianImpedance_Task_T</a> <a id="465c31" class="tk">CartesianImpedance_Task_B</a>;</td></tr>
+<tr name="466" id="466">
+<td><a id="l466" class='ln'>466</a></td><td></td></tr>
+<tr name="467" id="467">
+<td><a id="l467" class='ln'>467</a></td><td>  <span class="ct">// Block states</span></td></tr>
+<tr name="468" id="468">
+<td><a id="l468" class='ln'>468</a></td><td>  <a id="468c3" class="tk">DW_CartesianImpedance_Task_T</a> <a id="468c32" class="tk">CartesianImpedance_Task_DW</a>;</td></tr>
+<tr name="469" id="469">
+<td><a id="l469" class='ln'>469</a></td><td></td></tr>
+<tr name="470" id="470">
+<td><a id="l470" class='ln'>470</a></td><td>  <span class="ct">// Real-Time Model</span></td></tr>
+<tr name="471" id="471">
+<td><a id="l471" class='ln'>471</a></td><td>  <a id="471c3" class="tk">RT_MODEL_CartesianImpedance_T_T</a> <a id="471c35" class="tk">CartesianImpedance_Task_M</a>;</td></tr>
+<tr name="472" id="472">
+<td><a id="l472" class='ln'>472</a></td><td></td></tr>
+<tr name="473" id="473">
+<td><a id="l473" class='ln'>473</a></td><td>  <span class="ct">// private member function(s) for subsystem '<a class="ct blk" blk_line="473">&lt;S4&gt;/Coordinate Transformation Conversion2</a>'</span></td></tr>
+<tr name="474" id="474">
+<td><a id="l474" class='ln'>474</a></td><td>  <span class="kw">void</span> <a id="474c8" class="tk">CoordinateTransformationC_Start</a>(<a id="474c40" class="tk">DW_CoordinateTransformationCo_T</a> <a id="474c72" class="tk">*</a><a id="474c73" class="tk">localDW</a>);</td></tr>
+<tr name="475" id="475">
+<td><a id="l475" class='ln'>475</a></td><td>  <span class="kw">void</span> <a id="475c8" class="tk">CoordinateTransformationConvers</a>(<span class="kw">const</span> <a id="475c46" class="tk">real_T</a> <a id="475c53" class="tk">rtu_0</a>[16],</td></tr>
+<tr name="476" id="476">
+<td><a id="l476" class='ln'>476</a></td><td>    <a id="476c5" class="tk">B_CoordinateTransformationCon_T</a> <a id="476c37" class="tk">*</a><a id="476c38" class="tk">localB</a>);</td></tr>
+<tr name="477" id="477">
+<td><a id="l477" class='ln'>477</a></td><td>  <a id="477c3" class="tk">real_T</a> <a id="477c10" class="tk">CartesianImpedance_Task_xnrm2</a>(<a id="477c40" class="tk">int32_T</a> <a id="477c48" class="tk">n</a>, <span class="kw">const</span> <a id="477c57" class="tk">real_T</a> <a id="477c64" class="tk">x</a>[16], <a id="477c71" class="tk">int32_T</a></td></tr>
+<tr name="478" id="478">
+<td><a id="l478" class='ln'>478</a></td><td>    <a id="478c5" class="tk">ix0</a>, <a id="478c10" class="tk">B_CoordinateTransformationCon_T</a> <a id="478c42" class="tk">*</a><a id="478c43" class="tk">localB</a>);</td></tr>
+<tr name="479" id="479">
+<td><a id="l479" class='ln'>479</a></td><td>  <a id="479c3" class="tk">real_T</a> <a id="479c10" class="tk">CartesianImpedanc_rt_hypotd_snf</a>(<a id="479c42" class="tk">real_T</a> <a id="479c49" class="tk">u0</a>, <a id="479c53" class="tk">real_T</a> <a id="479c60" class="tk">u1</a>,</td></tr>
+<tr name="480" id="480">
+<td><a id="l480" class='ln'>480</a></td><td>    <a id="480c5" class="tk">B_CoordinateTransformationCon_T</a> <a id="480c37" class="tk">*</a><a id="480c38" class="tk">localB</a>);</td></tr>
+<tr name="481" id="481">
+<td><a id="l481" class='ln'>481</a></td><td>  <span class="kw">void</span> <a id="481c8" class="tk">CartesianImpedance_Task_xgerc</a>(<a id="481c38" class="tk">int32_T</a> <a id="481c46" class="tk">m</a>, <a id="481c49" class="tk">int32_T</a> <a id="481c57" class="tk">n</a>, <a id="481c60" class="tk">real_T</a> <a id="481c67" class="tk">alpha1</a>,</td></tr>
+<tr name="482" id="482">
+<td><a id="l482" class='ln'>482</a></td><td>    <a id="482c5" class="tk">int32_T</a> <a id="482c13" class="tk">ix0</a>, <span class="kw">const</span> <a id="482c24" class="tk">real_T</a> <a id="482c31" class="tk">y</a>[4], <span class="kw">const</span> <a id="482c43" class="tk">real_T</a> <a id="482c50" class="tk">A</a>[16], <a id="482c57" class="tk">int32_T</a> <a id="482c65" class="tk">ia0</a>, <a id="482c70" class="tk">real_T</a> <a id="482c77" class="tk">b_A</a></td></tr>
+<tr name="483" id="483">
+<td><a id="l483" class='ln'>483</a></td><td>    [16], <a id="483c11" class="tk">B_CoordinateTransformationCon_T</a> <a id="483c43" class="tk">*</a><a id="483c44" class="tk">localB</a>);</td></tr>
+<tr name="484" id="484">
+<td><a id="l484" class='ln'>484</a></td><td>  <span class="kw">void</span> <a id="484c8" class="tk">CartesianImpedance_Task_xgehrd</a>(<span class="kw">const</span> <a id="484c45" class="tk">real_T</a> <a id="484c52" class="tk">a</a>[16], <a id="484c59" class="tk">real_T</a> <a id="484c66" class="tk">b_a</a>[16], <a id="484c75" class="tk">real_T</a></td></tr>
+<tr name="485" id="485">
+<td><a id="l485" class='ln'>485</a></td><td>    <a id="485c5" class="tk">tau</a>[3], <a id="485c13" class="tk">B_CoordinateTransformationCon_T</a> <a id="485c45" class="tk">*</a><a id="485c46" class="tk">localB</a>);</td></tr>
+<tr name="486" id="486">
+<td><a id="l486" class='ln'>486</a></td><td>  <a id="486c3" class="tk">real_T</a> <a id="486c10" class="tk">CartesianImpedance_Task_xzlanhs</a>(<span class="kw">const</span> <a id="486c48" class="tk">creal_T</a> <a id="486c56" class="tk">A</a>[16], <a id="486c63" class="tk">int32_T</a> <a id="486c71" class="tk">ilo</a>,</td></tr>
+<tr name="487" id="487">
+<td><a id="l487" class='ln'>487</a></td><td>    <a id="487c5" class="tk">int32_T</a> <a id="487c13" class="tk">ihi</a>, <a id="487c18" class="tk">B_CoordinateTransformationCon_T</a> <a id="487c50" class="tk">*</a><a id="487c51" class="tk">localB</a>);</td></tr>
+<tr name="488" id="488">
+<td><a id="l488" class='ln'>488</a></td><td>  <span class="kw">void</span> <a id="488c8" class="tk">CartesianImpedance_Ta_xzlartg_m</a>(<span class="kw">const</span> <a id="488c46" class="tk">creal_T</a> <a id="488c54" class="tk">f</a>, <span class="kw">const</span> <a id="488c63" class="tk">creal_T</a> <a id="488c71" class="tk">g</a>, <a id="488c74" class="tk">real_T</a> <a id="488c81" class="tk">*</a></td></tr>
+<tr name="489" id="489">
+<td><a id="l489" class='ln'>489</a></td><td>    <a id="489c5" class="tk">cs</a>, <a id="489c9" class="tk">creal_T</a> <a id="489c17" class="tk">*</a><a id="489c18" class="tk">sn</a>, <a id="489c22" class="tk">B_CoordinateTransformationCon_T</a> <a id="489c54" class="tk">*</a><a id="489c55" class="tk">localB</a>);</td></tr>
+<tr name="490" id="490">
+<td><a id="l490" class='ln'>490</a></td><td>  <span class="kw">void</span> <a id="490c8" class="tk">CartesianImpedance_Task_xzlartg</a>(<span class="kw">const</span> <a id="490c46" class="tk">creal_T</a> <a id="490c54" class="tk">f</a>, <span class="kw">const</span> <a id="490c63" class="tk">creal_T</a> <a id="490c71" class="tk">g</a>, <a id="490c74" class="tk">real_T</a> <a id="490c81" class="tk">*</a></td></tr>
+<tr name="491" id="491">
+<td><a id="l491" class='ln'>491</a></td><td>    <a id="491c5" class="tk">cs</a>, <a id="491c9" class="tk">creal_T</a> <a id="491c17" class="tk">*</a><a id="491c18" class="tk">sn</a>, <a id="491c22" class="tk">creal_T</a> <a id="491c30" class="tk">*</a><a id="491c31" class="tk">r</a>, <a id="491c34" class="tk">B_CoordinateTransformationCon_T</a> <a id="491c66" class="tk">*</a><a id="491c67" class="tk">localB</a>);</td></tr>
+<tr name="492" id="492">
+<td><a id="l492" class='ln'>492</a></td><td>  <span class="kw">void</span> <a id="492c8" class="tk">CartesianImpedance_Task_xzhgeqz</a>(<span class="kw">const</span> <a id="492c46" class="tk">creal_T</a> <a id="492c54" class="tk">A</a>[16], <a id="492c61" class="tk">int32_T</a> <a id="492c69" class="tk">ilo</a>, <a id="492c74" class="tk">int32_T</a></td></tr>
+<tr name="493" id="493">
+<td><a id="l493" class='ln'>493</a></td><td>    <a id="493c5" class="tk">ihi</a>, <span class="kw">const</span> <a id="493c16" class="tk">creal_T</a> <a id="493c24" class="tk">Z</a>[16], <a id="493c31" class="tk">int32_T</a> <a id="493c39" class="tk">*</a><a id="493c40" class="tk">info</a>, <a id="493c46" class="tk">creal_T</a> <a id="493c54" class="tk">alpha1</a>[4], <a id="493c65" class="tk">creal_T</a> <a id="493c73" class="tk">beta1</a>[4],</td></tr>
+<tr name="494" id="494">
+<td><a id="l494" class='ln'>494</a></td><td>    <a id="494c5" class="tk">creal_T</a> <a id="494c13" class="tk">b_A</a>[16], <a id="494c22" class="tk">creal_T</a> <a id="494c30" class="tk">b_Z</a>[16], <a id="494c39" class="tk">B_CoordinateTransformationCon_T</a> <a id="494c71" class="tk">*</a><a id="494c72" class="tk">localB</a>);</td></tr>
+<tr name="495" id="495">
+<td><a id="l495" class='ln'>495</a></td><td>  <span class="kw">void</span> <a id="495c8" class="tk">CartesianImpedance_Task_xztgevc</a>(<span class="kw">const</span> <a id="495c46" class="tk">creal_T</a> <a id="495c54" class="tk">A</a>[16], <span class="kw">const</span> <a id="495c67" class="tk">creal_T</a> <a id="495c75" class="tk">V</a>[16],</td></tr>
+<tr name="496" id="496">
+<td><a id="l496" class='ln'>496</a></td><td>    <a id="496c5" class="tk">creal_T</a> <a id="496c13" class="tk">b_V</a>[16], <a id="496c22" class="tk">B_CoordinateTransformationCon_T</a> <a id="496c54" class="tk">*</a><a id="496c55" class="tk">localB</a>);</td></tr>
+<tr name="497" id="497">
+<td><a id="l497" class='ln'>497</a></td><td>  <span class="kw">void</span> <a id="497c8" class="tk">CartesianImpedance_Task_xzggev</a>(<span class="kw">const</span> <a id="497c45" class="tk">creal_T</a> <a id="497c53" class="tk">A</a>[16], <a id="497c60" class="tk">creal_T</a> <a id="497c68" class="tk">b_A</a>[16],</td></tr>
+<tr name="498" id="498">
+<td><a id="l498" class='ln'>498</a></td><td>    <a id="498c5" class="tk">int32_T</a> <a id="498c13" class="tk">*</a><a id="498c14" class="tk">info</a>, <a id="498c20" class="tk">creal_T</a> <a id="498c28" class="tk">alpha1</a>[4], <a id="498c39" class="tk">creal_T</a> <a id="498c47" class="tk">beta1</a>[4], <a id="498c57" class="tk">creal_T</a> <a id="498c65" class="tk">V</a>[16],</td></tr>
+<tr name="499" id="499">
+<td><a id="l499" class='ln'>499</a></td><td>    <a id="499c5" class="tk">B_CoordinateTransformationCon_T</a> <a id="499c37" class="tk">*</a><a id="499c38" class="tk">localB</a>);</td></tr>
+<tr name="500" id="500">
+<td><a id="l500" class='ln'>500</a></td><td>  <span class="kw">void</span> <a id="500c8" class="tk">CartesianImpedance_Task_xdlanv2</a>(<a id="500c40" class="tk">real_T</a> <a id="500c47" class="tk">a</a>, <a id="500c50" class="tk">real_T</a> <a id="500c57" class="tk">b</a>, <a id="500c60" class="tk">real_T</a> <a id="500c67" class="tk">c</a>, <a id="500c70" class="tk">real_T</a> <a id="500c77" class="tk">d</a>,</td></tr>
+<tr name="501" id="501">
+<td><a id="l501" class='ln'>501</a></td><td>    <a id="501c5" class="tk">real_T</a> <a id="501c12" class="tk">*</a><a id="501c13" class="tk">rt1r</a>, <a id="501c19" class="tk">real_T</a> <a id="501c26" class="tk">*</a><a id="501c27" class="tk">rt1i</a>, <a id="501c33" class="tk">real_T</a> <a id="501c40" class="tk">*</a><a id="501c41" class="tk">rt2r</a>, <a id="501c47" class="tk">real_T</a> <a id="501c54" class="tk">*</a><a id="501c55" class="tk">rt2i</a>, <a id="501c61" class="tk">real_T</a> <a id="501c68" class="tk">*</a><a id="501c69" class="tk">b_a</a>, <a id="501c74" class="tk">real_T</a> <a id="501c81" class="tk">*</a></td></tr>
+<tr name="502" id="502">
+<td><a id="l502" class='ln'>502</a></td><td>    <a id="502c5" class="tk">b_b</a>, <a id="502c10" class="tk">real_T</a> <a id="502c17" class="tk">*</a><a id="502c18" class="tk">b_c</a>, <a id="502c23" class="tk">real_T</a> <a id="502c30" class="tk">*</a><a id="502c31" class="tk">b_d</a>, <a id="502c36" class="tk">real_T</a> <a id="502c43" class="tk">*</a><a id="502c44" class="tk">cs</a>, <a id="502c48" class="tk">real_T</a> <a id="502c55" class="tk">*</a><a id="502c56" class="tk">sn</a>,</td></tr>
+<tr name="503" id="503">
+<td><a id="l503" class='ln'>503</a></td><td>    <a id="503c5" class="tk">B_CoordinateTransformationCon_T</a> <a id="503c37" class="tk">*</a><a id="503c38" class="tk">localB</a>);</td></tr>
+<tr name="504" id="504">
+<td><a id="l504" class='ln'>504</a></td><td>  <span class="kw">void</span> <a id="504c8" class="tk">CartesianImpedance_Task_xrot</a>(<a id="504c37" class="tk">int32_T</a> <a id="504c45" class="tk">n</a>, <span class="kw">const</span> <a id="504c54" class="tk">real_T</a> <a id="504c61" class="tk">x</a>[16], <a id="504c68" class="tk">int32_T</a> <a id="504c76" class="tk">ix0</a>,</td></tr>
+<tr name="505" id="505">
+<td><a id="l505" class='ln'>505</a></td><td>    <a id="505c5" class="tk">int32_T</a> <a id="505c13" class="tk">iy0</a>, <a id="505c18" class="tk">real_T</a> <a id="505c25" class="tk">c</a>, <a id="505c28" class="tk">real_T</a> <a id="505c35" class="tk">s</a>, <a id="505c38" class="tk">real_T</a> <a id="505c45" class="tk">b_x</a>[16],</td></tr>
+<tr name="506" id="506">
+<td><a id="l506" class='ln'>506</a></td><td>    <a id="506c5" class="tk">B_CoordinateTransformationCon_T</a> <a id="506c37" class="tk">*</a><a id="506c38" class="tk">localB</a>);</td></tr>
+<tr name="507" id="507">
+<td><a id="l507" class='ln'>507</a></td><td>  <a id="507c3" class="tk">real_T</a> <a id="507c10" class="tk">CartesianImpedance_Task_xnrm2_p</a>(<a id="507c42" class="tk">int32_T</a> <a id="507c50" class="tk">n</a>, <span class="kw">const</span> <a id="507c59" class="tk">real_T</a> <a id="507c66" class="tk">x</a>[3],</td></tr>
+<tr name="508" id="508">
+<td><a id="l508" class='ln'>508</a></td><td>    <a id="508c5" class="tk">B_CoordinateTransformationCon_T</a> <a id="508c37" class="tk">*</a><a id="508c38" class="tk">localB</a>);</td></tr>
+<tr name="509" id="509">
+<td><a id="l509" class='ln'>509</a></td><td>  <span class="kw">void</span> <a id="509c8" class="tk">CartesianImpedance_Ta_xzlarfg_d</a>(<a id="509c40" class="tk">int32_T</a> <a id="509c48" class="tk">n</a>, <a id="509c51" class="tk">real_T</a> <a id="509c58" class="tk">alpha1</a>, <a id="509c66" class="tk">real_T</a> <a id="509c73" class="tk">x</a>[3],</td></tr>
+<tr name="510" id="510">
+<td><a id="l510" class='ln'>510</a></td><td>    <a id="510c5" class="tk">real_T</a> <a id="510c12" class="tk">*</a><a id="510c13" class="tk">b_alpha1</a>, <a id="510c23" class="tk">real_T</a> <a id="510c30" class="tk">*</a><a id="510c31" class="tk">tau</a>, <a id="510c36" class="tk">B_CoordinateTransformationCon_T</a> <a id="510c68" class="tk">*</a><a id="510c69" class="tk">localB</a>);</td></tr>
+<tr name="511" id="511">
+<td><a id="l511" class='ln'>511</a></td><td>  <span class="kw">void</span> <a id="511c8" class="tk">CartesianImpedance_Task_xhseqr</a>(<span class="kw">const</span> <a id="511c45" class="tk">real_T</a> <a id="511c52" class="tk">h</a>[16], <span class="kw">const</span> <a id="511c65" class="tk">real_T</a> <a id="511c72" class="tk">z</a>[16],</td></tr>
+<tr name="512" id="512">
+<td><a id="l512" class='ln'>512</a></td><td>    <a id="512c5" class="tk">real_T</a> <a id="512c12" class="tk">b_h</a>[16], <a id="512c21" class="tk">int32_T</a> <a id="512c29" class="tk">*</a><a id="512c30" class="tk">info</a>, <a id="512c36" class="tk">real_T</a> <a id="512c43" class="tk">b_z</a>[16],</td></tr>
+<tr name="513" id="513">
+<td><a id="l513" class='ln'>513</a></td><td>    <a id="513c5" class="tk">B_CoordinateTransformationCon_T</a> <a id="513c37" class="tk">*</a><a id="513c38" class="tk">localB</a>);</td></tr>
+<tr name="514" id="514">
+<td><a id="l514" class='ln'>514</a></td><td>  <span class="kw">void</span> <a id="514c8" class="tk">CartesianImpedance_Task_eig</a>(<span class="kw">const</span> <a id="514c42" class="tk">real_T</a> <a id="514c49" class="tk">A</a>[16], <a id="514c56" class="tk">creal_T</a> <a id="514c64" class="tk">V</a>[16], <a id="514c71" class="tk">creal_T</a> <a id="514c79" class="tk">D</a></td></tr>
+<tr name="515" id="515">
+<td><a id="l515" class='ln'>515</a></td><td>    [4], <a id="515c10" class="tk">B_CoordinateTransformationCon_T</a> <a id="515c42" class="tk">*</a><a id="515c43" class="tk">localB</a>);</td></tr>
+<tr name="516" id="516">
+<td><a id="l516" class='ln'>516</a></td><td></td></tr>
+<tr name="517" id="517">
+<td><a id="l517" class='ln'>517</a></td><td>  <span class="ct">// private member function(s) for subsystem '<a class="ct blk" blk_line="517">&lt;Root&gt;</a>'</span></td></tr>
+<tr name="518" id="518">
+<td><a id="l518" class='ln'>518</a></td><td>  <a id="518c3" class="tk">boolean_T</a> <a id="518c13" class="tk">CartesianImpedance_anyNonFinite</a>(<span class="kw">const</span> <a id="518c51" class="tk">real_T</a> <a id="518c58" class="tk">x</a>[36]);</td></tr>
+<tr name="519" id="519">
+<td><a id="l519" class='ln'>519</a></td><td>  <a id="519c3" class="tk">real_T</a> <a id="519c10" class="tk">CartesianImpedance_Task_xnrm2_g</a>(<a id="519c42" class="tk">int32_T</a> <a id="519c50" class="tk">n</a>, <span class="kw">const</span> <a id="519c59" class="tk">real_T</a> <a id="519c66" class="tk">x</a>[36], <a id="519c73" class="tk">int32_T</a></td></tr>
+<tr name="520" id="520">
+<td><a id="l520" class='ln'>520</a></td><td>    <a id="520c5" class="tk">ix0</a>);</td></tr>
+<tr name="521" id="521">
+<td><a id="l521" class='ln'>521</a></td><td>  <a id="521c3" class="tk">real_T</a> <a id="521c10" class="tk">CartesianImpedance_Tas_xnrm2_gh</a>(<a id="521c42" class="tk">int32_T</a> <a id="521c50" class="tk">n</a>, <span class="kw">const</span> <a id="521c59" class="tk">real_T</a> <a id="521c66" class="tk">x</a>[6], <a id="521c72" class="tk">int32_T</a></td></tr>
+<tr name="522" id="522">
+<td><a id="l522" class='ln'>522</a></td><td>    <a id="522c5" class="tk">ix0</a>);</td></tr>
+<tr name="523" id="523">
+<td><a id="l523" class='ln'>523</a></td><td>  <span class="kw">void</span> <a id="523c8" class="tk">CartesianImpedance_Tas_xaxpy_ag</a>(<a id="523c40" class="tk">int32_T</a> <a id="523c48" class="tk">n</a>, <a id="523c51" class="tk">real_T</a> <a id="523c58" class="tk">a</a>, <span class="kw">const</span> <a id="523c67" class="tk">real_T</a> <a id="523c74" class="tk">x</a>[6],</td></tr>
+<tr name="524" id="524">
+<td><a id="l524" class='ln'>524</a></td><td>    <a id="524c5" class="tk">int32_T</a> <a id="524c13" class="tk">ix0</a>, <a id="524c18" class="tk">real_T</a> <a id="524c25" class="tk">y</a>[36], <a id="524c32" class="tk">int32_T</a> <a id="524c40" class="tk">iy0</a>);</td></tr>
+<tr name="525" id="525">
+<td><a id="l525" class='ln'>525</a></td><td>  <span class="kw">void</span> <a id="525c8" class="tk">CartesianImpedance_Task_xaxpy_a</a>(<a id="525c40" class="tk">int32_T</a> <a id="525c48" class="tk">n</a>, <a id="525c51" class="tk">real_T</a> <a id="525c58" class="tk">a</a>, <span class="kw">const</span> <a id="525c67" class="tk">real_T</a> <a id="525c74" class="tk">x</a>[36],</td></tr>
+<tr name="526" id="526">
+<td><a id="l526" class='ln'>526</a></td><td>    <a id="526c5" class="tk">int32_T</a> <a id="526c13" class="tk">ix0</a>, <a id="526c18" class="tk">real_T</a> <a id="526c25" class="tk">y</a>[6], <a id="526c31" class="tk">int32_T</a> <a id="526c39" class="tk">iy0</a>);</td></tr>
+<tr name="527" id="527">
+<td><a id="l527" class='ln'>527</a></td><td>  <a id="527c3" class="tk">real_T</a> <a id="527c10" class="tk">CartesianImpedance_Task_xdotc</a>(<a id="527c40" class="tk">int32_T</a> <a id="527c48" class="tk">n</a>, <span class="kw">const</span> <a id="527c57" class="tk">real_T</a> <a id="527c64" class="tk">x</a>[36], <a id="527c71" class="tk">int32_T</a></td></tr>
+<tr name="528" id="528">
+<td><a id="l528" class='ln'>528</a></td><td>    <a id="528c5" class="tk">ix0</a>, <span class="kw">const</span> <a id="528c16" class="tk">real_T</a> <a id="528c23" class="tk">y</a>[36], <a id="528c30" class="tk">int32_T</a> <a id="528c38" class="tk">iy0</a>);</td></tr>
+<tr name="529" id="529">
+<td><a id="l529" class='ln'>529</a></td><td>  <span class="kw">void</span> <a id="529c8" class="tk">CartesianImpedance_Task_xaxpy</a>(<a id="529c38" class="tk">int32_T</a> <a id="529c46" class="tk">n</a>, <a id="529c49" class="tk">real_T</a> <a id="529c56" class="tk">a</a>, <a id="529c59" class="tk">int32_T</a> <a id="529c67" class="tk">ix0</a>, <a id="529c72" class="tk">real_T</a> <a id="529c79" class="tk">y</a></td></tr>
+<tr name="530" id="530">
+<td><a id="l530" class='ln'>530</a></td><td>    [36], <a id="530c11" class="tk">int32_T</a> <a id="530c19" class="tk">iy0</a>);</td></tr>
+<tr name="531" id="531">
+<td><a id="l531" class='ln'>531</a></td><td>  <span class="kw">void</span> <a id="531c8" class="tk">CartesianImpedance_Task_xscal</a>(<a id="531c38" class="tk">real_T</a> <a id="531c45" class="tk">a</a>, <a id="531c48" class="tk">real_T</a> <a id="531c55" class="tk">x</a>[36], <a id="531c62" class="tk">int32_T</a> <a id="531c70" class="tk">ix0</a>);</td></tr>
+<tr name="532" id="532">
+<td><a id="l532" class='ln'>532</a></td><td>  <span class="kw">void</span> <a id="532c8" class="tk">CartesianImpedance_Task_xswap</a>(<a id="532c38" class="tk">real_T</a> <a id="532c45" class="tk">x</a>[36], <a id="532c52" class="tk">int32_T</a> <a id="532c60" class="tk">ix0</a>, <a id="532c65" class="tk">int32_T</a> <a id="532c73" class="tk">iy0</a>);</td></tr>
+<tr name="533" id="533">
+<td><a id="l533" class='ln'>533</a></td><td>  <span class="kw">void</span> <a id="533c8" class="tk">CartesianImpedance_Task_xrotg</a>(<a id="533c38" class="tk">real_T</a> <a id="533c45" class="tk">*</a><a id="533c46" class="tk">a</a>, <a id="533c49" class="tk">real_T</a> <a id="533c56" class="tk">*</a><a id="533c57" class="tk">b</a>, <a id="533c60" class="tk">real_T</a> <a id="533c67" class="tk">*</a><a id="533c68" class="tk">c</a>, <a id="533c71" class="tk">real_T</a> <a id="533c78" class="tk">*</a><a id="533c79" class="tk">s</a>);</td></tr>
+<tr name="534" id="534">
+<td><a id="l534" class='ln'>534</a></td><td>  <span class="kw">void</span> <a id="534c8" class="tk">CartesianImpedance_Task_xrot_i</a>(<a id="534c39" class="tk">real_T</a> <a id="534c46" class="tk">x</a>[36], <a id="534c53" class="tk">int32_T</a> <a id="534c61" class="tk">ix0</a>, <a id="534c66" class="tk">int32_T</a> <a id="534c74" class="tk">iy0</a>,</td></tr>
+<tr name="535" id="535">
+<td><a id="l535" class='ln'>535</a></td><td>    <a id="535c5" class="tk">real_T</a> <a id="535c12" class="tk">c</a>, <a id="535c15" class="tk">real_T</a> <a id="535c22" class="tk">s</a>);</td></tr>
+<tr name="536" id="536">
+<td><a id="l536" class='ln'>536</a></td><td>  <span class="kw">void</span> <a id="536c8" class="tk">CartesianImpedance_Task_svd_b</a>(<span class="kw">const</span> <a id="536c44" class="tk">real_T</a> <a id="536c51" class="tk">A</a>[36], <a id="536c58" class="tk">real_T</a> <a id="536c65" class="tk">U</a>[36], <a id="536c72" class="tk">real_T</a> <a id="536c79" class="tk">s</a></td></tr>
+<tr name="537" id="537">
+<td><a id="l537" class='ln'>537</a></td><td>    [6], <a id="537c10" class="tk">real_T</a> <a id="537c17" class="tk">V</a>[36]);</td></tr>
+<tr name="538" id="538">
+<td><a id="l538" class='ln'>538</a></td><td>  <span class="kw">void</span> <a id="538c8" class="tk">CartesianImpedance_Task_svd_ij</a>(<span class="kw">const</span> <a id="538c45" class="tk">real_T</a> <a id="538c52" class="tk">A</a>[36], <a id="538c59" class="tk">real_T</a> <a id="538c66" class="tk">U</a>[36], <a id="538c73" class="tk">real_T</a></td></tr>
+<tr name="539" id="539">
+<td><a id="l539" class='ln'>539</a></td><td>    <a id="539c5" class="tk">s</a>[6], <a id="539c11" class="tk">real_T</a> <a id="539c18" class="tk">V</a>[36]);</td></tr>
+<tr name="540" id="540">
+<td><a id="l540" class='ln'>540</a></td><td>  <span class="kw">void</span> <a id="540c8" class="tk">CartesianImpedance_Task_svd</a>(<span class="kw">const</span> <a id="540c42" class="tk">real_T</a> <a id="540c49" class="tk">A</a>[36], <a id="540c56" class="tk">real_T</a> <a id="540c63" class="tk">U</a>[36], <a id="540c70" class="tk">real_T</a> <a id="540c77" class="tk">S</a>[36],</td></tr>
+<tr name="541" id="541">
+<td><a id="l541" class='ln'>541</a></td><td>    <a id="541c5" class="tk">real_T</a> <a id="541c12" class="tk">V</a>[36]);</td></tr>
+<tr name="542" id="542">
+<td><a id="l542" class='ln'>542</a></td><td><span class="br">}</span>;</td></tr>
+<tr name="543" id="543">
+<td><a id="l543" class='ln'>543</a></td><td></td></tr>
+<tr name="544" id="544">
+<td><a id="l544" class='ln'>544</a></td><td><span class="ct">//-</span></td></tr>
+<tr name="545" id="545">
+<td><a id="l545" class='ln'>545</a></td><td><span class="ct">//  These blocks were eliminated from the model due to optimizations:</span></td></tr>
+<tr name="546" id="546">
+<td><a id="l546" class='ln'>546</a></td><td><span class="ct">//</span></td></tr>
+<tr name="547" id="547">
+<td><a id="l547" class='ln'>547</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="547">&lt;Root&gt;/Add</a>' : Unused code path elimination</span></td></tr>
+<tr name="548" id="548">
+<td><a id="l548" class='ln'>548</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="548">&lt;Root&gt;/Constant4</a>' : Unused code path elimination</span></td></tr>
+<tr name="549" id="549">
+<td><a id="l549" class='ln'>549</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="549">&lt;Root&gt;/Discrete-Time Integrator</a>' : Unused code path elimination</span></td></tr>
+<tr name="550" id="550">
+<td><a id="l550" class='ln'>550</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="550">&lt;Root&gt;/Display1</a>' : Unused code path elimination</span></td></tr>
+<tr name="551" id="551">
+<td><a id="l551" class='ln'>551</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="551">&lt;Root&gt;/Display10</a>' : Unused code path elimination</span></td></tr>
+<tr name="552" id="552">
+<td><a id="l552" class='ln'>552</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="552">&lt;Root&gt;/Display11</a>' : Unused code path elimination</span></td></tr>
+<tr name="553" id="553">
+<td><a id="l553" class='ln'>553</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="553">&lt;Root&gt;/Display12</a>' : Unused code path elimination</span></td></tr>
+<tr name="554" id="554">
+<td><a id="l554" class='ln'>554</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="554">&lt;Root&gt;/Display13</a>' : Unused code path elimination</span></td></tr>
+<tr name="555" id="555">
+<td><a id="l555" class='ln'>555</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="555">&lt;Root&gt;/Display15</a>' : Unused code path elimination</span></td></tr>
+<tr name="556" id="556">
+<td><a id="l556" class='ln'>556</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="556">&lt;Root&gt;/Display16</a>' : Unused code path elimination</span></td></tr>
+<tr name="557" id="557">
+<td><a id="l557" class='ln'>557</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="557">&lt;Root&gt;/Display2</a>' : Unused code path elimination</span></td></tr>
+<tr name="558" id="558">
+<td><a id="l558" class='ln'>558</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="558">&lt;Root&gt;/Display5</a>' : Unused code path elimination</span></td></tr>
+<tr name="559" id="559">
+<td><a id="l559" class='ln'>559</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="559">&lt;Root&gt;/Display6</a>' : Unused code path elimination</span></td></tr>
+<tr name="560" id="560">
+<td><a id="l560" class='ln'>560</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="560">&lt;Root&gt;/Display7</a>' : Unused code path elimination</span></td></tr>
+<tr name="561" id="561">
+<td><a id="l561" class='ln'>561</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="561">&lt;Root&gt;/Display8</a>' : Unused code path elimination</span></td></tr>
+<tr name="562" id="562">
+<td><a id="l562" class='ln'>562</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="562">&lt;Root&gt;/Display9</a>' : Unused code path elimination</span></td></tr>
+<tr name="563" id="563">
+<td><a id="l563" class='ln'>563</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="563">&lt;S4&gt;/Display1</a>' : Unused code path elimination</span></td></tr>
+<tr name="564" id="564">
+<td><a id="l564" class='ln'>564</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="564">&lt;S4&gt;/Display25</a>' : Unused code path elimination</span></td></tr>
+<tr name="565" id="565">
+<td><a id="l565" class='ln'>565</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="565">&lt;S4&gt;/Display4</a>' : Unused code path elimination</span></td></tr>
+<tr name="566" id="566">
+<td><a id="l566" class='ln'>566</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="566">&lt;S4&gt;/Display5</a>' : Unused code path elimination</span></td></tr>
+<tr name="567" id="567">
+<td><a id="l567" class='ln'>567</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="567">&lt;S4&gt;/Scope3</a>' : Unused code path elimination</span></td></tr>
+<tr name="568" id="568">
+<td><a id="l568" class='ln'>568</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="568">&lt;Root&gt;/Gain4</a>' : Unused code path elimination</span></td></tr>
+<tr name="569" id="569">
+<td><a id="l569" class='ln'>569</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="569">&lt;Root&gt;/Scope1</a>' : Unused code path elimination</span></td></tr>
+<tr name="570" id="570">
+<td><a id="l570" class='ln'>570</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="570">&lt;Root&gt;/Scope4</a>' : Unused code path elimination</span></td></tr>
+<tr name="571" id="571">
+<td><a id="l571" class='ln'>571</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="571">&lt;Root&gt;/Selector</a>' : Unused code path elimination</span></td></tr>
+<tr name="572" id="572">
+<td><a id="l572" class='ln'>572</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="572">&lt;Root&gt;/Selector1</a>' : Unused code path elimination</span></td></tr>
+<tr name="573" id="573">
+<td><a id="l573" class='ln'>573</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="573">&lt;Root&gt;/Selector2</a>' : Unused code path elimination</span></td></tr>
+<tr name="574" id="574">
+<td><a id="l574" class='ln'>574</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="574">&lt;S4&gt;/Reshape</a>' : Reshape block reduction</span></td></tr>
+<tr name="575" id="575">
+<td><a id="l575" class='ln'>575</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="575">&lt;S4&gt;/Reshape1</a>' : Reshape block reduction</span></td></tr>
+<tr name="576" id="576">
+<td><a id="l576" class='ln'>576</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="576">&lt;Root&gt;/Gain3</a>' : Eliminated nontunable gain of 1</span></td></tr>
+<tr name="577" id="577">
+<td><a id="l577" class='ln'>577</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="577">&lt;Root&gt;/Gain6</a>' : Eliminated nontunable gain of 1</span></td></tr>
+<tr name="578" id="578">
+<td><a id="l578" class='ln'>578</a></td><td><span class="ct">//  Block '<a class="ct blk" blk_line="578">&lt;Root&gt;/Manual Switch</a>' : Eliminated due to constant selection input</span></td></tr>
+<tr name="579" id="579">
+<td><a id="l579" class='ln'>579</a></td><td></td></tr>
+<tr name="580" id="580">
+<td><a id="l580" class='ln'>580</a></td><td></td></tr>
+<tr name="581" id="581">
+<td><a id="l581" class='ln'>581</a></td><td><span class="ct">//-</span></td></tr>
+<tr name="582" id="582">
+<td><a id="l582" class='ln'>582</a></td><td><span class="ct">//  The generated code includes comments that allow you to trace directly</span></td></tr>
+<tr name="583" id="583">
+<td><a id="l583" class='ln'>583</a></td><td><span class="ct">//  back to the appropriate location in the model.  The basic format</span></td></tr>
+<tr name="584" id="584">
+<td><a id="l584" class='ln'>584</a></td><td><span class="ct">//  is &lt;system&gt;/block_name, where system is the system number (uniquely</span></td></tr>
+<tr name="585" id="585">
+<td><a id="l585" class='ln'>585</a></td><td><span class="ct">//  assigned by Simulink) and block_name is the name of the block.</span></td></tr>
+<tr name="586" id="586">
+<td><a id="l586" class='ln'>586</a></td><td><span class="ct">//</span></td></tr>
+<tr name="587" id="587">
+<td><a id="l587" class='ln'>587</a></td><td><span class="ct">//  Use the MATLAB hilite_system command to trace the generated code back</span></td></tr>
+<tr name="588" id="588">
+<td><a id="l588" class='ln'>588</a></td><td><span class="ct">//  to the model.  For example,</span></td></tr>
+<tr name="589" id="589">
+<td><a id="l589" class='ln'>589</a></td><td><span class="ct">//</span></td></tr>
+<tr name="590" id="590">
+<td><a id="l590" class='ln'>590</a></td><td><span class="ct">//  hilite_system('<a class="ct blk" blk_line="590">&lt;S3&gt;</a>')    - opens system 3</span></td></tr>
+<tr name="591" id="591">
+<td><a id="l591" class='ln'>591</a></td><td><span class="ct">//  hilite_system('<a class="ct blk" blk_line="591">&lt;S3&gt;/Kp</a>') - opens and selects block Kp which resides in S3</span></td></tr>
+<tr name="592" id="592">
+<td><a id="l592" class='ln'>592</a></td><td><span class="ct">//</span></td></tr>
+<tr name="593" id="593">
+<td><a id="l593" class='ln'>593</a></td><td><span class="ct">//  Here is the system hierarchy for this model</span></td></tr>
+<tr name="594" id="594">
+<td><a id="l594" class='ln'>594</a></td><td><span class="ct">//</span></td></tr>
+<tr name="595" id="595">
+<td><a id="l595" class='ln'>595</a></td><td><span class="ct">//  '<a class="ct blk" blk_line="595">&lt;Root&gt;</a>' : 'CartesianImpedance_Task'</span></td></tr>
+<tr name="596" id="596">
+<td><a id="l596" class='ln'>596</a></td><td><span class="ct">//  '<a class="ct blk" blk_line="596">&lt;S1&gt;</a>'   : 'CartesianImpedance_Task/D'</span></td></tr>
+<tr name="597" id="597">
+<td><a id="l597" class='ln'>597</a></td><td><span class="ct">//  '<a class="ct blk" blk_line="597">&lt;S2&gt;</a>'   : 'CartesianImpedance_Task/D1'</span></td></tr>
+<tr name="598" id="598">
+<td><a id="l598" class='ln'>598</a></td><td><span class="ct">//  '<a class="ct blk" blk_line="598">&lt;S3&gt;</a>'   : 'CartesianImpedance_Task/D3'</span></td></tr>
+<tr name="599" id="599">
+<td><a id="l599" class='ln'>599</a></td><td><span class="ct">//  '<a class="ct blk" blk_line="599">&lt;S4&gt;</a>'   : 'CartesianImpedance_Task/ErrorComp'</span></td></tr>
+<tr name="600" id="600">
+<td><a id="l600" class='ln'>600</a></td><td><span class="ct">//  '<a class="ct blk" blk_line="600">&lt;S5&gt;</a>'   : 'CartesianImpedance_Task/GetPose'</span></td></tr>
+<tr name="601" id="601">
+<td><a id="l601" class='ln'>601</a></td><td><span class="ct">//  '<a class="ct blk" blk_line="601">&lt;S6&gt;</a>'   : 'CartesianImpedance_Task/INV'</span></td></tr>
+<tr name="602" id="602">
+<td><a id="l602" class='ln'>602</a></td><td><span class="ct">//  '<a class="ct blk" blk_line="602">&lt;S7&gt;</a>'   : 'CartesianImpedance_Task/K'</span></td></tr>
+<tr name="603" id="603">
+<td><a id="l603" class='ln'>603</a></td><td><span class="ct">//  '<a class="ct blk" blk_line="603">&lt;S8&gt;</a>'   : 'CartesianImpedance_Task/M_PINV'</span></td></tr>
+<tr name="604" id="604">
+<td><a id="l604" class='ln'>604</a></td><td><span class="ct">//  '<a class="ct blk" blk_line="604">&lt;S9&gt;</a>'   : 'CartesianImpedance_Task/M_PINV1'</span></td></tr>
+<tr name="605" id="605">
+<td><a id="l605" class='ln'>605</a></td><td><span class="ct">//  '<a class="ct blk" blk_line="605">&lt;S10&gt;</a>'  : 'CartesianImpedance_Task/TargetPose'</span></td></tr>
+<tr name="606" id="606">
+<td><a id="l606" class='ln'>606</a></td><td><span class="ct">//  '<a class="ct blk" blk_line="606">&lt;S11&gt;</a>'  : 'CartesianImpedance_Task/ErrorComp/QuaternionOrientationError '</span></td></tr>
+<tr name="607" id="607">
+<td><a id="l607" class='ln'>607</a></td><td></td></tr>
+<tr name="608" id="608">
+<td><a id="l608" class='ln'>608</a></td><td><span class="pp">#endif</span>                                 <span class="ct">// RTW_HEADER_CartesianImpedance_Task_h_</span></td></tr>
+<tr name="609" id="609">
+<td><a id="l609" class='ln'>609</a></td><td></td></tr>
+<tr name="610" id="610">
+<td><a id="l610" class='ln'>610</a></td><td><span class="ct">//</span></td></tr>
+<tr name="611" id="611">
+<td><a id="l611" class='ln'>611</a></td><td><span class="ct">// File trailer for generated code.</span></td></tr>
+<tr name="612" id="612">
+<td><a id="l612" class='ln'>612</a></td><td><span class="ct">//</span></td></tr>
+<tr name="613" id="613">
+<td><a id="l613" class='ln'>613</a></td><td><span class="ct">// [EOF]</span></td></tr>
+<tr name="614" id="614">
+<td><a id="l614" class='ln'>614</a></td><td><span class="ct">//</span></td></tr>
+<tr name="615" id="615">
+<td><a id="l615" class='ln'>615</a></td><td></td></tr>
+</table>
+</pre>
+</body>
+</html>

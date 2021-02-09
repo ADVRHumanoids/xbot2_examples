@@ -44,7 +44,6 @@ public:
 private:
     
     void set_control_mode();
-    bool _plugin_started=false;
     std::shared_ptr<modelModelClass>  _model_Obj;
     ModelInterface::Ptr _rt_model;
 

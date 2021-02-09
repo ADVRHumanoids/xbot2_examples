@@ -13,7 +13,7 @@ bool CartesianImpedanceTask::on_initialize()
 
     CommonUtils::setRobot("DefaultRobot",_robot);
 
-    _rt_model.reset(&_robot->model());
+    _rt_model = ModelInterface::getModel(_robot->getConfigOptions());
 
     CommonUtils::setModel("DefaultModel",_rt_model);
     CommonUtils::setModelwithRobotConf();
@@ -47,16 +47,13 @@ void CartesianImpedanceTask::set_control_mode()
 
 void CartesianImpedanceTask::starting()
 {
-    _plugin_started=false;
-
     _model_Obj.reset();
-     
-     std::cout << "init plugin" << std::endl;
+
+    //std::cout << "init plugin" << std::endl;
     _model_Obj = std::make_shared<modelModelClass>();
 
     _model_Obj->initialize();
-   
-    _plugin_started=true;
+
 
     start_completed();
 }
@@ -68,11 +65,16 @@ void CartesianImpedanceTask::run()
 
 void CartesianImpedanceTask::on_close()
 {
-    if(_plugin_started)
+    if(_model_Obj)
     {
-    //_model_Obj->terminate();
+        _model_Obj->terminate();
     }
-    _plugin_started=false;
+    else
+    {
+        CommonUtils::clearModelMap();
+        CommonUtils::clearRobotMap();
+    }
+    
 }
 
 

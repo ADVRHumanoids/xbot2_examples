@@ -5,11 +5,18 @@ if(${GAZEBO_VERSION} VERSION_LESS 8.0)
     message(FATAL "Gazebo >=8.0 required")
 endif()
 
+if(${GAZEBO_VERSION} VERSION_GREATER_EQUAL 11.0)
+    set(CMAKE_CXX_STANDARD 17)
+endif()
 
 include_directories(${GAZEBO_INCLUDE_DIRS})
 
 # rocket xbot2 endpoint
 add_xbot2_device(rocket rocket_device.cpp)
+target_link_libraries(rocket
+    PRIVATE 
+    ${GAZEBO_LIBRARIES}
+    )
 install(TARGETS rocket
     DESTINATION lib)
 

@@ -22,7 +22,7 @@ public:
     void on_abort() override;
     void on_close() override;
 
-private:
+protected:
 
     std::unique_ptr<ros::NodeHandle> _nh;
 

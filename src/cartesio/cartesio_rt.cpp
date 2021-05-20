@@ -56,7 +56,7 @@ bool CartesioRt::on_initialize()
     RosServerClass::Options opt;
     opt.tf_prefix = getParamOr<std::string>("~tf_prefix", "ci");
     opt.ros_namespace = getParamOr<std::string>("~ros_ns", "cartesian");
-    auto ros_srv = std::make_shared<RosServerClass>(_nrt_ci, opt);
+    
 
     /* Initialization */
     _rt_active = false;
@@ -70,9 +70,11 @@ bool CartesioRt::on_initialize()
 
     /* Spawn thread */
     _nrt_th = std::make_unique<thread>(
-        [rt_active_ptr, nrt_exit_ptr, nrt_ci, ros_srv]()
+        [rt_active_ptr, nrt_exit_ptr, nrt_ci, opt]()
         {
             this_thread::set_name("cartesio_nrt");
+
+            auto ros_srv = std::make_shared<RosServerClass>(nrt_ci, opt);
 
             while(!*nrt_exit_ptr)
             {
@@ -153,7 +155,6 @@ void CartesioRt::run()
         _rt_model->setJointPosition(_q);
         _rt_model->update();
     }
-
 
     _fake_time += getPeriodSec();
 

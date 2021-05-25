@@ -18,7 +18,6 @@ class context;
 
 typedef Eigen::VectorXd                  vector   ;
 typedef std::shared_ptr<state>           state_ptr;
-typedef std::weak_ptr<context>           ctx_wptr ;
 typedef XBot::ModelInterface::Ptr        model_ptr;
 typedef XBot::RobotInterfaceXBot2Rt::Ptr robot_ptr;
 
@@ -69,12 +68,20 @@ private:
 
     state_ptr _state;
 
+    /**/
+
+    void update();
+
 public:
+
+    typedef std::shared_ptr<context> ptr ;
 
     context() = delete         ;
     context(robot_ptr robot    ,
             model_ptr model    ,
+
             /* create the states once */
+
             state_ptr operative,
             state_ptr safety   ,
             state_ptr gravity  ,
@@ -107,13 +114,13 @@ class state : public interface
 
 protected:
 
-    ctx_wptr       _context;
+    context *      _context;
     control_params _params ;
 
 public:
 
     state() = delete             ;
-    state(ctx_wptr ctx, uint dofs);
+    state(uint dofs);
 
     /**/
 
@@ -128,6 +135,10 @@ public:
     virtual void enter();
     virtual void exit ();
 
+    /**/
+
+    void set_context(context * context);
+
 };
 
 namespace states {
@@ -137,9 +148,7 @@ class steady : public state
 
 public:
 
-    using state::state;
-
-    steady(ctx_wptr ctx, uint dofs, vector k, vector d, double fc);
+    steady(uint dofs, vector k, vector d, double fc);
 
     /**/
 
@@ -159,9 +168,7 @@ class gravity : public state
 
 public:
 
-    using state::state;
-
-    gravity(ctx_wptr ctx, uint dofs, double fc);
+    gravity(uint dofs, double fc);
 
     /**/
 
@@ -177,9 +184,7 @@ class operative : public state
 
 public:
 
-    using state::state;
-
-    operative(ctx_wptr ctx, uint dofs, double fc);
+    operative(uint dofs, double fc);
 
     /**/
 
@@ -199,9 +204,7 @@ class safety : public state
 
 public:
 
-    using state::state;
-
-    safety(ctx_wptr ctx, uint dofs, double fc);
+    safety(uint dofs, double fc);
 
     /**/
 

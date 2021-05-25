@@ -2,13 +2,14 @@
 #define ALBERO_CARTESIO_RT_H
 
 
-
+#include "partition.h"
 #include "cartesio_rt.h"
 #include <ec_xbot2/joint_ec.h>
 #include <xbot2/ros/ros_support.h>
 #include <xbot2/robot_interface/robot_interface_xbot_rt.h>
 
 #include <std_srvs/SetBool.h>
+#include <std_srvs/Empty.h>
 
 namespace XBot {
 
@@ -29,7 +30,7 @@ class profile
 
             bool   update;
             vector value ;
-            
+
             /* constructors */
 
             vectorial_item();
@@ -45,15 +46,15 @@ class profile
         /* data members */
 
         vector current, diff;
-        
+
     public:
-        
+
         /* data members */
 
         vectorial_item q, dq, k, d, fc, t;
 
         /* constructor */
-        
+
         profile();
 
         /* methods */
@@ -90,6 +91,12 @@ private:
     
     void update_model();
     bool gravity_switch(std_srvs::SetBoolRequest& req, std_srvs::SetBoolResponse& res);
+    void get_fc_values(double & low_fc, double & high_fc);
+
+    /* new stuff...*/
+
+    std::vector<partition::context::ptr> _partitions;
+
 };
 
 }

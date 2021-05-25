@@ -44,6 +44,11 @@ partition::context::context(robot_ptr robot    ,
     , _operative(operative)
 {
     /* we pre-define all the states to avoid memory allocation in the control loop. */
+
+    for(auto state : {_safety, _gravity, _steady, _operative})
+    {
+        state->set_context(this);
+    }
 }
 
 void partition::context::go_to(state_ptr state)
@@ -93,9 +98,8 @@ bool partition::context::enable_operative_mode()
 /*******************************************/
 
 
-state::state(ctx_wptr ctx, uint dofs)
-    : _context(ctx)
-    , _params(dofs)
+state::state(uint dofs)
+    : _params(dofs)
 {
     /**/
 }
@@ -121,9 +125,10 @@ void state::exit()
 
 bool state::enable_steady_mode()
 {
-    if (auto ctx = _context.lock())
+    if (_context)
     {
-        ctx->go_to(ctx->_steady);
+        _context->go_to(
+                    _context->_steady);
         return true;
     }
 
@@ -133,9 +138,10 @@ bool state::enable_steady_mode()
 
 bool state::enable_safety_mode()
 {
-    if (auto ctx = _context.lock())
+    if (_context)
     {
-        ctx->go_to(ctx->_safety);
+        _context->go_to(
+                    _context->_safety);
         return true;
     }
 
@@ -145,9 +151,10 @@ bool state::enable_safety_mode()
 
 bool state::enable_gravity_mode()
 {
-    if (auto ctx = _context.lock())
+    if (_context)
     {
-        ctx->go_to(ctx->_gravity);
+        _context->go_to(
+                    _context->_gravity);
         return true;
     }
 
@@ -157,9 +164,10 @@ bool state::enable_gravity_mode()
 
 bool state::enable_operative_mode()
 {
-    if (auto ctx = _context.lock())
+    if (_context)
     {
-        ctx->go_to(ctx->_operative);
+        _context->go_to(
+                    _context->_operative);
         return true;
     }
 
@@ -167,11 +175,17 @@ bool state::enable_operative_mode()
 }
 
 
+void state::set_context(partition::context* context)
+{
+    _context = context;
+}
+
+
 /*******************************************/
 
 
-states::steady::steady(ctx_wptr ctx, uint dofs, vector k, vector d, double fc = 0.99)
-    : state(ctx, dofs)
+states::steady::steady(uint dofs, vector k, vector d, double fc = 0.99)
+    : state(dofs)
 {
     _params._k  = k ;
     _params._d  = d ;
@@ -181,26 +195,26 @@ states::steady::steady(ctx_wptr ctx, uint dofs, vector k, vector d, double fc = 
 
 void states::steady::enter()
 {
-    if (auto ctx = _context.lock())
+    if (_context)
     {
         /* take the current position of the joints... */
 
-        ctx->_model->getJointPosition(_params._q);
+        _context->_model->getJointPosition(_params._q);
     }
 }
 
 
 void states::steady::run()
 {
-    if (auto ctx = _context.lock())
+    if (_context)
     {
         /* compute the torque to compensate the gravity */
 
-        ctx->_model->computeGravityCompensation(_params._t);
+        _context->_model->computeGravityCompensation(_params._t);
 
         /* update the robot! */
 
-        _params.apply(ctx->_robot);
+        _params.apply(_context->_robot);
     }
 }
 
@@ -220,8 +234,8 @@ bool states::steady::enable_safety_mode()
 /*******************************************/
 
 
-states::gravity::gravity(ctx_wptr ctx, uint dofs, double fc = 0.80)
-    : state(ctx, dofs)
+states::gravity::gravity(uint dofs, double fc = 0.80)
+    : state(dofs)
 {
     _params._fc = fc;
 }
@@ -229,15 +243,15 @@ states::gravity::gravity(ctx_wptr ctx, uint dofs, double fc = 0.80)
 
 void states::gravity::run()
 {
-    if (auto ctx = _context.lock())
+    if (_context)
     {
         /* compute the torque to compensate the gravity */
 
-        ctx->_model->computeGravityCompensation(_params._t);
+        _context->_model->computeGravityCompensation(_params._t);
 
         /* update the robot! */
 
-        _params.apply(ctx->_robot);
+        _params.apply(_context->_robot);
     }
 }
 
@@ -257,8 +271,8 @@ bool states::gravity::enable_gravity_mode()
 /*******************************************/
 
 
-states::operative::operative(ctx_wptr ctx, uint dofs, double fc = 0.99)
-    : state(ctx, dofs)
+states::operative::operative(uint dofs, double fc = 0.99)
+    : state(dofs)
 {
     _params._fc = fc;
 }
@@ -266,41 +280,41 @@ states::operative::operative(ctx_wptr ctx, uint dofs, double fc = 0.99)
 
 void states::operative::enter()
 {
-    if (auto ctx = _context.lock())
+    if (_context)
     {
         /* todo! */
 
         /* move the reference on the current pose */
 
-        // ctx->_sot->reset();
+        // _context->_sot->reset();
 
         /* set effort control mode */
 
-        // ctx->_robot->setControlMode(XBot::ControlMode::Effort());
+        // _context->_robot->setControlMode(XBot::ControlMode::Effort());
     }
 }
 
 
 void states::operative::run()
 {
-    if (auto ctx = _context.lock())
+    if (_context)
     {
         /* extract the effort reference from the model and synchronize with the robot */
 
-        ctx->_model->getJointEffort(_params._t);
+        _context->_model->getJointEffort(_params._t);
 
         /* update the robot! */
 
-        _params.apply(ctx->_robot);
+        _params.apply(_context->_robot);
     }
 }
 
 
 void states::operative::exit()
 {
-    if (auto ctx = _context.lock())
+    if (_context)
     {
-        // ctx->sot->leave();
+        // _context->sot->leave();
     }
 }
 
@@ -314,8 +328,8 @@ bool states::operative::enable_operative_mode()
 /*******************************************/
 
 
-states::safety::safety(ctx_wptr ctx, uint dofs, double fc = 0.80)
-    : state(ctx, dofs)
+states::safety::safety(uint dofs, double fc = 0.80)
+    : state(dofs)
 {
     _params._fc = fc;
 }
@@ -323,15 +337,15 @@ states::safety::safety(ctx_wptr ctx, uint dofs, double fc = 0.80)
 
 void states::safety::run()
 {
-    if (auto ctx = _context.lock())
+    if (_context)
     {
         /* compute the torque to compensate the gravity */
 
-        ctx->_model->computeGravityCompensation(_params._t);
+        _context->_model->computeGravityCompensation(_params._t);
 
         /* update the robot! */
 
-        _params.apply(ctx->_robot);
+        _params.apply(_context->_robot);
     }
 }
 

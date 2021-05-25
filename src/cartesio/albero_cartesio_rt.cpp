@@ -16,6 +16,25 @@ double in_range(double value, double min, double max)
     return std::max(std::min(value, max), min);
 }
 
+void AlberoCartesioRt::get_fc_values(double & low_fc, double & high_fc)
+{
+    std::map<std::string, double> fc_map;
+
+    high_fc = MAX_FC; low_fc  = LOW_FC;
+
+    if (getParam("~fc_map", fc_map))
+    {
+        if (fc_map.count("low")) {
+            low_fc = in_range(fc_map.at("low"), MIN_FC, MAX_FC);
+        }
+
+        if (fc_map.count("high")) {
+            high_fc = in_range(fc_map.at("high"), MIN_FC, MAX_FC);
+        }
+    }
+}
+
+
 bool AlberoCartesioRt::on_initialize()
 {
     if (!CartesioRt::on_initialize())
@@ -23,33 +42,45 @@ bool AlberoCartesioRt::on_initialize()
         return false;
     }
 
-    /* ros stuff */
-    // _gcomp_srv = _ros->advertiseService("gravity_compensation", &AlberoCartesioRt::trig_srv_handler, this, &_queue);
-
     /* get friction compensation gains */
 
-    std::map<std::string, double> fc_map;
-    
-    double high_fc = MAX_FC, low_fc = LOW_FC;
+    double low_fc, high_fc;
 
-    if (getParam("~fc_map", fc_map))
+    get_fc_values(low_fc, high_fc);
+
+    for (auto partition_name : {std::string("robot_1")})
     {
-        if (fc_map.count("low")) {
-            low_fc = in_range(fc_map.at("low"), MIN_FC, MAX_FC);
-        }
-        
-        if (fc_map.count("high")) {
-            high_fc = in_range(fc_map.at("high"), MIN_FC, MAX_FC);
-        }
+        /* now we consider just one hardcoded partition, but in the future we may want more robots... */
+
+        int dofs = _rt_model->getJointNum();
+
+        partition::vector k(dofs), d(dofs);
+
+        _robot->getDamping(d); _robot->getStiffness(k);
+
+        auto steady_st    = std::make_shared<partition::states::steady   >(dofs, k, d, high_fc);
+        auto safety_st    = std::make_shared<partition::states::safety   >(dofs,       low_fc );
+        auto gravity_st   = std::make_shared<partition::states::gravity  >(dofs,       low_fc );
+        auto operative_st = std::make_shared<partition::states::operative>(dofs,       high_fc);
+
+        auto ctx = std::make_shared<partition::context>(_robot, _rt_model, operative_st, safety_st, gravity_st, steady_st);
+
+        _partitions.push_back(ctx);
+
+        /*
+        _gcomp_srv = _ros->advertiseService(partition_name + "/" + "gravity_mode",
+                                            &partition::context::enable_gravity_mode, ctx.get(), &_queue);*/
     }
+
+    //////////////////////////////////////////////////////
+
+    int dofs = _rt_model->getJointNum();
 
     /* set control mode */
 
     _robot->setControlMode(ControlMode::PosImpedance() + ControlMode::Effort());
 
     /* define profiles */
-
-    int dofs = _rt_model->getJointNum();
 
     _default.init(dofs);
     _torque. init(dofs);
@@ -206,6 +237,8 @@ void profile::activate(robot_ptr robot)
             joint->move();
         }
     }
+
+    robot->setControlMode(ControlMode::Effort());
 }
 
 bool profile::reached(robot_ptr robot)

@@ -42,6 +42,7 @@ partition::context::context(robot_ptr robot    ,
     , _gravity  (gravity  )
     , _steady   (steady   )
     , _operative(operative)
+    , _contr_map(model    )
 {
     /* we pre-define all the states to avoid memory allocation in the control loop. */
 
@@ -59,6 +60,19 @@ void partition::context::go_to(state_ptr state)
 
     _state = state ;
     _state->enter();
+}
+
+
+void partition::context::update()
+{
+    /* update the model */
+
+    _robot->sense(false);
+    _model->syncFrom(*_robot, XBot::Sync::MotorSide);
+
+    /* elastic model */
+
+    _contr_map.apply(_model);
 }
 
 

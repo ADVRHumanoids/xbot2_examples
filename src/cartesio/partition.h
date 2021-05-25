@@ -1,6 +1,7 @@
 #ifndef PARTITION_H
 #define PARTITION_H
 
+#include "models.h"
 #include <xbot2/journal/journal.h>
 #include <xbot2/robot_interface/robot_interface_xbot_rt.h>
 
@@ -20,6 +21,7 @@ typedef Eigen::VectorXd                  vector   ;
 typedef std::shared_ptr<state>           state_ptr;
 typedef XBot::ModelInterface::Ptr        model_ptr;
 typedef XBot::RobotInterfaceXBot2Rt::Ptr robot_ptr;
+typedef model_utils::elastic_joints      elastic_m;
 
 /**************************************************/
 
@@ -66,7 +68,8 @@ class context : public interface
 
 private:
 
-    state_ptr _state;
+    state_ptr _state    ;
+    elastic_m _contr_map;
 
     /**/
 

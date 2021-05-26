@@ -11,7 +11,9 @@ add_xbot2_plugin(albero_cartesio_rt
     partition.cpp)
 
 target_link_libraries(cartesio_rt PRIVATE ${cartesian_interface_LIBRARIES})
-target_link_libraries(albero_cartesio_rt PRIVATE ${cartesian_interface_LIBRARIES})
+target_link_libraries(albero_cartesio_rt PRIVATE
+    ${cartesian_interface_LIBRARIES}
+    xbot2::xbot2_ros_support)
 
 install(
     TARGETS cartesio_rt

@@ -35,6 +35,18 @@ void AlberoCartesioRt::get_fc_values(double & low_fc, double & high_fc)
 }
 
 
+void AlberoCartesioRt::create_ros_services(std::string partition_name)
+{
+    using setter = std::function <bool(const trequest&, tresponse&)>;
+
+    setter gravity_setter  = std::bind(&AlberoCartesioRt::gravity_switch2 , this, std::placeholders::_1, std::placeholders::_2, partition_name);
+    setter cartesio_setter = std::bind(&AlberoCartesioRt::cartesio_switch2, this, std::placeholders::_1, std::placeholders::_2, partition_name);
+
+    _gravity_setter  = _ros->advertiseService(partition_name + "/" + "gravity_mode"       , gravity_setter , &_queue);
+    _cartesio_setter = _ros->advertiseService(partition_name + "/" + "cartesian_task_mode", cartesio_setter, &_queue);
+}
+
+
 bool AlberoCartesioRt::on_initialize()
 {
     if (!CartesioRt::on_initialize())
@@ -47,6 +59,8 @@ bool AlberoCartesioRt::on_initialize()
     double low_fc, high_fc;
 
     get_fc_values(low_fc, high_fc);
+
+    /////////////////////// currently not used ////////////////////////
 
     for (auto partition_name : {std::string("robot_1")})
     {
@@ -65,14 +79,12 @@ bool AlberoCartesioRt::on_initialize()
 
         auto ctx = std::make_shared<partition::context>(_robot, _rt_model, operative_st, safety_st, gravity_st, steady_st);
 
-        _partitions.push_back(ctx);
+        _partitions.emplace(partition_name, ctx);
 
-        /*
-        _gcomp_srv = _ros->advertiseService(partition_name + "/" + "gravity_mode",
-                                            &partition::context::enable_gravity_mode, ctx.get(), &_queue);*/
+        create_ros_services(partition_name);
     }
 
-    //////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////
 
     int dofs = _rt_model->getJointNum();
 
@@ -126,7 +138,43 @@ void AlberoCartesioRt::run()
 {
     CartesioRt::run();
     
-    XBOT2_INFO_EVERY(1s, "stiffness:\n{}\ndamping:\n{}\nfc:\n{}", _torque.k.value, _torque.d.value, _torque.fc.value);
+//    XBOT2_INFO_EVERY(1s, "stiffness:\n{}\ndamping:\n{}\nfc:\n{}", _torque.k.value, _torque.d.value, _torque.fc.value);
+}
+
+bool AlberoCartesioRt::gravity_switch2(const trequest&, tresponse& res, std::string partition_name)
+{
+    res.success = false;
+    res.message = "invalid partition";
+
+    if (_partitions.count(partition_name))
+    {
+        auto partition = _partitions.at(partition_name);
+
+        res.success = partition->enable_gravity_mode();
+        res.message = res.success ? "transition succeded" : "invalid transition";
+    }
+
+    XBOT2_INFO("gravity switch:\npartition: {}\nsuccess: {}\nmessage: {}", partition_name, res.success, res.message);
+
+    return res.success;
+}
+
+bool AlberoCartesioRt::cartesio_switch2(const trequest&, tresponse& res, std::string partition_name)
+{
+    res.success = false;
+    res.message = "invalid partition";
+
+    if (_partitions.count(partition_name))
+    {
+        auto partition = _partitions.at(partition_name);
+
+        res.success = partition->enable_operative_mode();
+        res.message = res.success ? "transition succeded" : "invalid transition";
+    }
+
+    XBOT2_INFO("cartesio switch:\npartition: {}\nsuccess: {}\nmessage: {}", partition_name, res.success, res.message);
+
+    return res.success;
 }
 
 // bool AlberoCartesioRt::gravity_switch(std_srvs::SetBoolRequest& req, std_srvs::SetBoolResponse& res)

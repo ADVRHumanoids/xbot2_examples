@@ -71,11 +71,15 @@ public:
     
     using CartesioRt::CartesioRt;
 
+    void run          () override;
+    void starting     () override;
     bool on_initialize() override;
-    void starting() override;
-    void run() override;
 
 private:
+
+    typedef std_srvs::TriggerRequest              trequest ;
+    typedef std_srvs::TriggerResponse             tresponse;
+    typedef ServiceServerPtr<trequest, tresponse> trigger  ;
 
     /* data members */
 
@@ -91,11 +95,29 @@ private:
     
     void update_model();
     bool gravity_switch(std_srvs::SetBoolRequest& req, std_srvs::SetBoolResponse& res);
-    void get_fc_values(double & low_fc, double & high_fc);
+
 
     /* new stuff...*/
 
-    std::vector<partition::context::ptr> _partitions;
+    trigger _gravity_setter ;
+    trigger _cartesio_setter;
+
+    /**/
+
+    std::map<std::string, partition::context::ptr> _partitions;
+
+    /**/
+
+    void get_fc_values(double & low_fc, double & high_fc);
+
+    /* ros */
+
+    void create_ros_services(std::string partition_name);
+
+    /**/
+
+    bool gravity_switch2 (const trequest&, tresponse& res, std::string partition_name);
+    bool cartesio_switch2(const trequest&, tresponse& res, std::string partition_name);
 
 };
 

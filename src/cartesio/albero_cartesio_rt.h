@@ -112,7 +112,10 @@ private:
 
     /* ros */
 
-    void create_ros_services(std::string partition_name);
+    void setup_ros             (const std::string & partition_name);
+    void create_ros_services   (const std::string & partition_name);
+    void create_ros_publishers (const std::string & partition_name);
+    void create_ros_subscribers(const std::string & partition_name);
 
     /**/
 

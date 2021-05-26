@@ -11,6 +11,8 @@ using namespace XBot;
 using namespace XBot::Cartesian;
 
 
+/* parsing parameters... */
+
 double in_range(double value, double min, double max)
 {
     return std::max(std::min(value, max), min);
@@ -35,7 +37,33 @@ void AlberoCartesioRt::get_fc_values(double & low_fc, double & high_fc)
 }
 
 
-void AlberoCartesioRt::create_ros_services(std::string partition_name)
+/* setup ros objects... */
+
+void AlberoCartesioRt::setup_ros(const std::string & partition_name)
+{
+    ros::NodeHandle nh(getName());
+
+    _ros = std::make_unique<RosSupport>(nh);
+
+    create_ros_publishers (partition_name);
+    create_ros_subscribers(partition_name);
+    create_ros_services   (partition_name);
+}
+
+
+void AlberoCartesioRt::create_ros_publishers(const std::string & partition_name)
+{
+    /**/
+}
+
+
+void AlberoCartesioRt::create_ros_subscribers(const std::string & partition_name)
+{
+    /**/
+}
+
+
+void AlberoCartesioRt::create_ros_services(const std::string & partition_name)
 {
     using setter = std::function <bool(const trequest&, tresponse&)>;
 
@@ -44,8 +72,68 @@ void AlberoCartesioRt::create_ros_services(std::string partition_name)
 
     _gravity_setter  = _ros->advertiseService(partition_name + "/" + "gravity_mode"       , gravity_setter , &_queue);
     _cartesio_setter = _ros->advertiseService(partition_name + "/" + "cartesian_task_mode", cartesio_setter, &_queue);
+
+    /* legacy */
+
+
 }
 
+
+
+
+
+
+
+
+//////////////////// LEGACY ///////////////////////////
+
+
+
+
+
+
+//bool AlberoCartesioRt::gcomp_switch_callback(const std_srvs::SetBoolRequest& req, std_srvs::SetBoolResponse& res)
+//{
+//    res.success = _ci->userCommand(req.data);
+
+//    /* When the service is called, the state on the ci is changed.
+//       The state is read on every control loop and the FC is set accordingly.
+//       We don't change the FC here because we experienced that sometimes it is
+//       not set on all the joints. That's why we update it every control loop. */
+
+//    if(req.data) {
+//        res.message = "GCOMP_MODE";
+//    }
+
+//    else {
+//        res.message = "IMPEDANCE_MODE";
+//    }
+
+//    // XBot::Logger::info() << "Callback End" << XBot::Logger::endl();
+
+//    return true;
+//}
+
+//void CartesianPlugin::set_gravity_compensation_mode()
+//{
+//    _friction_compensation = 0.80;
+//}
+
+//void CartesianPlugin::set_impedance_mode()
+//{
+//    _friction_compensation = 0.99;
+//}
+
+
+
+
+
+
+
+
+
+
+/* plugin methods... */
 
 bool AlberoCartesioRt::on_initialize()
 {
@@ -81,7 +169,7 @@ bool AlberoCartesioRt::on_initialize()
 
         _partitions.emplace(partition_name, ctx);
 
-        create_ros_services(partition_name);
+        setup_ros(partition_name);
     }
 
     ////////////////////////////////////////////////////////////////////

@@ -103,16 +103,24 @@ bool CartesioRt::on_initialize()
     return true;
 }
 
+void CartesioRt::update_model()
+{
+    if(_enable_feedback)
+    {
+        _robot->sense(false);
+        _rt_model->syncFrom(*_robot);
+
+        // TBD floating base state
+    }
+}
+
 void CartesioRt::starting()
 {
     // we use a fake time, and integrate it by the expected dt
     _fake_time = 0;
 
-    // align model to current position reference
-    _robot->sense(false);
-    _robot->getPositionReference(_qmap);
-    _rt_model->setJointPosition(_qmap);
-    _rt_model->update();
+    // update the model
+    update_model();
 
     // reset ci
     _rt_ci->reset(_fake_time);
@@ -130,14 +138,8 @@ void CartesioRt::run()
     /* Receive commands from nrt */
     _nrt_ci->callAvailable(_rt_ci.get());
 
-    /* Update robot */
-    if(_enable_feedback)
-    {
-        _robot->sense(false);
-        _rt_model->syncFrom(*_robot);
-
-        // TBD floating base state
-    }
+    // update the model
+    update_model();
 
     /* Solve IK */
     if(!_rt_ci->update(_fake_time, getPeriodSec()))

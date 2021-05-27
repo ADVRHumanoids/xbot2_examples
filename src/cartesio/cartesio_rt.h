@@ -38,6 +38,10 @@ protected:
     double _fake_time;
 
     std::unique_ptr<thread> _nrt_th;
+
+    /* methods */
+
+    void update_model();
 };
 
 

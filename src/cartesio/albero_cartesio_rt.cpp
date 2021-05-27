@@ -225,6 +225,8 @@ void AlberoCartesioRt::starting()
 void AlberoCartesioRt::run()
 {
     CartesioRt::run();
+
+    _queue.run();
     
 //    XBOT2_INFO_EVERY(1s, "stiffness:\n{}\ndamping:\n{}\nfc:\n{}", _torque.k.value, _torque.d.value, _torque.fc.value);
 }

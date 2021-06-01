@@ -28,7 +28,6 @@ void control_params::apply(robot_ptr robot)
 
 /*******************************************/
 
-
 context::context(robot_ptr robot    ,
                  model_ptr model    ,
                  state_ptr operative,
@@ -46,7 +45,7 @@ context::context(robot_ptr robot    ,
 {
     /* we pre-define all the states to avoid memory allocation in the control loop. */
 
-    for(auto state : {_safety, _gravity, _steady, _operative})
+    for (auto state : {_safety, _gravity, _steady, _operative})
     {
         state->set_context(this);
     }

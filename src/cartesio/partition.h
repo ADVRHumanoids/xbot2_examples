@@ -96,7 +96,7 @@ private:
 
 public:
 
-    typedef std::shared_ptr<context> ptr ;
+    typedef std::shared_ptr<context> ptr;
 
     context() = delete         ;
     context(robot_ptr robot    ,

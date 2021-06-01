@@ -8,7 +8,8 @@ add_xbot2_plugin(cartesio_rt
 add_xbot2_plugin(albero_cartesio_rt
     albero_cartesio_rt.cpp
     cartesio_rt.cpp
-    partition.cpp)
+    partition.cpp
+    controllers.cpp)
 
 target_link_libraries(cartesio_rt PRIVATE ${cartesian_interface_LIBRARIES})
 target_link_libraries(albero_cartesio_rt PRIVATE

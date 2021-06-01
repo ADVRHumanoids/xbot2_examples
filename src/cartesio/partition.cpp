@@ -1,7 +1,7 @@
 #include "partition.h"
 
 
-using namespace partition;
+namespace XBot { namespace albero { namespace partitions {
 
 
 control_params::control_params(uint dofs)
@@ -29,12 +29,12 @@ void control_params::apply(robot_ptr robot)
 /*******************************************/
 
 
-partition::context::context(robot_ptr robot    ,
-                            model_ptr model    ,
-                            state_ptr operative,
-                            state_ptr safety   ,
-                            state_ptr gravity  ,
-                            state_ptr steady   )
+context::context(robot_ptr robot    ,
+                 model_ptr model    ,
+                 state_ptr operative,
+                 state_ptr safety   ,
+                 state_ptr gravity  ,
+                 state_ptr steady   )
     : _state    (steady   )
     , _robot    (robot    )
     , _model    (model    )
@@ -52,7 +52,7 @@ partition::context::context(robot_ptr robot    ,
     }
 }
 
-void partition::context::go_to(state_ptr state)
+void context::go_to(state_ptr state)
 {
     _state->exit ();
 
@@ -63,7 +63,7 @@ void partition::context::go_to(state_ptr state)
 }
 
 
-void partition::context::update()
+void context::update()
 {
     /* update the model */
 
@@ -76,33 +76,33 @@ void partition::context::update()
 }
 
 
-void partition::context::run()
+void context::run()
 {
     _state->run();
 }
 
 
-bool partition::context::enable_steady_mode()
+bool context::enable_steady_mode()
 {
     return _state->enable_steady_mode();
 }
 
 
-bool partition::context::enable_safety_mode()
+bool context::enable_safety_mode()
 
 {
     return _state->enable_safety_mode();
 }
 
 
-bool partition::context::enable_gravity_mode()
+bool context::enable_gravity_mode()
 
 {
     return _state->enable_gravity_mode();
 }
 
 
-bool partition::context::enable_operative_mode()
+bool context::enable_operative_mode()
 
 {
     return _state->enable_operative_mode();
@@ -189,7 +189,7 @@ bool state::enable_operative_mode()
 }
 
 
-void state::set_context(partition::context* context)
+void state::set_context(partitions::context* context)
 {
     _context = context;
 }
@@ -374,3 +374,7 @@ bool states::safety::enable_operative_mode()
 {
     return false;
 }
+
+} // partitions
+} // albero
+} // XBot

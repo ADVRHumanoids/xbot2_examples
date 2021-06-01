@@ -1,27 +1,36 @@
-#ifndef PARTITION_H
-#define PARTITION_H
+#ifndef ALBERO_PARTITION_H
+#define ALBERO_PARTITION_H
 
 #include "models.h"
+#include "controllers.h"
+#include <xbot2/common/common.h>
 #include <xbot2/journal/journal.h>
 #include <xbot2/robot_interface/robot_interface_xbot_rt.h>
 
 /**/
 
-namespace partition {
-
-/*************************************************/
-
-
-class state  ;
-class context;
+namespace XBot { namespace albero {
 
 /*************************************************/
 
 typedef Eigen::VectorXd                  vector   ;
-typedef std::shared_ptr<state>           state_ptr;
 typedef XBot::ModelInterface::Ptr        model_ptr;
 typedef XBot::RobotInterfaceXBot2Rt::Ptr robot_ptr;
-typedef model_utils::elastic_joints      elastic_m;
+
+/*************************************************/
+
+namespace partitions {
+
+/*************************************************/
+
+class state  ;
+class context;
+
+/**************************************************/
+
+typedef std::shared_ptr<state>           state_ptr ;
+typedef model_utils::elastic_joints      elastic_m ;
+typedef controllers::interface           controller;
 
 /**************************************************/
 
@@ -30,7 +39,9 @@ class control_params
 
 public:
 
-    /**/
+    XBOT2_DECLARE_SMART_PTR(control_params)
+
+public:
 
     double _fc;
     vector _k, _d, _q, _dq, _t;
@@ -53,6 +64,10 @@ class interface
 
 public:
 
+    XBOT2_DECLARE_SMART_PTR(interface)
+
+public:
+
     virtual void run                  () = 0;
     virtual bool enable_steady_mode   () = 0;
     virtual bool enable_safety_mode   () = 0;
@@ -65,6 +80,10 @@ public:
 
 class context : public interface
 {
+
+public:
+
+    XBOT2_DECLARE_SMART_PTR(context)
 
 private:
 
@@ -115,6 +134,10 @@ public:
 class state : public interface
 {
 
+public:
+
+    XBOT2_DECLARE_SMART_PTR(state)
+
 protected:
 
     context *      _context;
@@ -122,7 +145,7 @@ protected:
 
 public:
 
-    state() = delete             ;
+    state() = delete;
     state(uint dofs);
 
     /**/
@@ -151,6 +174,10 @@ class steady : public state
 
 public:
 
+    XBOT2_DECLARE_SMART_PTR(steady)
+
+public:
+
     steady(uint dofs, vector k, vector d, double fc);
 
     /**/
@@ -171,6 +198,10 @@ class gravity : public state
 
 public:
 
+    XBOT2_DECLARE_SMART_PTR(gravity)
+
+public:
+
     gravity(uint dofs, double fc);
 
     /**/
@@ -184,6 +215,10 @@ public:
 
 class operative : public state
 {
+
+public:
+
+    XBOT2_DECLARE_SMART_PTR(operative)
 
 public:
 
@@ -207,6 +242,10 @@ class safety : public state
 
 public:
 
+    XBOT2_DECLARE_SMART_PTR(safety)
+
+public:
+
     safety(uint dofs, double fc);
 
     /**/
@@ -221,6 +260,8 @@ public:
 
 } // namespace states
 } // namespace partition
+} // albero
+} // XBot
 
 
-#endif // PARTITION_H
+#endif // ALBERO_PARTITION_H

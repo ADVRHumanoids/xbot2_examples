@@ -46,6 +46,8 @@ protected:
 
     /* methods */
 
+protected:
+
     void update_model();
     void apply_contraction_mapping();
 };

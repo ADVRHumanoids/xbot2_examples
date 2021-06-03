@@ -161,11 +161,23 @@ bool AlberoCartesioRt::on_initialize()
 
 void AlberoCartesioRt::starting()
 {
-    /* in case of torque control set the joint impedance to zero */
+    /* we use a fake time, and integrate it by the expected dt */
+    _fake_time = 0;
 
+    /* update the model */
+    CartesioRt::update_model();
+
+    /* reset ci */
+    _rt_ci->reset(_fake_time);
+
+    /* in case of torque control set the joint impedance to zero */
     _torque.activate(_robot);
 
-    CartesioRt::starting();
+    /* signal nrt thread that rt is active */
+    _rt_active = true;
+
+    /* transit to run */
+    start_completed();
 }
 
 void AlberoCartesioRt::run()
@@ -175,6 +187,47 @@ void AlberoCartesioRt::run()
     _queue.run();
 }
 
+void AlberoCartesioRt::stopping()
+{
+    XBOT2_INFO("stopping");
+
+    CartesioRt::update_model();
+
+    _robot->getJointPosition(_default.q.value);
+    _default.q.update = true;
+
+    _default.activate(_robot);
+
+    CartesioRt::stopping();
+}
+
+void AlberoCartesioRt::on_abort()
+{
+    XBOT2_INFO("abort");
+
+    CartesioRt::update_model();
+
+    _robot->getJointPosition(_default.q.value);
+    _default.q.update = true;
+
+    _default.activate(_robot);
+
+    CartesioRt::on_abort();
+}
+
+void AlberoCartesioRt::on_close()
+{
+    XBOT2_INFO("close");
+
+    CartesioRt::update_model();
+
+    _robot->getJointPosition(_default.q.value);
+    _default.q.update = true;
+
+    _default.activate(_robot);
+
+    CartesioRt::on_close();
+}
 
 /*************************************************************/
 
@@ -203,9 +256,9 @@ void profile::vectorial_item::set(double val, bool upd = false)
 
 /**/
 
-profile::profile()
+profile::profile() : Journal("profile logger")
 {
-    /**/
+    setJournalLevel(Journal::Level::Low);
 }
 
 void profile::init(const uint dof)
@@ -221,18 +274,22 @@ void profile::activate(robot_ptr robot)
     /* TODO: let's remove duplicated code */
 
     if (d.update) {
+        XBOT2_INFO("damp updated: {}", d.value);
         robot->setDamping(d.value);
     }
 
     if (k.update) {
+        XBOT2_INFO("stiff updated: {}", k.value);
         robot->setStiffness(k.value);
     }
 
     if (q.update) {
+        XBOT2_INFO("pos updated: {}", q.value);
         robot->setPositionReference(q.value);
     }
 
     if (dq.update) {
+        XBOT2_INFO("vel updated: {}", dq.value);
         robot->setVelocityReference(dq.value);
     }
 
@@ -249,8 +306,6 @@ void profile::activate(robot_ptr robot)
             joint->move();
         }
     }
-
-    robot->setControlMode(ControlMode::Effort());
 }
 
 bool profile::reached(robot_ptr robot)

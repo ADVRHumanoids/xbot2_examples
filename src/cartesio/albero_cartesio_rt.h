@@ -14,7 +14,7 @@
 
 namespace XBot {
 
-class profile
+class profile : protected Journal
 {
     private:
 
@@ -75,6 +75,9 @@ public:
     void run          () override;
     void starting     () override;
     bool on_initialize() override;
+    void stopping     () override;
+    void on_abort     () override;
+    void on_close     () override;
 
 private:
 

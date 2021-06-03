@@ -39,9 +39,15 @@ protected:
 
     std::unique_ptr<thread> _nrt_th;
 
+    /* contraction mapping vars */
+
+    Eigen::MatrixXd _Gj;
+    Eigen::VectorXd _temp, _theta, _qprev, _qnew, _l, _g;
+
     /* methods */
 
     void update_model();
+    void apply_contraction_mapping();
 };
 
 

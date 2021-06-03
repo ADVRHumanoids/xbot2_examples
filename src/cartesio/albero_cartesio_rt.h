@@ -7,9 +7,10 @@
 #include <ec_xbot2/joint_ec.h>
 #include <xbot2/ros/ros_support.h>
 #include <xbot2/robot_interface/robot_interface_xbot_rt.h>
+#include "cartesio-integration/AlberoCartesioPlugin.h"
 
 #include <std_srvs/SetBool.h>
-#include <std_srvs/Empty.h>
+#include <xbot_msgs/PluginStatus.h>
 
 namespace XBot {
 
@@ -77,10 +78,6 @@ public:
 
 private:
 
-    typedef std_srvs::TriggerRequest              trequest ;
-    typedef std_srvs::TriggerResponse             tresponse;
-    typedef ServiceServerPtr<trequest, tresponse> trigger  ;
-
     /* data members */
 
     profile _default, _torque, _gravity;
@@ -89,22 +86,15 @@ private:
 
     CallbackQueue _queue;
     RosSupport::UniquePtr _ros;
-    ServiceServerPtr<std_srvs::SetBoolRequest, std_srvs::SetBoolResponse> _gcomp_srv;
+
+    ServiceServerPtr<std_srvs::SetBoolRequest, std_srvs::SetBoolResponse> _gravity_setter;
+    ServiceServerPtr<xbot_msgs::PluginStatusRequest, xbot_msgs::PluginStatusResponse> _gravity_getter;
 
     /* methods */
     
     void update_model();
-    bool gravity_switch(std_srvs::SetBoolRequest& req, std_srvs::SetBoolResponse& res);
-
-
-    /* new stuff...*/
-
-    trigger _gravity_setter ;
-    trigger _cartesio_setter;
-
-    /**/
-
-    std::map<std::string, partition::context::ptr> _partitions;
+    bool gcomp_switch_callback(const std_srvs::SetBoolRequest& req, std_srvs::SetBoolResponse& res);
+    bool gcomp_get_callback(const xbot_msgs::PluginStatusRequest& req, xbot_msgs::PluginStatusResponse& res);
 
     /**/
 
@@ -112,15 +102,7 @@ private:
 
     /* ros */
 
-    void setup_ros             (const std::string & partition_name);
-    void create_ros_services   (const std::string & partition_name);
-    void create_ros_publishers (const std::string & partition_name);
-    void create_ros_subscribers(const std::string & partition_name);
-
-    /**/
-
-    bool gravity_switch2 (const trequest&, tresponse& res, std::string partition_name);
-    bool cartesio_switch2(const trequest&, tresponse& res, std::string partition_name);
+    void setup_ros();
 
 };
 

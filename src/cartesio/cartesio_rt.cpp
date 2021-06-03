@@ -1,7 +1,44 @@
 #include "cartesio_rt.h"
 
+#define FLEXIBILITY 0.00023
+#define ITERATIONS 4
+
 using namespace XBot;
 using namespace XBot::Cartesian;
+
+void CartesioRt::apply_contraction_mapping()
+{
+    /* The model is synchronized with the positions on the motor side () */
+    /* see: cartesian-impedance-controller/cartesio_plugin/cartesio_rt/CartesianPlugin/src/CartesianPlugin.cpp (control_loop) */
+
+    _rt_model->getJointPosition(_theta);
+
+    for (unsigned char iteration = 0; iteration < ITERATIONS; iteration++)
+    {
+        _rt_model->getJointPosition(_qprev);
+        _rt_model->computeGravityCompensation(_g);
+
+        _l.noalias() = _g;
+
+        _temp.noalias() = - _Gj * _l;
+        _qnew.noalias() = _temp + _theta;
+
+        _rt_model->setJointPosition(_qnew);
+        _rt_model->update();
+    }
+}
+
+void CartesioRt::update_model()
+{
+    if(_enable_feedback)
+    {
+        _robot->sense(false);
+        _rt_model->syncFrom(*_robot, Sync::Sensors, Sync::Position, Sync::Velocity, Sync::Effort, Sync::MotorSide);
+        //apply_contraction_mapping();
+
+        // TBD floating base state
+    }
+}
 
 bool CartesioRt::on_initialize()
 {
@@ -100,18 +137,19 @@ bool CartesioRt::on_initialize()
         jinfo("running with feedback enabled \n");
     }
 
+    /* contraction mapping */
+
+    _Gj = FLEXIBILITY * Eigen::MatrixXd::Identity(_rt_model->getJointNum(),_rt_model->getJointNum());
+
+    _l.resize(_rt_model->getJointNum());
+    _qnew.resize(_rt_model->getJointNum());
+    _temp.resize(_rt_model->getJointNum());
+    _theta.resize(_rt_model->getJointNum());
+    _qprev.resize(_rt_model->getJointNum());
+
+    /***********************/
+
     return true;
-}
-
-void CartesioRt::update_model()
-{
-    if(_enable_feedback)
-    {
-        _robot->sense(false);
-        _rt_model->syncFrom(*_robot);
-
-        // TBD floating base state
-    }
 }
 
 void CartesioRt::starting()
@@ -197,3 +235,6 @@ void CartesioRt::on_close()
 
 XBOT2_REGISTER_PLUGIN(CartesioRt,
                       cartesio_rt);
+
+#undef FLEXIBILITY
+#undef ITERATIONS

@@ -37,9 +37,6 @@ void AlberoCartesioRt::get_fc_values(double & low_fc, double & high_fc)
 }
 
 
-//////////////////// LEGACY ///////////////////////////
-
-
 void AlberoCartesioRt::setup_ros()
 {
     ros::NodeHandle nh(getName());
@@ -187,6 +184,7 @@ void AlberoCartesioRt::run()
     _queue.run();
 }
 
+/*
 void AlberoCartesioRt::stopping()
 {
     XBOT2_INFO("stopping");
@@ -200,6 +198,7 @@ void AlberoCartesioRt::stopping()
 
     CartesioRt::stopping();
 }
+
 
 void AlberoCartesioRt::on_abort()
 {
@@ -215,6 +214,7 @@ void AlberoCartesioRt::on_abort()
     CartesioRt::on_abort();
 }
 
+
 void AlberoCartesioRt::on_close()
 {
     XBOT2_INFO("close");
@@ -228,6 +228,8 @@ void AlberoCartesioRt::on_close()
 
     CartesioRt::on_close();
 }
+
+*/
 
 /*************************************************************/
 

@@ -1,5 +1,8 @@
 #include "albero_gripper.h"
 
+#define MIN_CLICK_TIME 50
+#define MAX_CLICK_TIME 500
+
 using namespace XBot;
 using namespace std::chrono_literals;
 
@@ -8,6 +11,7 @@ bool AlberoGripperRt::on_initialize()
     setJournalLevel(Journal::Level::Low);
 
     _grippers = _robot->getDevices <Hal::GripperBase> ();
+    _buttons_boards = _robot->getDevices <Hal::ButtonsBoardBase> ();
 
     if (_grippers.empty())
     {
@@ -19,7 +23,7 @@ bool AlberoGripperRt::on_initialize()
     return true;
 }
 
-void AlberoGripperRt::set_closure_reference(const std::string name, const std_msgs::Float32& closure)
+void AlberoGripperRt::set_closure_reference(const std::string& name, const std_msgs::Float32& closure)
 {
     XBOT2_INFO("closure reference for gripper {}: {}", name, closure);
 
@@ -27,6 +31,23 @@ void AlberoGripperRt::set_closure_reference(const std::string name, const std_ms
 
     gripper->setClosureReference(closure.data);
     gripper->move();
+}
+
+void AlberoGripperRt::publish_state(const Hal::GripperBase::Ptr gripper) const
+{
+    auto name = gripper->get_name();
+    auto state_msg = _state_publishers.at(name)->loanMessage();
+
+    /* publish... if it could be done.. */
+    if (state_msg)
+    {
+        /* todo: add link vel and other fields to published state! */
+        state_msg->msg().motor_position = gripper->getMotorPosition();
+        state_msg->msg().torque = gripper->getEffort();
+        state_msg->msg().closure_reference = gripper->getClosureReference();
+
+        _state_publishers.at(name)->publishLoaned(std::move(state_msg));
+    }
 }
 
 void AlberoGripperRt::setup_ros()
@@ -37,11 +58,22 @@ void AlberoGripperRt::setup_ros()
 
     for (const auto& gripper : _grippers.get_device_vector())
     {
+        gripper_state state_msg;
+
         auto name = gripper->get_name();
         auto function = std::bind(&AlberoGripperRt::set_closure_reference, this, name, std::placeholders::_1);
 
-        _closure_setters.push_back(_ros->subscribe <std_msgs::Float32> (name + "/closure", function, 1, &_queue));
+        _closure_setters.push_back(_ros->subscribe <gripper_command> (name + "/closure", function, 1, &_queue));
+        _state_publishers.emplace(name, _ros->advertise <gripper_state> (name + "/state", 1, state_msg));
     }
+
+    for (const auto& board : _buttons_boards.get_device_vector())
+    {
+        auto btns_board = std::make_shared<Albero::GripperButtonsBoard> (_ros, MIN_CLICK_TIME, MAX_CLICK_TIME, board);
+
+        _gripper_buttons_boards.push_back(btns_board);
+    }
+
 }
 
 void AlberoGripperRt::starting()
@@ -57,13 +89,15 @@ void AlberoGripperRt::run()
 
     _queue.run();
 
-    XBOT2_INFO_EVERY(2s, "albero gripper plugin is running");
-
     for (const auto& gripper : _grippers.get_device_vector())
     {
         gripper->sense();
+        publish_state(gripper);
+    }
 
-        XBOT2_INFO_EVERY(2s, "motor position: {}\nmotor reference: {}", gripper->getMotorPosition(), gripper->getClosureReference());
+    for (const auto& buttons_board : _gripper_buttons_boards)
+    {
+        buttons_board->update(time_since_start);
     }
 }
 
@@ -73,3 +107,6 @@ void AlberoGripperRt::stopping()
 }
 
 XBOT2_REGISTER_PLUGIN(AlberoGripperRt, albero_gripper_rt)
+
+#undef MIN_CLICK_TIME
+#undef MAX_CLICK_TIME

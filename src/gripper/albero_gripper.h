@@ -9,7 +9,7 @@
 #include <std_msgs/Float32.h>
 
 #include "buttons.hpp"
-#include "albero_gripper_rt/Gripper.h"
+#include <albero_gripper_msgs/Gripper.h>
 
 namespace XBot {
 
@@ -18,7 +18,7 @@ class AlberoGripperRt : public ControlPlugin
 
 private:
 
-    typedef albero_gripper_rt::Gripper gripper_state;
+    typedef albero_gripper_msgs::Gripper gripper_state;
     typedef std_msgs::Float32 gripper_command;
 
 public:
@@ -41,19 +41,17 @@ private:
     using clock_t = chrono::steady_clock;
 
     clock_t::time_point _start_time;
+
     Hal::DeviceContainer <Hal::GripperBase> _grippers;
     Hal::DeviceContainer <Hal::ButtonsBoardBase> _buttons_boards;
 
-    CallbackQueue _queue;
-
-    //    PublisherPtr<sensor_msgs::JointState> _js_pub;
     std::vector <Albero::GripperButtonsBoard::Ptr> _gripper_buttons_boards;
-
 
     std::map <std::string, PublisherPtr <gripper_state>> _state_publishers;
     std::vector <SubscriberPtr <gripper_command>> _closure_setters ;
 
     RosSupport::UniquePtr _ros;
+    CallbackQueue _queue;
 
 };
 

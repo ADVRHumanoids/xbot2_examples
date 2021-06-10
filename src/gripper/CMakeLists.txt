@@ -1,8 +1,12 @@
 find_package(xbot2 REQUIRED)
-find_package(catkin REQUIRED COMPONENTS roscpp albero_gripper_msgs visualization_msgs)
 
 #compile messages
-#add_subdirectory(msg/gripper_msgs)
+add_subdirectory(msg/gripper_msgs)
+find_package(catkin REQUIRED COMPONENTS albero_gripper_msgs)
+
+include_directories(
+    ${albero_gripper_msgs_INCLUDE_DIRS}
+    )
 
 # client
 add_xbot2_plugin(albero_gripper_rt

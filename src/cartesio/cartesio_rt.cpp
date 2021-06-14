@@ -34,7 +34,7 @@ void CartesioRt::update_model()
     {
         _robot->sense(false);
         _rt_model->syncFrom(*_robot, Sync::Sensors, Sync::Position, Sync::Velocity, Sync::Effort, Sync::MotorSide);
-        //apply_contraction_mapping();
+        apply_contraction_mapping();
 
         // TBD floating base state
     }

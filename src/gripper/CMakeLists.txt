@@ -17,8 +17,9 @@ add_xbot2_plugin(albero_gripper_rt
 target_link_libraries(albero_gripper_rt PRIVATE
     xbot2::xbot2_ros_support)
 
+add_dependencies(albero_gripper_rt albero_gripper_msgs_generate_messages_cpp)
+
 install(
     TARGETS albero_gripper_rt
     DESTINATION lib
 )
-

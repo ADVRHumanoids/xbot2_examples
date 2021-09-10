@@ -6,6 +6,8 @@
 #include <xbot2/hal/dev_gripper.h>
 #include <xbot2/ros/ros_support.h>
 
+#include <XBotInterface/Utils.h>
+
 #include <std_msgs/Float32.h>
 
 #include "buttons.hpp"
@@ -20,6 +22,7 @@ private:
 
     typedef albero_gripper_msgs::Gripper gripper_state;
     typedef std_msgs::Float32 gripper_command;
+    typedef Utils::SecondOrderFilter <double> filter;
 
 public:
 
@@ -34,7 +37,7 @@ private:
 
     void setup_ros();
     void publish_state(const Hal::GripperBase::Ptr gripper) const;
-    void set_closure_reference(const std::string& name, const std_msgs::Float32& closure);
+    void set_closure_target(const std::string& name, const std_msgs::Float32& closure);
 
 private:
 
@@ -47,7 +50,10 @@ private:
 
     std::vector <Albero::GripperButtonsBoard::Ptr> _gripper_buttons_boards;
 
+    std::map <std::string, double> _targets;
+    std::map <std::string, filter::Ptr> _filters;
     std::map <std::string, PublisherPtr <gripper_state>> _state_publishers;
+
     std::vector <SubscriberPtr <gripper_command>> _closure_setters ;
 
     RosSupport::UniquePtr _ros;

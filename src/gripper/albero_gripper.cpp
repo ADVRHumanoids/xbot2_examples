@@ -19,18 +19,30 @@ bool AlberoGripperRt::on_initialize()
         return false;
     }
 
+    const double CRITICAL_DAMPING = 1.0;
+    const double CUTOFF_FREQUENCY = 3.0;
+    const double PERIOD = 0.001;
+
+    for (const auto& gripper : _grippers.get_device_vector())
+    {
+        auto name = gripper->get_name();
+
+        _filters[name] = std::make_shared <filter> ();
+
+        _filters[name]->setTimeStep(PERIOD);
+        _filters[name]->setDamping(CRITICAL_DAMPING);
+        _filters[name]->setOmega(2.0 * M_PI * CUTOFF_FREQUENCY);
+    }
+
     setup_ros();
     return true;
 }
 
-void AlberoGripperRt::set_closure_reference(const std::string& name, const std_msgs::Float32& closure)
+void AlberoGripperRt::set_closure_target(const std::string& name, const std_msgs::Float32& closure)
 {
-    XBOT2_INFO("closure reference for gripper {}: {}", name, closure);
+    XBOT2_INFO("closure reference for gripper {}: {}", name, closure.data);
 
-    auto gripper = _grippers.get_device(name);
-
-    gripper->setClosureReference(closure.data);
-    gripper->move();
+    _targets[name] = closure.data;
 }
 
 void AlberoGripperRt::publish_state(const Hal::GripperBase::Ptr gripper) const
@@ -61,7 +73,7 @@ void AlberoGripperRt::setup_ros()
         gripper_state state_msg;
 
         auto name = gripper->get_name();
-        auto function = std::bind(&AlberoGripperRt::set_closure_reference, this, name, std::placeholders::_1);
+        auto function = std::bind(&AlberoGripperRt::set_closure_target, this, name, std::placeholders::_1);
 
         _closure_setters.push_back(_ros->subscribe <gripper_command> (name + "/closure", function, 1, &_queue));
         _state_publishers.emplace(name, _ros->advertise <gripper_state> (name + "/state", 1, state_msg));
@@ -80,6 +92,15 @@ void AlberoGripperRt::starting()
 {
     _start_time = clock_t::now();
 
+    for (const auto& gripper : _grippers.get_device_vector())
+    {
+        auto name = gripper->get_name();
+        auto target = gripper->getMotorPosition();
+
+        _targets[name] = target;
+        _filters[name]->reset(target);
+    }
+
     start_completed();
 }
 
@@ -91,8 +112,16 @@ void AlberoGripperRt::run()
 
     for (const auto& gripper : _grippers.get_device_vector())
     {
+        auto name = gripper->get_name();
+        double target = _targets[name];
+
         gripper->sense();
         publish_state(gripper);
+
+        double reference = _filters[name]->process(target);
+
+        gripper->setClosureReference(reference);
+        gripper->move();
     }
 
     for (const auto& buttons_board : _gripper_buttons_boards)

@@ -66,13 +66,23 @@ bool HomingExample::on_initialize()
 
     // we must explicitly set the control mode for our robot
     // in this case, we will only send positions
-    _robot->setControlMode(ControlMode::Position());
+    _robot->setControlMode(ControlMode::PosImpedance());
 
     return true;
 }
 
 void HomingExample::starting()
 {
+
+    _robot->getStiffness(_k0);
+    _robot->getDamping(_d0);
+    _robot->setStiffness(_k0*0);
+    _robot->setDamping(_d0*0);
+    _robot->move();
+    start_completed();
+    return;
+
+
     // do some on-start initialization
     _robot->sense();
     _robot->getPositionReference(_q_start);
@@ -88,6 +98,8 @@ void HomingExample::starting()
 
 void HomingExample::run()
 {
+    return;
+
     // define a simplistic linear trajectory
     double tau = _fake_time/_homing_time;
 
@@ -111,6 +123,13 @@ void HomingExample::run()
     // increment fake time
     // note: getPeriodSec() returns the nominal period
     _fake_time += getPeriodSec();
+}
+
+void HomingExample::on_stop()
+{
+    _robot->setStiffness(_k0);
+    _robot->setDamping(_d0);
+    _robot->move();
 }
 
 XBOT2_REGISTER_PLUGIN(HomingExample, homing_example)

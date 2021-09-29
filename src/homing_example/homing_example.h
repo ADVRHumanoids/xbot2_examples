@@ -32,9 +32,11 @@ public:
     // callback for 'Run' state
     void run() override;
 
+    void on_stop() override;
+
 private:
 
-    Eigen::VectorXd _q_home, _q_start, _q_ref;
+    Eigen::VectorXd _q_home, _q_start, _q_ref, _k0, _d0;
     double _homing_time;
     double _fake_time;
 

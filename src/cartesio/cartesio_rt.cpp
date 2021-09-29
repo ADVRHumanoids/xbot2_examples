@@ -180,11 +180,14 @@ void CartesioRt::run()
     update_model();
 
     /* Solve IK */
-    if(!_rt_ci->update(_fake_time, getPeriodSec()))
-    {
-        jerror("unable to solve \n");
-        return;
-    }
+//    if(!_rt_ci->update(_fake_time, getPeriodSec()))
+//    {
+//        jerror("unable to solve \n");
+//        return;
+//    }
+
+    _rt_model->computeGravityCompensation(_tau);
+    _rt_model->setJointEffort(_tau);
 
     /* Integrate solution */
     if(!_enable_feedback)

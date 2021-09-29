@@ -84,6 +84,9 @@ private:
     /* data members */
 
     profile _default, _torque, _gravity;
+    Eigen::VectorXd _stiffness, _damping;
+    double _low_fc, _high_fc;
+    int _dofs;
 
     /* ros from rt */
 

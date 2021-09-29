@@ -39,6 +39,9 @@ protected:
 
     std::unique_ptr<thread> _nrt_th;
 
+    JointNameMap _map;
+    Eigen::VectorXd _tau;
+
     /* contraction mapping vars */
 
     Eigen::MatrixXd _Gj;

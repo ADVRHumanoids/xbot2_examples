@@ -168,7 +168,30 @@ void AlberoCartesioRt::starting()
     _rt_ci->reset(_fake_time);
 
     /* in case of torque control set the joint impedance to zero */
-    _torque.activate(_robot);
+
+    // _torque.activate(_robot);
+    _dofs = _rt_model->getJointNum();
+    _stiffness.setZero(_dofs);
+    _damping.setZero(_dofs);
+
+    XBOT2_INFO("damp updated: {}", _damping);
+    _robot->setDamping(_damping);
+
+    XBOT2_INFO("stiff updated: {}", _stiffness);
+    _robot->setStiffness(_stiffness);
+
+    _robot->move();
+
+    get_fc_values(_low_fc, _high_fc);
+    auto ec_joints = _robot->getDevices<Hal::JointEc>();
+
+    for (auto joint : ec_joints.get_device_vector())
+    {
+        /* now we just set the same fc for all the fc joints */
+        joint->setFrictionCompensation(_high_fc);
+        joint->move();
+    }
+
 
     /* signal nrt thread that rt is active */
     _rt_active = true;

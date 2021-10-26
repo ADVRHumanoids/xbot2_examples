@@ -11,7 +11,7 @@ This repository containes commented examples of use for the **XBot2.0** real-tim
 - Inter-plugin communication ([data streaming](src/talker_listener/README.md), [rpc-like](src/client_server/README.md))
 - [Using ROS from a real-time plugin](src/ros_from_rt/README.md)
 - [Adding a custom device](src/device/README.md)
-- []
+- [Controlling the robot from ROS](src/ros_api/README.md)
 
 ## How to build
 

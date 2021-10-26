@@ -28,7 +28,7 @@ Standard CMake workflow
    ```
    export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:<path-to-repo>/models/database
    ```
-- set the XBot2 configuration file to the provided example with `set_xbot2_config <path-to-repo>/config/teleop_simple_example.yaml` *(note: this is optional as this information can be provided later as a command line argument)*
+- set the XBot2 configuration file to the provided example with `set_xbot2_config <path-to-repo>/config/teleop_complete_example.yaml` *(note: this is optional as this information can be provided later as a command line argument)*
 
 
  ## How to run
@@ -38,7 +38,7 @@ Standard CMake workflow
   gazebo <path-to-repo>/world/teleop_xbot2.world
   ```
   you should now see the robot inside Gazebo
-- run XBot2 with `xbot2-core` or `xbot2-core --verbose` *(note: add `--config <path-to-repo>/config/teleop_simple_example.yaml` if you did not use the  `set_xbot2_config` command during the setup phase)*
+- run XBot2 with `xbot2-core` or `xbot2-core --verbose` *(note: add `--config <path-to-repo>/config/teleop_complete_example.yaml` if you did not use the  `set_xbot2_config` command during the setup phase)*
 
 
 You should now be able to (for instance)

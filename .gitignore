@@ -1,4 +1,5 @@
 docker/deb/*
 .vscode/*
 *.kdev4
-*.user
+CMakeLists.txt.user*
+.ipynb_checkpoints/

@@ -16,4 +16,4 @@ The XBot2 framework is configured through a set of configuration files, i.e.
      - define plugins to be loaded
      - define parameters to be set
 
-Check the [example YAML file](teleop_simple_example.yaml) for a commented example!
+Check the [example YAML file](teleop_complete_example.yaml) for a commented example!

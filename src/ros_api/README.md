@@ -2,7 +2,7 @@
 [Back to home](../../README.md)
 
 ## Python 
-Follow the provided *Jupyter Notebook* (install with `pip install notebook` if needed) to get a grasp on how to control an Xbot2 robot in joint space from a python ROS node. Just type the command
+Follow the [provided *Jupyter Notebook*](ros_api_tutorial.ipynb) (install with `pip install notebook` if needed) to get a grasp on how to control an Xbot2 robot in joint space from a python ROS node. Just type the command
 
 ```bash
 jupyter notebook ros_api_tutorial.ipynb

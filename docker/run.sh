@@ -3,14 +3,8 @@
 set -e
 
 nvidia-docker run --rm -it \
- --device=/dev/dri:/dev/dri \
- --privileged \
- --env "DOCKER=1" \
  --env="DISPLAY=$DISPLAY" \
  --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
- --volume="$HOME/.ssh:/home/user/.ssh:ro" \
- --env="XAUTHORITY=$XAUTH" \
- --volume="$XAUTH:$XAUTH" \
  --name xbot2examples \
  --publish 8080:8080 \
  --publish 8888:8888 \

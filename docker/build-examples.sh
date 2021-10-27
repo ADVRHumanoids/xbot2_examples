@@ -2,12 +2,8 @@
 
 set -e
 
-DIR=/home/user
 
-cd $DIR
-
-source .bashrc
-
+mkdir build
 cd build
 
 cmake ../src/xbot2_examples \

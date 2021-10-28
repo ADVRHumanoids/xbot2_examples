@@ -11,6 +11,7 @@ This repository containes commented examples of use for the **XBot2.0** real-tim
 - Inter-plugin communication ([data streaming](src/talker_listener/README.md), [rpc-like](src/client_server/README.md))
 - [Using ROS from a real-time plugin](src/ros_from_rt/README.md)
 - [Adding a custom device](src/device/README.md)
+- [Controlling the robot from ROS](src/ros_api/README.md)
 
 ## How to build
 
@@ -27,8 +28,8 @@ Standard CMake workflow
    ```
    export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:<path-to-repo>/models/database
    ```
-- set the XBot2 configuration file to the provided example with `set_xbot2_config <path-to-repo>/config/teleop_simple_example.yaml`
-- point the `XBOT_ROOT` environment variable to the repository folder with `export XBOT_ROOT=<path-to-repo>` (this can also go to the `.bashrc` for convenience)
+- set the XBot2 configuration file to the provided example with `set_xbot2_config <path-to-repo>/config/teleop_complete_example.yaml` *(note: this is optional as this information can be provided later as a command line argument)*
+
 
  ## How to run
 
@@ -37,7 +38,7 @@ Standard CMake workflow
   gazebo <path-to-repo>/world/teleop_xbot2.world
   ```
   you should now see the robot inside Gazebo
-- run XBot2 with `xbot2-core` or `xbot2-core --verbose` 
+- run XBot2 with `xbot2-core` or `xbot2-core --verbose` *(note: add `--config <path-to-repo>/config/teleop_complete_example.yaml` if you did not use the  `set_xbot2_config` command during the setup phase)*
 
 
 You should now be able to (for instance)

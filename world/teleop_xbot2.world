@@ -590,7 +590,18 @@
         </physics>
       </joint>
       <static>0</static>
-      <plugin name='xbot2_gz_joint_server' filename='libxbot2_gz_joint_server.so'/>
+      <plugin name='xbot2_gz_joint_server' filename='libxbot2_gz_joint_server.so'>
+        <pid>
+            <gain name="small_mot"  p="250"  d="5"/>
+            <gain name="medium_mot" p="1000" d="10"/>
+
+            <gain name="joint1" profile="medium_mot"/>
+            <gain name="joint2" profile="medium_mot"/>
+            <gain name="joint3" profile="medium_mot"/>
+            <gain name="joint4" profile="small_mot"/>
+            <gain name="joint5" profile="small_mot"/>
+        </pid>
+      </plugin>
       <plugin name='xbot2_gz_rocket_server' filename='libxbot2_gz_rocket_server.so'>
         <link_name>teleop_link5</link_name>
       </plugin>

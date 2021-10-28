@@ -1,0 +1,127 @@
+## XBotInterface related configs
+
+XBotInterface:
+  urdf_path: $PWD/teleop_fixed_base.urdf
+  srdf_path: $PWD/teleop_fixed_base.srdf
+
+ModelInterface:
+  model_type: RBDL
+  is_model_floating_base: false
+  
+
+## XBot2 related configuration
+
+# describe the robot hardware in terms of devices
+xbotcore_devices:
+
+    joint_gz:
+        names: []  # autodetect joints from gazebo
+        thread: rt_main  # allocate this device on rt_main thread
+
+    joint_master:
+        master: true  # this is a master device for all 'joint' devices
+        thread: rt_main
+    
+    # add the custom device from the "device" example
+    rocket:
+        names: [rocket_0]
+        type: rocket
+        thread: rt_main
+
+
+# define threads to be created
+xbotcore_threads:
+    rt_slow:  {sched: fifo , prio: 60, period: 0.5, core_id: 0}
+    rt_main:  {sched: fifo , prio: 60, period: 0.001, core_id: 2}
+    nrt_main: {sched: other, prio: 0 , period: 0.005}
+
+
+# define plugins to be loaded
+xbotcore_plugins:
+
+    # this plugin is shipped with xbot2, and it generates the
+    # ROS api for the framework
+    # it is not designed to be real-time safe, so it must executed
+    # inside a thread with `other` priority
+    ros_io: {thread: nrt_main, type: ros_io}
+
+    # the ros_control plugin forwards all references received on the
+    # ROS topic /xbotcore/command to the motors
+    ros_ctrl: {thread: nrt_main, type: ros_control}
+
+    # a custom plugin from the "clock" example
+    clock_example: {thread: rt_slow, type: clock_example}
+
+    # a custom plugin from the "malloc" example
+    malloc_example: {thread: rt_slow, type: malloc_example}
+
+    # notice here how to set parameters that are local to 
+    # the single plugin
+    ros_rt_example:
+        thread: rt_main    # this name must be defined under the 'xbotcore_threads'
+        type: ros_from_rt  # this name must match the xbot2 registration macro
+        params:
+            queue_size: {value: 10, type: int}
+
+    rocket_commander:
+        thread: rt_main
+        type: rocket_commander
+        params:
+            pulse_period: {value: 5, type: double}
+            thrust: {value: 1000, type: double}
+
+    # notice that you can reuse the same plugin, by providing
+    # different names and possibly different parameters
+    homing:
+        thread: rt_main
+        type: homing_example
+
+    homing_slow:
+        thread: rt_main
+        type: homing_example
+        params:
+            time: {value: 10, type: double}
+            
+    homing_custom:
+        thread: rt_main
+        type: homing_example
+        params:
+            qhome: {value: [0, -1, -1, 0, 0], type: Eigen::VectorXd}
+    
+    # custom plugins from the "client_server" example
+    server_example:
+        thread: rt_main
+        type: server
+            
+    client_example:
+        thread: nrt_main
+        type: client
+    
+    # custom plugins from the "talker_listener" example
+    # notice how to set remapping for resource names to dynamically
+    # connect two components
+    talker:
+        thread: rt_slow
+        type: talker
+        remap:
+            output_small: topic_small
+            output_big: topic_big
+            
+    listener:
+        thread: rt_main
+        type: listener
+        params:
+            queue_size: {value: 5, type: int}
+        remap:
+            input_small: topic_small
+            input_big: topic_big
+
+
+# additional parameters that don't relate to any plugin 
+xbotcore_param:
+    /jm/tx_filter_autostart: {value: true, type: bool}  # autostart joint filter
+    /jm/tx_filter_cutoff: {value: 2.0, type: double}    # set default filter bandwidth
+    /xbot_internal/ros_io/call_timeout: {value: 1.0, type: chrono}
+    /rt_slow/memory_hooks: {value: false, type: bool}
+        
+        

@@ -12,5 +12,6 @@ nvidia-docker run --rm -it \
  -v $(pwd)/world:/home/user/src/xbot2_examples/world \
  -v $(pwd)/config:/home/user/src/xbot2_examples/config \
  -v $(pwd)/CMakeLists.txt:/home/user/src/xbot2_examples/CMakeLists.txt \
- arturolaurenzi/xbot2:examples bash
+ arturolaurenzi/xbot2:examples \
+ bash
 

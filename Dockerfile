@@ -11,7 +11,7 @@ ENV rosdistro noetic
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \ 
 sudo file libyaml-cpp-dev build-essential cmake cmake-curses-gui git wget vim \
 libmatio-dev \
-ros-${rosdistro}-robot ros-${rosdistro}-interactive-markers ros-${rosdistro}-tf2-eigen ros-${rosdistro}-rviz \ 
+ros-${rosdistro}-robot ros-${rosdistro}-interactive-markers ros-${rosdistro}-tf2-eigen ros-${rosdistro}-rviz ros-${rosdistro}-moveit-core \ 
 gazebo11 libgazebo11-dev \ 
 libjansson-dev nodejs npm libboost-dev imagemagick libtinyxml-dev mercurial \
 qt5-default qttools5-dev qtquickcontrols2-5-dev qtdeclarative5-dev 
@@ -40,6 +40,9 @@ libqt5charts5-dev libgl1-mesa-glx libgl1-mesa-dri python3-pip
 RUN sh -c 'echo "deb http://xbot.cloud/xbot2/ubuntu/$(lsb_release -sc) /" > /etc/apt/sources.list.d/xbot-latest.list'
 RUN wget -q -O - http://xbot.cloud/xbot2/ubuntu/KEY.gpg | apt-key add -
 RUN apt-get update && apt install -y xbot2_desktop_full
+
+RUN apt install -y ros-${rosdistro}-rosmon
+
 
 # install python modules for backtrace pretty printer
 RUN pip3 install parse ansicolors notebook

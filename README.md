@@ -51,6 +51,7 @@ You should now be able to (for instance)
 
  - [install docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
    and set it up so that it [does not require sudo permissions](https://docs.docker.com/engine/install/linux-postinstall/)
+ - [install nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#docker) if you have an nvidia card
  - `./docker/run.sh` runs the container (the first time it will also download a crazy amount of data!)
  - to spawn more `bash` sessions inside the same container instance, do `./docker/attach.sh`
  - open three `bash` sessions

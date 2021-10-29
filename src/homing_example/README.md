@@ -5,7 +5,7 @@
 This example is related to the implementation and execution of a simple control plugin, specifically a *homing* plugin which brings the robot to a given joint space position, within a specified time.
 
 ## Steps
-A short outline of the required steps follows. Please refer to the inline comments for more details!
+A short outline of the required steps follows. Please refer to the inline comments inside the [header](homing_example.h) and [implementation](homing_example.cpp) files for more details!
 
 1) define a class inheriting from `XBot::ControlPlugin`
 2) override at least 

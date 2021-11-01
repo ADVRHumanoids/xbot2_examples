@@ -48,6 +48,8 @@ xbotcore_plugins:
     homing:
         thread: rt_main
         type: homing_example
+        params:
+            time: {value: 3.0, type: double}
 
 
 # additional parameters that don't relate to any plugin 

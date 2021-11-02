@@ -46,7 +46,7 @@ cd <build-dir> && ./src/ros_api/ros_api_tutorial
 ```
 
 ## GUI
-Monitoring and interaction with the Xbot2 framework can be done with a GUI tool, as well. The GUI is invoked with
+Monitoring and interaction with the Xbot2 framework can be done with a GUI tool, as well, which is written in Qt5 and on top of the aforementioned ROS API. Top open it, just type
 
 ```bash
 xbot2-gui

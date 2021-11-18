@@ -2,6 +2,7 @@
 ### Examples for the XBot2.0 middleware
 
 This repository containes commented examples of use for the [**XBot2.0**](https://advrhumanoids.github.io/xbot2_wip/quickstart.html) real-time middleware for robotics. The IIT-Teleop robot, a 5-dof robotic arm, is provided as testing platform.
+Follow the link and install the framework before you go ahead!
 
 ## Contents
 
@@ -21,6 +22,7 @@ Standard CMake workflow
  - `ccmake <path-to-repo>`
  - select a build type and an install folder (must be visible to the dynamic linker), type `c` and then `g`
  - `make -j install`
+ - `sudo ldconfig` might be required if installing to `/usr/local`
 
  ## How to setup
 
@@ -28,7 +30,9 @@ Standard CMake workflow
    ```
    export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:<path-to-repo>/models/database
    ```
-- set the XBot2 configuration file to the provided example with `set_xbot2_config <path-to-repo>/config/teleop_complete_example.yaml` *(note: this is optional as this information can be provided later as a command line argument)*
+- set the XBot2 configuration file to the provided example with `set_xbot2_config <path-to-repo>/config/teleop_simple_example.yaml` *(note: this is optional as this information can be provided later as a command line argument)*
+
+Note: a more complete `teleop_complete_example.yaml` is available, too; it requires to enable the `XBOT2_EXAMPLES_WITH_GZ` flag during compilation.
 
 
  ## How to run
@@ -38,7 +42,7 @@ Standard CMake workflow
   gazebo <path-to-repo>/world/teleop_xbot2.world
   ```
   you should now see the robot inside Gazebo
-- run XBot2 with `xbot2-core` or `xbot2-core --verbose` *(note: add `--config <path-to-repo>/config/teleop_complete_example.yaml` if you did not use the  `set_xbot2_config` command during the setup phase)*
+- run XBot2 with `xbot2-core` or `xbot2-core --verbose` *(note: add `--config <path-to-repo>/config/teleop_simple_example.yaml` if you did not use the  `set_xbot2_config` command during the setup phase)*
 
 
 You should now be able to (for instance)

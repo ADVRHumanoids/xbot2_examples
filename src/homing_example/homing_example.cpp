@@ -82,7 +82,7 @@ void HomingExample::set_control_mode()
         ControlMode ctrl;
         if(!getParam("/hal/joint/control_mode/" + j, ctrl))
         {
-            jhigh().jwarn("could not find control mode for joint '{}', setting to idle \n", j);
+            continue;
         }
         
         ctrl_map[j] = ctrl;

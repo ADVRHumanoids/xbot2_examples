@@ -2,10 +2,15 @@
 
 set -e
 
-nvidia-docker run --rm -it \
+sudo nvidia-docker run --rm -it \
  --env="DISPLAY=$DISPLAY" \
  --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
  --name xbot2examples \
+ --network host \
+ --ulimit rtprio=99 \
+ --cap-add=sys_nice \
+ --cap-add ipc_lock \
+ --device=/dev/cpu_dma_latency \
  --publish 8080:8080 \
  --publish 8888:8888 \
  -v $(pwd)/src:/home/user/src/xbot2_examples/src \

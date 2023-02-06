@@ -24,18 +24,14 @@ public:
     // if this returns 'false'
     bool on_initialize() override;
 
-    // callback for the 'Starting' state
-    // start_completed() must be called to switch
-    // to 'Run' state
-    void starting() override;
+    // callback for switching to the 'Starting' state
+    void on_start() override;
 
     // callback for 'Run' state
     void run() override;
 
 private:
     
-    void set_control_mode();
-
     Eigen::VectorXd _q_home, _q_start, _q_ref;
     double _homing_time;
     double _fake_time;

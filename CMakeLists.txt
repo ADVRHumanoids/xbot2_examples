@@ -6,6 +6,7 @@ option(XBOT2_EXAMPLES_WITH_GZ ON "Compile gazebo examples")
 
 add_subdirectory(src/clock)
 add_subdirectory(src/malloc_example)
+add_subdirectory(src/gcomp_example)
 add_subdirectory(src/homing_example)
 add_subdirectory(src/ros_from_rt)
 add_subdirectory(src/talker_listener)

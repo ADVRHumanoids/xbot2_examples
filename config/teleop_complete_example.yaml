@@ -87,6 +87,14 @@ xbotcore_plugins:
         type: homing_example
         params:
             qhome: {value: [0, -1, -1, 0, 0], type: Eigen::VectorXd}
+
+    gcomp_example:
+        type: gcomp_example
+        thread: rt_main
+        params:
+            enabled_chains: 
+                value: [arm]
+                type: vector<string>
     
     # custom plugins from the "client_server" example
     server_example:

@@ -127,8 +127,8 @@ xbotcore_plugins:
 
 # additional parameters that don't relate to any plugin 
 xbotcore_param:
-    /jm/tx_filter_autostart: {value: true, type: bool}  # autostart joint filter
-    /jm/tx_filter_cutoff: {value: 2.0, type: double}    # set default filter bandwidth
+    /xbot/hal/joint_safety/filter_autostart: {value: true, type: bool}  # autostart joint filter
+    /xbot/hal/joint_safety/filter_cutoff_hz: {value: 2.0, type: double}    # set default filter bandwidth
     /xbot_internal/ros_io/call_timeout: {value: 1.0, type: chrono}
     /rt_slow/memory_hooks: {value: false, type: bool}
         

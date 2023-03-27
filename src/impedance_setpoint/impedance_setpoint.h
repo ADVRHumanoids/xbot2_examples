@@ -24,10 +24,8 @@ public:
     // if this returns 'false'
     bool on_initialize() override;
 
-    // callback for the 'Starting' state
-    // start_completed() must be called to switch
-    // to 'Run' state
-    void starting() override;
+    // callback invoked on plugin start
+    void on_start() override;
 
     // callback for 'Run' state
     void run() override;

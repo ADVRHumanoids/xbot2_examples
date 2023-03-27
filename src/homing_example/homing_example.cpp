@@ -64,18 +64,17 @@ bool HomingExample::on_initialize()
     // just preallocate variables
     _q_start = _q_ref = _q_home;
 
+    // set default control mode:
+    // upon start, the framework will try to acquire the specified
+    // resource from the underlying device
+    // on failure, plugin cannot start
+    setDefaultControlMode(ControlMode::Position());
+
     return true;
 }
 
 void HomingExample::on_start()
 {
-    // we must explicitly set the control mode for our robot
-    // in this case, we will only send positions
-    if(!_robot->setControlMode(ControlMode::Position()))
-    {
-        jerror("unable to acquire position mode, aborting");
-        abort();
-    }
 
     // do some on-start initialization
     _robot->sense();

@@ -25,10 +25,8 @@ public:
     // if this returns 'false'
     bool on_initialize() override;
 
-    // callback for the 'Starting' state
-    // start_completed() must be called to switch
-    // to 'Run' state
-    void starting() override;
+    // callback called on start
+    void on_start() override;
 
     // callback for 'Run' state
     void run() override;
@@ -39,6 +37,8 @@ public:
 private:
 
     Eigen::VectorXd _q, _qref, _dq, _kp, _kd, _tau;
+
+    std::map<std::string, ControlMode> _ctrl_map;
 
 };
 

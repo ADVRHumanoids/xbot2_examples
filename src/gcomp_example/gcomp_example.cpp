@@ -22,7 +22,9 @@ bool GcompExample::on_initialize()
     _qmin = _qmin.array() + 0.01;
     _qmax = _qmax.array() - 0.01;
 
-    /* set control mode */
+    // set control mode
+    // in this example, we provide the possibility to customize the set of joints
+    // that this plugin actually commands
     std::vector<std::string> enabled_chains;
     if(!getParam("~enabled_chains", enabled_chains))
     {
@@ -39,14 +41,16 @@ bool GcompExample::on_initialize()
         }
     }
 
-    _robot->setControlMode(ControlMode::Idle());
-    _robot->setControlMode(_ctrl_map);
-
     for (auto jn: _robot->getEnabledJointNames())
     {
-        _robot->getControlMode(_ctrl_map);
-        jerror("Joint {} in {} mode", jn, _ctrl_map[jn].getName());
+        jinfo("joint {} in {} mode", jn, _ctrl_map[jn].getName());
     }
+
+    // set default control mode:
+    // upon start, the framework will try to acquire the specified
+    // resource from the underlying device
+    // on failure, plugin cannot start
+    setDefaultControlMode(_ctrl_map);
 
     return true;
 
@@ -54,10 +58,6 @@ bool GcompExample::on_initialize()
 
 void GcompExample::on_start()
 {
-    // // set appropriate control mode
-    // _robot->setControlMode(ControlMode::Effort() +
-    //                        ControlMode::PosImpedance());
-
     // set time to 0
     _time = 0;
 

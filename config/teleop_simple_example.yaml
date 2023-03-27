@@ -18,10 +18,6 @@ xbotcore_devices:
         names: []  # autodetect joints from gazebo
         thread: rt_main  # allocate this device on rt_main thread
 
-    joint_master:
-        master: true  # this is a master device for all 'joint' devices
-        thread: rt_main
-
 
 # define threads to be created
 xbotcore_threads:
@@ -51,11 +47,19 @@ xbotcore_plugins:
         params:
             time: {value: 3.0, type: double}
 
+    gcomp_example:
+        type: gcomp_example
+        thread: rt_main
+        params:
+            enabled_chains:
+                value: [arm]
+                type: vector<string>
+
 
 # additional parameters that don't relate to any plugin 
 xbotcore_param:
-    /jm/tx_filter_autostart: {value: true, type: bool}  # autostart joint filter
-    /jm/tx_filter_cutoff: {value: 2.0, type: double}    # set default filter bandwidth
+    /xbot/hal/joint_safety/filter_autostart: {value: true, type: bool}  # autostart joint filter
+    /xbot/hal/joint_safety/filter_cutoff_hz: {value: 2.0, type: double}    # set default filter bandwidth
     /xbot_internal/ros_io/call_timeout: {value: 1.0, type: chrono}
     /rt_slow/memory_hooks: {value: false, type: bool}
         

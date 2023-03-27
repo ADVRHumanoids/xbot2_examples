@@ -41,7 +41,7 @@ Note: a more complete `teleop_complete_example.yaml` is available, too; it requi
   ```
   gazebo <path-to-repo>/world/teleop_xbot2.world
   ```
-  you should now see the robot inside Gazebo
+  you should now see the robot inside Gazebo; a simple bash script `<path-to-repo>/run_simulation.bash` provides a shorthand for this command.
 - run XBot2 with `xbot2-core` or `xbot2-core --verbose` *(note: add `--config <path-to-repo>/config/teleop_simple_example.yaml` if you did not use the  `set_xbot2_config` command during the setup phase)*
 
 

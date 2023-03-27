@@ -35,14 +35,13 @@ bool ImpedanceSetpoint::on_initialize()
     _k_start = _k_ref = _k_home;
     _d_start = _d_ref = _d_home;
 
-    // we must explicitly set the control mode for our robot
-    // in this case, we will only send positions
-    _robot->setControlMode(ControlMode::Stiffness() + ControlMode::Damping());
+    setDefaultControlMode(ControlMode::Stiffness() +
+                          ControlMode::Damping());
 
     return true;
 }
 
-void ImpedanceSetpoint::starting()
+void ImpedanceSetpoint::on_start()
 {
     // do some on-start initialization
     _robot->sense();
@@ -54,8 +53,6 @@ void ImpedanceSetpoint::starting()
     // period at each iteration
     _fake_time = 0.0;
 
-    // we can switch to run
-    start_completed();
 }
 
 void ImpedanceSetpoint::run()

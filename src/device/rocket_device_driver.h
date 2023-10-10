@@ -41,7 +41,7 @@ class RocketDriver : public DeviceDriverTpl<RocketPacket::Rx,
 
 public:
 
-    RocketDriver(DeviceInfo devinfo);
+    RocketDriver(DeviceInfo devinfo, const CommonParams& p);
 
     /**
      * @brief move_impl allows to override the tx data from
@@ -74,7 +74,7 @@ class RocketDriverContainer : public DeviceContainer<RocketDriver>
 
 public:
 
-    RocketDriverContainer(std::vector<DeviceInfo> devinfo);
+    RocketDriverContainer(std::vector<DeviceInfo> devinfo, const Device::CommonParams& p);
 
     bool sense_all() override;
 

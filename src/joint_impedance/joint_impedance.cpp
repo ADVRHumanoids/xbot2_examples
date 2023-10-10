@@ -2,7 +2,6 @@
 
 bool JointImpedance::on_initialize()
 {
-    setJournalLevel(Journal::Level::Low);
 
     /* Initialize variables */
     _robot->getMotorPosition(_q);
@@ -18,7 +17,7 @@ bool JointImpedance::on_initialize()
     jinfo("will control joints {} \n",
           fmt::join(control_joints, ", "));
 
-    std::map<std::string, ControlMode> ctrl_map;
+
 
     for(auto j : control_joints)
     {
@@ -28,10 +27,10 @@ bool JointImpedance::on_initialize()
             return false;
         }
 
-        ctrl_map[j] = ControlMode::Effort();
+        _ctrl_map[j] = ControlMode::Effort();
     }
 
-    _robot->setControlMode(ctrl_map);
+    setDefaultControlMode(_ctrl_map);
 
 
     /* Gains */
@@ -47,13 +46,11 @@ bool JointImpedance::on_initialize()
     return true;
 }
 
-void JointImpedance::starting()
+void JointImpedance::on_start()
 {
     // initialize qref
     _robot->sense();
     _robot->getPositionReference(_qref);
-
-    start_completed();
 }
 
 void JointImpedance::run()

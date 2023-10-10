@@ -12,7 +12,7 @@ class RocketAdapterGz : public Hal::DeviceTplCommon<RocketPacket::Rx,
 public:
 
     RocketAdapterGz(Hal::DeviceInfo devinfo,
-                    gz::physics::LinkPtr gz_joint);
+                    gazebo::physics::LinkPtr gz_joint);
 
     bool sense() override;
 
@@ -20,7 +20,7 @@ public:
 
 private:
 
-    gz::physics::LinkPtr _gz_link;
+    gazebo::physics::LinkPtr _gz_link;
 
     float _force_to_gz;
 
@@ -36,7 +36,7 @@ GzRocketServer::GzRocketServer()
 
 }
 
-void XBot::GzRocketServer::Load(gz::physics::ModelPtr model,
+void XBot::GzRocketServer::Load(gazebo::physics::ModelPtr model,
                                 sdf::ElementPtr sdf) try
 {
     auto rocket_link = sdf->GetElement("link_name")->GetValue()->GetAsString();
@@ -57,7 +57,7 @@ void XBot::GzRocketServer::Load(gz::physics::ModelPtr model,
 
 
     /* Register update callback */
-    _gz_world_upd_begin_connection = gz::event::Events::ConnectWorldUpdateBegin(
+    _gz_world_upd_begin_connection = gazebo::event::Events::ConnectWorldUpdateBegin(
         [this](const auto& info)
         {
             this->on_gz_world_upd_begin(info);
@@ -70,7 +70,7 @@ catch(std::exception& e)
     throw;
 }
 
-void GzRocketServer::on_gz_world_upd_begin(const gz::common::UpdateInfo& /* info */)
+void GzRocketServer::on_gz_world_upd_begin(const gazebo::common::UpdateInfo& /* info */)
 {
     for(auto& rock : _rocket_vec)
     {
@@ -90,7 +90,7 @@ void GzRocketServer::on_gz_world_upd_begin(const gz::common::UpdateInfo& /* info
 
 
 RocketAdapterGz::RocketAdapterGz(DeviceInfo devinfo,
-                                   gz::physics::LinkPtr gz_link):
+                                   gazebo::physics::LinkPtr gz_link):
     DeviceTplCommon(devinfo),
     _gz_link(gz_link),
     _force_to_gz(0.0),

@@ -64,35 +64,18 @@ bool HomingExample::on_initialize()
     // just preallocate variables
     _q_start = _q_ref = _q_home;
 
-    // we must explicitly set the control mode for our robot
-    // in this case, we will only send positions
-    _robot->setControlMode(ControlMode::Position());
-    
-    set_control_mode();
+    // set default control mode:
+    // upon start, the framework will try to acquire the specified
+    // resource from the underlying device
+    // on failure, plugin cannot start
+    setDefaultControlMode(ControlMode::Position());
 
     return true;
 }
 
-void HomingExample::set_control_mode()
+void HomingExample::on_start()
 {
-    std::map<std::string, ControlMode> ctrl_map;
-    
-    for(auto j : _robot->getEnabledJointNames())
-    {
-        ControlMode ctrl;
-        if(!getParam("/hal/joint/control_mode/" + j, ctrl))
-        {
-            continue;
-        }
-        
-        ctrl_map[j] = ctrl;
-    }
-    
-    _robot->setControlMode(ctrl_map);
-}
 
-void HomingExample::starting()
-{
     // do some on-start initialization
     _robot->sense();
     _robot->getPositionReference(_q_start);
@@ -101,10 +84,8 @@ void HomingExample::starting()
     // this will increment by the nominal control
     // period at each iteration
     _fake_time = 0.0;
-
-    // we can switch to run
-    start_completed();
 }
+
 
 void HomingExample::run()
 {

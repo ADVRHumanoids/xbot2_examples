@@ -3,7 +3,8 @@
 
 using namespace XBot;
 
-Hal::RocketDriverContainer::RocketDriverContainer(std::vector<Hal::DeviceInfo> devinfo):
+Hal::RocketDriverContainer::RocketDriverContainer(std::vector<Hal::DeviceInfo> devinfo,
+                                                  const Device::CommonParams& p):
     DeviceContainer(devinfo),
     _srv_alive(false)
 {
@@ -43,8 +44,9 @@ bool Hal::RocketDriverContainer::move_all()
     return true;
 }
 
-Hal::RocketDriver::RocketDriver(Hal::DeviceInfo devinfo):
-    DeviceDriverTpl(devinfo),
+Hal::RocketDriver::RocketDriver(Hal::DeviceInfo devinfo,
+                                const CommonParams& p):
+    DeviceDriverTpl(devinfo, p),
     _timeout(2s)
 {
 

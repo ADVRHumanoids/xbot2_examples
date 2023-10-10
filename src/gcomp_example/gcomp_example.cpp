@@ -32,12 +32,13 @@ bool GcompExample::on_initialize()
         return false;
     }
 
+    // note: we just send feedforward torque -> control mode is 'effort'
     for(auto ch : enabled_chains)
     {
         for(auto jn : _robot->chain(ch).getJointNames())
         {
             jinfo("enabling joint {}", jn);
-            _ctrl_map[jn] = ControlMode::PosImpedance() + ControlMode::Effort();
+            _ctrl_map[jn] = ControlMode::Effort();
         }
     }
 

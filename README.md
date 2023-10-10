@@ -1,7 +1,7 @@
 # xbot2_examples
 ### Examples for the XBot2.0 middleware
 
-This repository containes commented examples of use for the [**XBot2.0**](https://advrhumanoids.github.io/xbot2/quickstart.html) real-time middleware for robotics. The IIT-Teleop robot, a 5-dof robotic arm, is provided as testing platform.
+This repository containes commented examples of use for the [**XBot2.0**](https://advrhumanoids.github.io/xbot2/) real-time middleware for robotics. The IIT-Teleop robot, a 5-dof robotic arm, is provided as testing platform.
 Follow the link and install the framework before you go ahead!
 
 ## Contents

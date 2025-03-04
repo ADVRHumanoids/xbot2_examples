@@ -2,23 +2,22 @@
 #include <xbot2/xbot2.h>
 
 // needed for ROS support from real-time domain
-#include <xbot2/ros/ros_support.h>
+#include <xbot2/ros2/ros_support.h>
 
-// include this since we'll be publishing this
-// message to ROS from the real-time domain
-#include <sensor_msgs/JointState.h>
-#include <std_msgs/Bool.h>
-#include <std_srvs/Trigger.h>
+// Update to ROS 2 message types
+#include <sensor_msgs/msg/joint_state.hpp>  // Changed namespace/path
+#include <std_msgs/msg/bool.hpp>            // Changed namespace/path
+#include <std_srvs/srv/trigger.hpp>         // Changed namespace/path
 
 using namespace XBot;
 
 /**
- * @brief The RosFromRt class is a ControlPlugin
+ * @brief The Ros2FromRt class is a ControlPlugin
  * implementing ROS publishers, subscribers, and
  * service servers that can run on a real-time
  * thread
  */
-class RosFromRt : public ControlPlugin
+class Ros2FromRt : public ControlPlugin
 {
 
 public:
@@ -43,23 +42,28 @@ public:
 private:
 
     // ROS topic callback
-    void on_flag_recv(const std_msgs::Bool& msg);
+    void on_flag_recv(const std_msgs::msg::Bool& msg);  // Updated namespace
 
-    // ROS service callback
-    bool trig_srv_handler(const std_srvs::TriggerRequest& req,
-                          std_srvs::TriggerResponse& res);
+    
+    // Update service callback signature
+    bool trig_srv_handler(const std_srvs::srv::Trigger::Request& req,
+        std_srvs::srv::Trigger::Response& res);  // Updated namespace
+
 
     Eigen::VectorXd _q;
 
-    // handle adapting ROS primitives for RT support
-    RosSupport::UniquePtr _ros;
+    // Change to Ros2Support
+    Ros2Support::UniquePtr _ros;
+
 
     // queue object to handle multiple subscribers/servers at once
     CallbackQueue _queue;
 
-    // XBot2.0 pub/sub/server wrapping the ones from ROS
-    PublisherPtr<sensor_msgs::JointState> _js_pub;
-    SubscriberPtr<std_msgs::Bool> _flag_sub;
-    ServiceServerPtr<std_srvs::TriggerRequest,
-                     std_srvs::TriggerResponse> _trig_srv;
+    
+    // Update publisher/subscriber/service types to ROS 2
+    PublisherPtr<sensor_msgs::msg::JointState> _js_pub;  // Updated namespace
+    SubscriberPtr<std_msgs::msg::Bool> _flag_sub;  // Updated namespace
+    ServiceServerPtr<std_srvs::srv::Trigger::Request,
+                     std_srvs::srv::Trigger::Response> _trig_srv;  // Updated namespace
+
 };

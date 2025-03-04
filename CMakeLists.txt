@@ -1,5 +1,13 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.8)
 project(xbot2_examples)
+
+
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+# Find ament_cmake which is required for ROS 2
+find_package(ament_cmake REQUIRED)
 
 option(XBOT2_ENABLE_XENO OFF "Compile against xenomai")
 option(XBOT2_EXAMPLES_WITH_GZ ON "Compile gazebo examples")
@@ -17,3 +25,5 @@ endif()
 add_subdirectory(src/joint_impedance)
 add_subdirectory(src/impedance_setpoint)
 add_subdirectory(src/ros_api)
+
+ament_package()

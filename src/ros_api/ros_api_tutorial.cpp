@@ -6,7 +6,7 @@
 
 // Include base ROS 2 headers
 #include <rclcpp/rclcpp.hpp>
-
+#include <std_msgs/msg/string.hpp>
 /**
  * This executable replicates the python example "ros_api_tutorial.ipynb"
  * in the C++ language, updated for ROS 2 Jazzy.
@@ -28,9 +28,10 @@ int main(int argc, char **argv) {
     // Create robot (xbot2 should be up and running)
     auto robot = XBot::RobotInterface::getRobot(cfg);
     
-    // This model is automatically kept in sync with robot
-    auto& model = robot->model();
-    
+    // Create a separate model instance for computations
+    auto model_copy = XBot::ModelInterface::getModel(cfg);
+
+
     // Set a default control mode (applied to all joints)
     auto default_ctrl_mode = XBot::ControlMode::Position() + XBot::ControlMode::Effort();
     robot->setControlMode(default_ctrl_mode);
@@ -64,11 +65,11 @@ int main(int argc, char **argv) {
         a = -q0 * 0.5 * omega * omega * std::cos(omega * time);
         
         // Compute inverse dynamics torque
-        model.setJointPosition(q);
-        model.setJointVelocity(v);
-        model.setJointAcceleration(a);
-        model.update();
-        model.computeInverseDynamics(tau);
+        model_copy->setJointPosition(q);
+        model_copy->setJointVelocity(v);
+        model_copy->setJointAcceleration(a);
+        model_copy->update();
+        model_copy->computeInverseDynamics(tau);
         
         // Set reference to robot
         robot->setPositionReference(q);

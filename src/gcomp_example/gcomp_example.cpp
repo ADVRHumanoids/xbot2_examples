@@ -1,6 +1,7 @@
 #include "gcomp_example.h"
 
 using namespace XBot;
+namespace xv2 = XBot::v2;
 
 bool GcompExample::on_initialize()
 {
@@ -32,18 +33,57 @@ bool GcompExample::on_initialize()
         return false;
     }
 
-    for(auto ch : enabled_chains)
+    // Get all joints first
+    std::vector<std::string> all_joints = _robot->get1DofJointNames();
+    
+    // In ROS 2 Jazzy, we need to rely on joint naming conventions
+    // to determine which chain a joint belongs to
+    if (enabled_chains.size() == 1 && enabled_chains[0] == "all")
     {
-        for(auto jn : _robot->chain(ch).getJointNames())
+        // Enable all joints if the user specifies "all" chain
+        for (auto& jn : all_joints)
+        {
+            jinfo("enabling joint {}", jn);
+            _ctrl_map[jn] = ControlMode::PosImpedance() + ControlMode::Effort();
+        }
+    }
+    else
+    {
+        // Try to match joints to chains based on naming convention
+        for (auto& jn : all_joints)
+        {
+            for (auto& ch : enabled_chains)
+            {
+                // Check if joint name contains chain name (common robotics naming convention)
+                // or if chain is a prefix/suffix of the joint name
+                if (jn.find(ch) != std::string::npos)
+                {
+                    jinfo("enabling joint {} (matched chain {})", jn, ch);
+                    _ctrl_map[jn] = ControlMode::PosImpedance() + ControlMode::Effort();
+                    break;  // Once we've matched a chain, no need to check others
+                }
+            }
+        }
+    }
+
+    // If no joints were enabled, warn the user and enable all joints
+    if (_ctrl_map.empty())
+    {
+        jwarn("No joints matched the enabled chains, enabling all joints as fallback");
+        for (auto& jn : all_joints)
         {
             jinfo("enabling joint {}", jn);
             _ctrl_map[jn] = ControlMode::PosImpedance() + ControlMode::Effort();
         }
     }
 
-    for (auto jn: _robot->getEnabledJointNames())
+    // Log the control mode for each enabled joint
+    for (auto jn: _robot->get1DofJointNames())
     {
-        jinfo("joint {} in {} mode", jn, _ctrl_map[jn].getName());
+        if (_ctrl_map.count(jn) > 0)
+        {
+            jinfo("joint {} in {} mode", jn, _ctrl_map[jn].getName());
+        }
     }
 
     // set default control mode:
@@ -53,7 +93,6 @@ bool GcompExample::on_initialize()
     setDefaultControlMode(_ctrl_map);
 
     return true;
-
 }
 
 void GcompExample::on_start()
@@ -93,12 +132,17 @@ void GcompExample::starting()
     // compute gcomp torque
     _robot->model().computeGravityCompensation(_tauref);
     _tauref *= alpha;
-    _robot->model().setJointEffort(_tauref);
-
+    
+    // Changed: For setting efforts, we'll create a writable model
+    auto model_copy = _robot->model().clone();
+    model_copy->setJointEffort(_tauref);
+    
     // send to robot
     _robot->setStiffness(_k);
     _robot->setDamping(_d);
-    _robot->setReferenceFrom(_robot->model(), Sync::Effort);
+    
+    // Use ControlMode::Effort() as the parameter type
+    _robot->setReferenceFrom(*model_copy, ControlMode::Effort());
     _robot->move();
 
     // increment time
@@ -140,13 +184,18 @@ void GcompExample::run()
     
     // compute gcomp torque
     _robot->model().computeGravityCompensation(_tauref);
-    _robot->model().setJointEffort(_tauref);
+    
+    // Changed: For setting efforts, we'll create a writable model
+    auto model_copy = _robot->model().clone();
+    model_copy->setJointEffort(_tauref);
 
     // send to robot
     _robot->setPositionReference(_qref);
     _robot->setStiffness(_k);
     _robot->setDamping(_d);
-    _robot->setReferenceFrom(_robot->model(), Sync::Effort);
+    
+    // Use ControlMode::Effort() as the parameter type
+    _robot->setReferenceFrom(*model_copy, ControlMode::Effort());
     _robot->move();
 }
 
@@ -181,13 +230,18 @@ void GcompExample::stopping()
     _robot->sense();
     _robot->model().computeGravityCompensation(_tauref);
     _tauref *= std::min(1.0, 4*(1 - alpha));
-    _robot->model().setJointEffort(_tauref);
+    
+    // Changed: For setting efforts, we'll create a writable model
+    auto model_copy = _robot->model().clone();
+    model_copy->setJointEffort(_tauref);
 
     // send to robot
     _robot->setPositionReference(_qref);
     _robot->setStiffness(_k);
     _robot->setDamping(_d);
-    _robot->setReferenceFrom(_robot->model(), Sync::Effort);
+    
+    // Use ControlMode::Effort() as the parameter type
+    _robot->setReferenceFrom(*model_copy, ControlMode::Effort());
     _robot->move();
 
     // increment time

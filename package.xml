@@ -13,6 +13,7 @@
   
   <!-- Build and execution dependencies -->
   <depend>rclcpp</depend><!-- ROS 2 equivalent of roscpp -->
+  <depend>sensor_msgs</depend>
   <depend>xbot2</depend>
   <depend>xbot2_interface</depend>
   

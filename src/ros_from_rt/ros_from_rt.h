@@ -2,12 +2,11 @@
 #include <xbot2/xbot2.h>
 
 // needed for ROS support from real-time domain
-#include <xbot2/ros2/ros_support.h>
+#include <xbot2/ros/ros2_support.h>
 
-// Update to ROS 2 message types
-#include <sensor_msgs/msg/joint_state.hpp>  // Changed namespace/path
-#include <std_msgs/msg/bool.hpp>            // Changed namespace/path
-#include <std_srvs/srv/trigger.hpp>         // Changed namespace/path
+#include <sensor_msgs/msg/joint_state.hpp>
+#include <std_msgs/msg/bool.hpp>
+#include <std_srvs/srv/trigger.hpp>
 
 using namespace XBot;
 
@@ -61,9 +60,9 @@ private:
 
     
     // Update publisher/subscriber/service types to ROS 2
-    PublisherPtr<sensor_msgs::msg::JointState> _js_pub;  // Updated namespace
-    SubscriberPtr<std_msgs::msg::Bool> _flag_sub;  // Updated namespace
+    PublisherPtr<sensor_msgs::msg::JointState> _js_pub;
+    SubscriberPtr<std_msgs::msg::Bool> _flag_sub;
     ServiceServerPtr<std_srvs::srv::Trigger::Request,
-                     std_srvs::srv::Trigger::Response> _trig_srv;  // Updated namespace
+                     std_srvs::srv::Trigger::Response> _trig_srv;
 
 };

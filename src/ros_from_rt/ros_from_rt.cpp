@@ -86,7 +86,7 @@ void Ros2FromRt::run() {
     if(js_msg)
     {
         // put motor positions
-        // efficiently copy joint position data to the message
+        // copy joint position data to the message
         js_msg->msg().position.assign(_q.data(), _q.data() + _q.size());
         
         // publish
